@@ -1,0 +1,17 @@
+{
+  "name": "showcase",
+  "type": "template",
+  "templateType": "app",
+  "label": "Showcase",
+  "description": "Showcase is a template with four equal-sized Card widgets which show more details when hovered over.",
+  "thumbnail": "thumbnail.png",
+  "order": 16,
+  "isNewTemplate": true,
+  "tags": [
+    "Web page"
+  ],
+  "isMultiplePage": false,
+  "isMapAware": false,
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

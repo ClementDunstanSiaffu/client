@@ -1,0 +1,1 @@
+define({_widgetLabel:"مربع أدوات ثلاثي الأبعاد",select3DScene:"برجاء تحديد مشهد ثلاثي الأبعاد لتنشيط عنصر واجهة المستخدم هذا",clearEffect:"مسح التأثير",clearAnalysis:"مسح التحليل",showDevelopmentLayer:"إظهار طبقة التطوير"});

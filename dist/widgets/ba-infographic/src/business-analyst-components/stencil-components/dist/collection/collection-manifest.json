@@ -1,0 +1,15 @@
+{
+  "entries": [
+    "./components/arcgis-infographic/arcgis-infographic.js",
+    "./components/arcgis-ba-search/arcgis-ba-search.js",
+    "./components/arcgis-report-list/arcgis-report-list.js",
+    "./components/report-list-accordion/report-list-accordion.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "2.13.0",
+    "typescriptVersion": "4.3.5"
+  },
+  "collections": [],
+  "bundles": []
+}

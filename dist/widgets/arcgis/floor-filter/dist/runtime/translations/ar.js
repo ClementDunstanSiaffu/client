@@ -1,0 +1,1 @@
+define({_widgetLabel:"عامل تصفية الطوابق",floorfilter_noMap:"عامل تصفية الطوابق",floorfilter_notFloorAware:"الخريطة المحددة ليست مدركة للطوابق"});

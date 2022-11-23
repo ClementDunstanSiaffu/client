@@ -1,0 +1,1 @@
+define({_widgetLabel:"Flygkontroller",configErrorTip:"Välj minst en flygstil.",flyStyleRotate:"Rotera flygning",flyStylePath:"Flyg längs en väg",flyStyleRoute:"Planera rutter",triggerDrawPoint:"Rita en punkt",triggerDrawPath:"Rita en bana",triggerSelectFeature:"Välj ett geoobjekt",triggerClear:"Rensa ritning eller markering",heading:"Rubrik",plannedRoutesTip:"Rutter"});

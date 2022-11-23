@@ -1,0 +1,1 @@
+define({_widgetLabel:"Razdelnik",quickStyleItem:"Brzi stil {index}"});

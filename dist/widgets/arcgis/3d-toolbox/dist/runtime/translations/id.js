@@ -1,0 +1,1 @@
+define({_widgetLabel:"Kotak Alat 3D",select3DScene:"Pilih scene 3D untuk mengaktifkan widget ini",clearEffect:"Hapus efek",clearAnalysis:"Hapus analisis",showDevelopmentLayer:"Tampilkan layer pengembangan"});

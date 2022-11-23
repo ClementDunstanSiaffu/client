@@ -1,0 +1,10 @@
+{
+  "name": "nopanel",
+  "type": "template",
+  "templateType": "screen",
+  "label": "No Panel",
+  "thumbnail": "thumbnail.png",
+  "order": 6,
+  "thumbnailWidth": 328,
+  "thumbnailHeight": 200
+}

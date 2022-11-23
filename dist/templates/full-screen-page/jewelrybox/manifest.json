@@ -1,0 +1,15 @@
+{
+  "name": "jewelrybox",
+  "type": "template",
+  "templateType": "full-screen-page",
+  "label": "JewelryBox",
+  "description": "JewelryBox is a template created to display features in a list combined with a map.",
+  "thumbnail": "thumbnail.png",
+  "order": 4,
+  "tags": [
+    "WAB classic",
+    "Map centric"
+  ],
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

@@ -1,0 +1,1 @@
+define({_widgetLabel:"Grāmatzīme",_widgetDescription:"Logrīks atrod konkrētas ģeogrāfiskās atrašanās vietas un saglabā tās turpmākai izmantošanai.",addBookmark:"Pievienot grāmatzīmi",layoutTips:"Šī ir pielāgojama teritorija",bookmarkList:"Grāmatzīmju saraksts",graphicLayer:"Grāmatzīmju grafiskas slānis"});

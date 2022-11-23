@@ -1,0 +1,1 @@
+define({_widgetLabel:"Драйвер",quickStyleItem:"Быстрый стиль {index}"});

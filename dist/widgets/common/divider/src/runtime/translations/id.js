@@ -1,0 +1,1 @@
+define({_widgetLabel:"Pemisah",quickStyleItem:"Gaya cepat {index}"});

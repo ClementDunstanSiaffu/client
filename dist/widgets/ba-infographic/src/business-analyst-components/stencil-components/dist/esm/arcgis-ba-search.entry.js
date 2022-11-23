@@ -1,0 +1,1 @@
+import{r as registerInstance,h,H as Host}from"./index-be74cc18.js";const arcgisBaSearchCss=":host{display:block}";let ArcgisBaSearch=class{constructor(s){registerInstance(this,s)}render(){return h(Host,null,h("slot",null))}};ArcgisBaSearch.style=arcgisBaSearchCss;export{ArcgisBaSearch as arcgis_ba_search};

@@ -1,0 +1,1 @@
+define({selectMapWidget:"เลือกวิดเจ็ตแผนที่",routeSettings:"การตั้งค่าเส้นทาง",searchSettings:"ตั้งค่าการค้นหา",routeUrl:"เส้นทาง URL",outputStops:"หยุด",outputRoute:"เส้นทาง",outputDirectionPoints:"ทิศทางของจุด",outputDirectionLines:"ทิศทางของเส้น"});

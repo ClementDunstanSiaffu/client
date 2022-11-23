@@ -1,0 +1,1 @@
+define({_widgetLabel:"ตัวแบ่ง",quickStyleItem:"สไตล์ด่วน {index}"});

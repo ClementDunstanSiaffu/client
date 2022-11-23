@@ -1,0 +1,17 @@
+{
+  "name": "indicator",
+  "type": "template",
+  "templateType": "app",
+  "label": "Indicator",
+  "description": "Indicator provides a multi-page layout with a unique collection of widgets designed to create a modern dashboard.",
+  "thumbnail": "thumbnail.png",
+  "order": 34,
+  "tags": [
+    "Dashboard",
+    "Website"
+  ],
+  "isMultiplePage": true,
+  "isMapAware": false,
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

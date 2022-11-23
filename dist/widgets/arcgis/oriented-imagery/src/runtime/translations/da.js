@@ -1,0 +1,1 @@
+define({_widgetLabel:"Orienterede billeder",toggleButtonOn:"Slå fra for at vælge objekter på kort",toggleButtonOff:"Slå til for at vælge et fokuspunkt på kort for at vise billede",viewImage:"Klik her for at få vist det valgte objekt i billede",updateButton:"Opdatér",deleteButton:"Slet"});

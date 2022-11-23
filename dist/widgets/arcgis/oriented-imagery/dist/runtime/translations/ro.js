@@ -1,0 +1,1 @@
+define({_widgetLabel:"Imagine satelitară orientată",toggleButtonOn:"Dezactivați pentru a selecta obiectele spațiale de pe hartă",toggleButtonOff:"Activați pentru a alege un punct de focalizare pe hartă pentru a vizualiza imaginea",viewImage:"Faceți clic aici pentru a vizualiza obiectul spațial selectat în imagine",updateButton:"Actualizare",deleteButton:"Ștergere"});

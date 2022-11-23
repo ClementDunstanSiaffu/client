@@ -1,0 +1,1 @@
+define({utilityService:"유틸리티 서비스",noUtilityTip:"환경에 유틸리티가 없습니다.<br/>하나 이상의 유틸리티를 추가하세요.",removeUtility:"유틸리티 제거",removeUtilityTitle:"유틸리티 제거 중:",breakTip:"이 유틸리티는 다음 위젯에 사용되며 제거할 경우 위젯이 손상될 수 있습니다.",breakDesc:"유틸리티와 함께 삭제할 위젯을 선택합니다. 모든 기기 뷰에서 제거됩니다. 선택하지 않은 위젯은 그대로 유지되며 나중에 재구성할 수 있습니다."});

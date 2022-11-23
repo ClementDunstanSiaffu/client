@@ -1,0 +1,1 @@
+define({_widgetLabel:"分隔线",quickStyleItem:"快速样式 {index}"});

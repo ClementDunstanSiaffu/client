@@ -1,0 +1,1 @@
+define({_widgetLabel:"Hình ảnh Định hướng",toggleButtonOn:"Tắt để chọn các đối tượng trong bản đồ",toggleButtonOff:"Bật để chọn một điểm lấy nét trong bản đồ để xem hình ảnh",viewImage:"Nhấp vào đây để xem đối tượng được chọn trong hình ảnh",updateButton:"Cập nhật",deleteButton:"Xóa"});

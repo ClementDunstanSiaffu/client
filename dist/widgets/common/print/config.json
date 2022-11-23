@@ -1,0 +1,23 @@
+{
+ "printServiceType": "CUSTOMIZE",
+ "printTemplateType": "CUSTOMIZE",
+ "modeType": "CLASSIC",
+ "commonSetting": {
+   "scalePreserved": false,
+   "layoutOptions": {
+     "titleText": "ArcGIS Web Map"
+    },
+    "outScale": 36978595.474472,
+   "exportOptions": {
+     "dpi": 96
+   },
+   "printExtentType": "CURRENT MAP EXTENT",
+   "forceFeatureAttributes": false,
+   "wkid": 102100,
+   "enableTitle": true,
+   "enableMapPrintExtents": true,
+   "enableOutputSpatialReference": false,
+   "enableQuality": true,
+   "enableFeatureAttribution": true
+ }
+}

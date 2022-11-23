@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});const index=require("./index-6d3ccf1c.js"),arcgisBaSearchCss=":host{display:block}";let ArcgisBaSearch=class{constructor(e){index.registerInstance(this,e)}render(){return index.h(index.Host,null,index.h("slot",null))}};ArcgisBaSearch.style=arcgisBaSearchCss,exports.arcgis_ba_search=ArcgisBaSearch;

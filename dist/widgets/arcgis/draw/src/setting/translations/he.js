@@ -1,0 +1,1 @@
+define({selectMapWidget:"בחר ווידג'ט של מפה",isDisplayCanvasLayerTips:"הצג את השרטוט בשכבות מפה.",arrangementTips:"סידור",panelTips:"לוח",toolbarTips:"סרגל כלים",drawingToolsTips:"כלי שרטוט",isEnableMeasurementsTips:"אפשר מדידה",drawingElevationMode3DTips:"אפקט שרטוט בתלת ממד",relativeToGroundTips:"ביחס לקרקע",onTheGroundTips:"על הקרקע"});

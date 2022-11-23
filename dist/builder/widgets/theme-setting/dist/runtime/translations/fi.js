@@ -1,0 +1,1 @@
+define({chooseTheme:"Teema",customTheme:"Mukauta",resetTheme:"Palauta",backToMainThemePanel:"Edellinen",customPaletteTitle:"Mukauta paletin värejä",customFontsetTitle:"Mukauta fonttijoukkoa",customAppElementsTitle:"Sovelluksen elementit"});

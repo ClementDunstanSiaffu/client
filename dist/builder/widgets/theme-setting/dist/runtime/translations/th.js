@@ -1,0 +1,1 @@
+define({chooseTheme:"หัวข้อ",customTheme:"ปรับแต่ง",resetTheme:"รีเซต",backToMainThemePanel:"กลับ",customPaletteTitle:"ปรับแต่งพาเลทสี",customFontsetTitle:"ปรับแต่งชุดแบบอักษร",customAppElementsTitle:"องค์ประกอบของแอพ"});

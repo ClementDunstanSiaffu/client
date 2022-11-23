@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.BaReportsLanguage=void 0;var BaReportsLanguage=function(){function e(){}return e.i18n=function(e){return e+" translation is not found"},e}();exports.BaReportsLanguage=BaReportsLanguage;

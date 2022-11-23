@@ -1,0 +1,10 @@
+{
+  "name": "flyer",
+  "type": "template",
+  "templateType": "screen-group",
+  "label": "Flyer",
+  "thumbnail": "thumbnail.png",
+  "order": 3,
+  "thumbnailWidth": 400,
+  "thumbnailHeight": 240
+}

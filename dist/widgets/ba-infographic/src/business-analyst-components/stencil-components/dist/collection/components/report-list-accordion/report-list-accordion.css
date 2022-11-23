@@ -1,0 +1,78 @@
+:host {
+  display: block;
+  border: none !important;
+}
+
+ul {
+  display: block !important;
+  list-style-type:disc !important;
+  margin-block-start: 0px !important;
+  margin-block-end: 0px !important;
+  margin-inline-start: 0px  !important;
+  margin-inline-end: 0px  !important;
+  padding-inline-start: 0px !important;
+}
+
+.notReadyOuter {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
+.notReadyDiv{
+  position:absolute;
+  top: calc(50% - 50px);
+  left:calc(50% - 50px);
+  width:100px;
+  height:100px;
+}
+
+.notReadySvg{
+  position: absolute;
+    top: calc(50% - 29px);
+    left: calc(50% - 33px);
+}
+
+
+
+
+/* .arcgisReportsListItemIcon {
+  margin-top: -3px;
+  margin-right: 6px;
+}
+
+.arcgisReportsListItem {
+  color: white !important;
+}
+
+.accordion-item-header {
+  color: white !important;
+}
+
+:host(:focus) .accordion-item-title, :host(:active) .accordion-item-title, :host([active]) .accordion-item-title {
+  color: white !important;
+}
+
+.selected {
+  background-color: #000 !important;
+}
+
+calcite-accordion-item[aria-expanded="true"] {
+  background-color: #181818 !important;
+  color: #a8a8a8;
+  font-size: 13px;
+  min-width: 50%;
+}
+
+calcite-accordion-item[aria-expanded="false"] {
+  background-color: #181818;
+  color: #fff;
+  font-size:13px;
+  min-width: 50%;  
+}
+
+
+
+ */

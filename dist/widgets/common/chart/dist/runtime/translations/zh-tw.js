@@ -1,0 +1,1 @@
+define({_widgetLabel:"圖表",datalimitedTip:"橫條圖或長條圖的總條數限為 1,000。 請篩選或重新匯聚您的資料並再試一次。",pieDatalimitedTip:"無法渲染，類別過多。 圓餅圖上限為 300 種類別。",dataEmptyTip:"找不到資料。",sumOf:"{field} 的總和",meanOf:"{field} 的平均值",minOf:"{field} 的最小值",maxOf:"{field} 的最大值",medianOf:"{field} 的中位數"});

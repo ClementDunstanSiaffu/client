@@ -1,0 +1,1 @@
+define({selectMapWidget:"Vybrat widget mapy",routeSettings:"Nastavení trasy",searchSettings:"Nastavení vyhledávání",routeUrl:"URL trasy",outputStops:"Zastávky",outputRoute:"Trasa",outputDirectionPoints:"Body směru",outputDirectionLines:"Linie směru"});

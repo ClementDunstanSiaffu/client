@@ -1,0 +1,10 @@
+{
+  "name": "slideshow",
+  "type": "template",
+  "templateType": "screen-group",
+  "label": "Slideshow",
+  "thumbnail": "thumbnail.png",
+  "order": 7,
+  "thumbnailWidth": 400,
+  "thumbnailHeight": 240
+}

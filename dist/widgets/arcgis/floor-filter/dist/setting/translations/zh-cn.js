@@ -1,0 +1,1 @@
+define({floorfilter_setting_description:"楼层过滤器",floorfilter_setting_selectMap:"选择楼层感知型地图",floorfilter_setting_displayLabel:"显示标注",floorfilter_setting_longNames:"启动时展开",floorfilter_setting_positioned:"排列样式",floorfilter_setting_topLeft:"自上而下，向右滑动",floorfilter_setting_topRight:"自上而下，向左滑动",floorfilter_setting_bottomLeft:"自下而上，向右滑动",floorfilter_setting_bottomRight:"自下而上，向左滑动"});

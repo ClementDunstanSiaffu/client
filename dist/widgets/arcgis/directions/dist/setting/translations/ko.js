@@ -1,0 +1,1 @@
+define({selectMapWidget:"맵 위젯 선택",routeSettings:"경로 설정",searchSettings:"검색 설정",routeUrl:"경로 URL",outputStops:"경유지",outputRoute:"경로",outputDirectionPoints:"방향 포인트",outputDirectionLines:"방향 라인"});

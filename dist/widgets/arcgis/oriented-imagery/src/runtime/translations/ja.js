@@ -1,0 +1,1 @@
+define({_widgetLabel:"方向付き画像",toggleButtonOn:"オフにしてマップのフィーチャを選択",toggleButtonOff:"オンにしてマップのフォーカス ポイントを選択して画像を表示",viewImage:"画像で選択したフィーチャを表示するにはこちらをクリック",updateButton:"更新",deleteButton:"削除"});

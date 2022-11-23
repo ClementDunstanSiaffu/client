@@ -1,0 +1,1 @@
+define({_widgetLabel:"Filtre des étages",floorfilter_noMap:"Filtre des étages",floorfilter_notFloorAware:"La carte sélectionnée ne tient pas compte des étages"});

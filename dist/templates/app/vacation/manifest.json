@@ -1,0 +1,16 @@
+{
+  "name": "vacation",
+  "type": "template",
+  "templateType": "app",
+  "label": "Vacation",
+  "description": "Vacation is a template utilizing the Fly Controller widget and maps to provide an interactive trip event website.",
+  "thumbnail": "thumbnail.png",
+  "order": 22,
+  "tags": [
+    "Web page"
+  ],
+  "isMultiplePage": false,
+  "isMapAware": false,
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

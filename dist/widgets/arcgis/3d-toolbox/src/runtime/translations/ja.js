@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D ツールボックス",select3DScene:"このウィジェットをアクティブにする 3D シーンを選択してください。",clearEffect:"効果の削除",clearAnalysis:"解析の削除",showDevelopmentLayer:"開発レイヤーの表示"});

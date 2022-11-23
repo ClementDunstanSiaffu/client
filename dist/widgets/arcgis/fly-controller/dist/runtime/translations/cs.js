@@ -1,0 +1,1 @@
+define({_widgetLabel:"Fly Controller",configErrorTip:"Prosím vyberte alespoň jeden styl létání.",flyStyleRotate:"Rotace při letu",flyStylePath:"Letět po cestě",flyStyleRoute:"Plánování tras",triggerDrawPoint:"Nakreslit bod",triggerDrawPath:"Nakreslit cestu",triggerSelectFeature:"Vybrat prvek",triggerClear:"Vymazat kresbu nebo výběr",heading:"Záhlaví",plannedRoutesTip:"Trasy"});

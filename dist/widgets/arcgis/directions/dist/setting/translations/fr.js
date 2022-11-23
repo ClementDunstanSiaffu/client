@@ -1,0 +1,1 @@
+define({selectMapWidget:"Sélectionner un widget Carte",routeSettings:"Paramètres d’itinéraire",searchSettings:"Paramètres de recherche",routeUrl:"URL de l’itinéraire",outputStops:"Arrêts",outputRoute:"Itinéraire",outputDirectionPoints:"Points de direction",outputDirectionLines:"Lignes de direction"});

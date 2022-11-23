@@ -1,0 +1,1 @@
+var BaReportsLanguage=function(){function n(){}return n.i18n=function(n){return n+" translation is not found"},n}();export{BaReportsLanguage};

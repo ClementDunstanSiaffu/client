@@ -1,0 +1,10 @@
+{
+  "name": "rightfloating",
+  "type": "template",
+  "templateType": "screen",
+  "label": "Right Floating",
+  "thumbnail": "thumbnail.png",
+  "order": 3,
+  "thumbnailWidth": 328,
+  "thumbnailHeight": 200
+}

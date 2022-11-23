@@ -1,0 +1,1 @@
+define({_widgetLabel:"Фильтр этажей",floorfilter_noMap:"Фильтр этажей",floorfilter_notFloorAware:"Выбранная карта не поддерживает этажи"});

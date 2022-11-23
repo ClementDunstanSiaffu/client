@@ -1,0 +1,1 @@
+define({_widgetLabel:"Immagini orientate",toggleButtonOn:"Disattiva per selezionare le caratteristiche nella mappa",toggleButtonOff:"Abilita a scegliere un punto di messa a fuoco nella mappa per visualizzare l'immagine",viewImage:"Clicca qui per vedere la caratteristica selezionata in immagine",updateButton:"Aggiorna",deleteButton:"Elimina"});

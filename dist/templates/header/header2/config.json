@@ -1,0 +1,221 @@
+{
+  "layouts": {
+    "layout_1": {
+      "type": "FIXED",
+      "order": [
+        "0",
+        "3",
+        "4"
+      ],
+      "content": {
+        "0": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "15px",
+            "top": "50%",
+            "width": "97px",
+            "height": "36px"
+          },
+          "widgetId": "widget_1",
+          "isPending": false,
+          "setting": {
+            "vCenter": true,
+            "hCenter": false,
+            "autoProps": {
+              "top": false,
+              "bottom": true
+            }
+          }
+        },
+        "3": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "92.5858%",
+            "top": "0.0000%",
+            "width": "97px",
+            "height": "100.0000%",
+            "right": "0px"
+          },
+          "widgetId": "widget_2",
+          "setting": {
+            "autoProps": {
+              "right": false,
+              "left": true
+            },
+            "hCenter": false
+          }
+        },
+        "4": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "150px",
+            "top": "50%",
+            "width": "344px",
+            "height": "60px"
+          },
+          "widgetId": "widget_3",
+          "setting": {
+            "hCenter": false,
+            "vCenter": true,
+            "autoProps": {
+              "top": false,
+              "bottom": true
+            }
+          },
+          "isPending": false
+        }
+      }
+    },
+    "layout_2": {
+      "type": "FIXED",
+      "content": {
+        "0": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "15px",
+            "top": "50%",
+            "width": "97px",
+            "height": "36px"
+          },
+          "widgetId": "widget_1",
+          "isPending": false,
+          "setting": {
+            "vCenter": true,
+            "hCenter": false,
+            "autoProps": {
+              "top": false,
+              "bottom": true
+            }
+          }
+        },
+        "1": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "92.5858%",
+            "top": "0.0000%",
+            "width": "97px",
+            "height": "100.0000%",
+            "right": "0px"
+          },
+          "widgetId": "widget_2",
+          "setting": {
+            "autoProps": {
+              "right": false,
+              "left": true
+            },
+            "hCenter": false
+          }
+        },
+        "2": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "150px",
+            "top": "50%",
+            "width": "344px",
+            "height": "60px"
+          },
+          "widgetId": "widget_3",
+          "setting": {
+            "hCenter": false,
+            "vCenter": true,
+            "autoProps": {
+              "top": false,
+              "bottom": true
+            }
+          },
+          "isPending": true
+        }
+      },
+      "order": [
+        "0",
+        "1",
+        "2"
+      ]
+    }
+  },
+  "widgets": {
+    "widget_1": {
+      "uri": "widgets/common/image/",
+      "config": {
+        "functionConfig": {
+          "altText": "",
+          "toolTip": "",
+          "linkParam": {},
+          "scale": "Fit",
+          "imageParam": {}
+        },
+        "styleConfig": {}
+      },
+      "id": "widget_1",
+      "style": {
+        "background": {
+          "image": {
+            "url": ""
+          },
+          "color": "var(--primary)"
+        },
+        "borderRadius": {
+          "number": [
+            3
+          ],
+          "unit": "px"
+        }
+      }
+    },
+    "widget_2": {
+      "uri": "widgets/common/menu/",
+      "config": {
+        "type": "drawer",
+        "menuStyle": "default",
+        "vertical": true,
+        "standard": {
+          "icon": {
+            "svg": "<svg viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\" class=\"css-1i7frhi jimu-icon\"><path d=\"M2 1a1 1 0 100 2h12a1 1 0 100-2H2zm0-1h12a2 2 0 010 4H2a2 2 0 010-4zm0 7a1 1 0 100 2h12a1 1 0 100-2H2zm0-1h12a2 2 0 010 4H2a2 2 0 010-4zm0 7a1 1 0 100 2h12a1 1 0 100-2H2zm0-1h12a2 2 0 010 4H2a2 2 0 010-4z\" fill=\"currentColor\" fill-rule=\"nonzero\"></path></svg>",
+            "properties": {
+              "filename": null,
+              "originalName": null,
+              "path": null,
+              "color": "#fff",
+              "size": 20,
+              "inlineSvg": false
+            }
+          },
+          "submenuMode": "foldable",
+          "textAlign": "center",
+          "showIcon": false,
+          "showText": true,
+          "iconPosition": "start",
+          "gap": "0px",
+          "anchor": "right"
+        },
+        "advanced": false
+      },
+      "id": "widget_2"
+    },
+    "widget_3": {
+      "uri": "widgets/common/text/",
+      "config": {
+        "text": "<p></p>",
+        "placeholder": "<p><span style=\"font-size: 1.5rem;\">${defaultTextPlaceholder}</span></p>",
+        "style": {
+          "verticalAlign": "start",
+          "wrap": true
+        }
+      },
+      "id": "widget_3"
+    }
+  },
+  "views": {},
+  "sections": {},
+  "messageConfigs": {},
+  "header": {
+    "layout": {
+      "LARGE": "layout_1",
+      "SMALL": "layout_2"
+    },
+    "height": {
+      "LARGE": "97"
+    }
+  },
+  "template": "header2"
+}

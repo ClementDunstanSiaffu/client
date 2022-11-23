@@ -1,0 +1,13 @@
+{
+  "name": "journey",
+  "type": "template",
+  "templateType": "app",
+  "label": "Journey",
+  "description": "Journey is a template created that uses the bookmark widget and a map to provide an interactive tour experience.",
+  "thumbnail": "thumbnail.png",
+  "order": 10,
+  "isMultiplePage": false,
+  "isMapAware": true,
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

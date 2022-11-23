@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D įrankinė",select3DScene:"Norėdami suaktyvinti šį valdiklį, pasirinkite 3D sceną",clearEffect:"Pašalinti efektą",clearAnalysis:"Pašalinti analizę",showDevelopmentLayer:"Rodyti kūrimo sluoksnį"});

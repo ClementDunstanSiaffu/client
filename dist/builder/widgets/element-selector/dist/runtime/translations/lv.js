@@ -1,0 +1,1 @@
+define({pendingElementsInfo:"Šajā vietā ir uzskaitīti logrīki, kas ir konfigurēti, taču ne uz pašreizējās pamatnes. Tie var būt citos ierīces režīmos.",element:"Ievietot logrīku",new:"Jauns",pending:"Neapstiprināts",widgetHelpIconLabel:"Par šo logrīku",widgetGuideStart:"Aplūkojiet iespējas"});

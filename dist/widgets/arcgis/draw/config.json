@@ -1,0 +1,21 @@
+{
+    "isDisplayCanvasLayer": false,
+    "arrangement": "Panel",
+    "drawMode": "continuous",
+    "drawingTools": [
+        "point",
+        "polyline",
+        "polygon",
+        "rectangle",
+        "circle"
+    ],
+    "measurementsInfo": {
+        "enableMeasurements": false,
+        "fontsColor": [0, 0, 0, 1],
+        "fontsSize": 12,
+        "haloColor": [255, 255, 255, 1],
+        "haloSize": 2
+    },
+    "measurementsUnitsInfos": [],
+    "drawingElevationMode3D": "on-the-ground"
+}

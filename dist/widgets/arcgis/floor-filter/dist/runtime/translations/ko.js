@@ -1,0 +1,1 @@
+define({_widgetLabel:"층 필터",floorfilter_noMap:"층 필터",floorfilter_notFloorAware:"선택한 맵이 층 인식 맵이 아닙니다."});

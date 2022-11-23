@@ -1,0 +1,23 @@
+export default {
+  createFailedWarning: 'Failed to create data!',
+  noSupportedDataSource: 'No supported data available.',
+  noUsedFieldToMap: 'No in use fields need to be mapped.',
+  noChildDssToMap: 'No child data needs to be mapped.',
+  inUse: 'In use',
+  noUsedField: 'No used field',
+  noLayer: 'No layer',
+  noDataNotice: 'No data in the experience.<br/>Please add your data.',
+  noDataViewNotice: 'Click the "Create a view" button to add a view.',
+  dataViews: 'Data views',
+  originalDsLabel: 'Source',
+  autoRefresh: 'Auto refresh',
+  updateMinutesAgo: 'Last update: {minutes} minutes ago',
+  updateOneMinuteAgo: 'Last update: a minute ago',
+  updateSecondsAgo: 'Last update: a few seconds ago',
+  refreshSetting: 'Refresh settings',
+  interval: 'Interval',
+  honorLayer: 'Honor layer\'s settings',
+  minutes: 'minutes',
+  allowExport: 'Allow export',
+  exportNotice: 'For hosted feature layers, the app will also verify that the end user\'s role and item settings allow exporting the data.'
+}

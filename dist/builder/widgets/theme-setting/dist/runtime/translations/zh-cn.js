@@ -1,0 +1,1 @@
+define({chooseTheme:"主题",customTheme:"自定义",resetTheme:"重置",backToMainThemePanel:"返回",customPaletteTitle:"自定义调色板颜色",customFontsetTitle:"自定义字体集",customAppElementsTitle:"应用程序元素"});

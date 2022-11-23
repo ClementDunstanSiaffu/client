@@ -1,0 +1,16 @@
+{
+  "name": "dashboard",
+  "type": "template",
+  "templateType": "app",
+  "label": "Dashboard",
+  "description": "Dashboard is a template designed to display key metrics using charts, maps, cards, and text widgets.",
+  "thumbnail": "thumbnail.png",
+  "order": 23,
+  "tags": [
+    "Dashboard"
+  ],
+  "isMultiplePage": false,
+  "isMapAware": false,
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

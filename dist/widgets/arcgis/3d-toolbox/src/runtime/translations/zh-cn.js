@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D 工具箱",select3DScene:"请选择一个 3D 场景来激活此微件",clearEffect:"清除效果",clearAnalysis:"清除分析",showDevelopmentLayer:"显示 Development 图层"});

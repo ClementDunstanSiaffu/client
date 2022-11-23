@@ -1,0 +1,1 @@
+define({verticalAlign:"上下の整列",spaceAround:"周囲のスペース",spaceBetween:"間のスペース",spaceEvenly:"均等スペース",horizontalAlign:"左右の整列",scrollable:"スクロール可能"});

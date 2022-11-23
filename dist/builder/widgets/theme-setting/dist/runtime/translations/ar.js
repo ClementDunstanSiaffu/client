@@ -1,0 +1,1 @@
+define({chooseTheme:"النسق",customTheme:"تخصيص",resetTheme:"إعادة تعيين",backToMainThemePanel:"الخلف",customPaletteTitle:"تخصيص ألوان لوحة الألوان",customFontsetTitle:"تخصيص تعيين الخط",customAppElementsTitle:"عناصر التطبيق"});

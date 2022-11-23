@@ -1,0 +1,1 @@
+define({verticalAlign:"垂直對齊",spaceAround:"周圍空間",spaceBetween:"之間的空間",spaceEvenly:"均勻的空間",horizontalAlign:"水平對齊",scrollable:"可捲動"});

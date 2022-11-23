@@ -1,0 +1,1 @@
+define({_widgetLabel:"Filtr kondygnacji",floorfilter_noMap:"Filtr kondygnacji",floorfilter_notFloorAware:"Wybrana mapa nie obsługuje kondygnacji"});

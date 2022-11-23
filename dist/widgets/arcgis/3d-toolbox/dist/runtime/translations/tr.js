@@ -1,0 +1,1 @@
+define({_widgetLabel:"3B Araç Kutusu",select3DScene:"Bu aracı etkinleştirmek için lütfen bir 3B sahne seçin",clearEffect:"Efekti temizle",clearAnalysis:"Analizi temizle",showDevelopmentLayer:"Geliştirme katmanını göster"});

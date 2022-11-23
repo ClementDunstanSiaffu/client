@@ -1,0 +1,1 @@
+define({selectMapWidget:"Kaart-widget selecteren",isDisplayCanvasLayerTips:"De tekening in kaartlagen weergeven.",arrangementTips:"Ordening",panelTips:"Panel",toolbarTips:"Werkbalk",drawingToolsTips:"Tekentools",isEnableMeasurementsTips:"Meting inschakelen",drawingElevationMode3DTips:"3D-tekeneffect",relativeToGroundTips:"Relatief aan grond",onTheGroundTips:"Op de grond"});

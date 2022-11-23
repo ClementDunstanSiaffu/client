@@ -1,0 +1,1 @@
+define({_widgetLabel:"Opdeler",quickStyleItem:"Kvik-typografi {index}"});

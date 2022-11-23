@@ -1,0 +1,1 @@
+define({_widgetLabel:"ตัวควบคุมฟลาย",configErrorTip:"โปรดเลือกอย่างน้อยหนึ่งสไตล์ฟลาย",flyStyleRotate:"หมุนฟลาย",flyStylePath:"ฟลายตามพาธ",flyStyleRoute:"วางแผนเส้นทาง",triggerDrawPoint:"วาดจุดหนึ่งจุด",triggerDrawPath:"วาดทางเท้า",triggerSelectFeature:"เลือกฟีเจอร์",triggerClear:"ล้างการวาดหรือการเลือก",heading:"หัวเรื่อง",plannedRoutesTip:"เส้นทาง"});

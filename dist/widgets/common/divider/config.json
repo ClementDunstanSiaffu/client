@@ -1,0 +1,19 @@
+{
+  "direction": "Horizontal",
+  "strokeStyle": {
+    "type": "Style0",
+    "color": "var(--dark)",
+    "size": "2px"
+  },
+  "pointStart": {
+    "pointStyle": "None",
+    "pointSize": 2
+  },
+  "pointEnd": {
+    "pointStyle": "None",
+    "pointSize": 2
+  },
+  "themeStyle": {
+    "quickStyleType": "Default"
+  }
+}

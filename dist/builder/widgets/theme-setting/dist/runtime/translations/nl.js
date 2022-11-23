@@ -1,0 +1,1 @@
+define({chooseTheme:"Thema",customTheme:"Aanpassen",resetTheme:"Opnieuw instellen",backToMainThemePanel:"Terug",customPaletteTitle:"Paletkleuren aanpassen",customFontsetTitle:"Lettertypeset aanpassen",customAppElementsTitle:"App-elementen"});

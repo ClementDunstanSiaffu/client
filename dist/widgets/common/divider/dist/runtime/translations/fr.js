@@ -1,0 +1,1 @@
+define({_widgetLabel:"Séparateur",quickStyleItem:"Style rapide {index}"});

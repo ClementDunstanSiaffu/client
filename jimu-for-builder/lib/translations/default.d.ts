@@ -1,0 +1,28 @@
+declare const _default: {
+    frameworkAction_TriggerLayer: string;
+    frameworkAction_SetData: string;
+    frameworkAction_ActionLayer: string;
+    frameworkAction_Conditions: string;
+    frameworkAction_RelateMessage: string;
+    frameworkAction_TriggerLayerField: string;
+    frameworkAction_None: string;
+    frameworkAction_Equals: string;
+    frameworkAction_ActionLayerField: string;
+    frameworkAction_MoreConditions: string;
+    frameworkAction_SetExpression: string;
+    frameworkAction_ChooseLayer: string;
+    frameworkAction_AutoBind: string;
+    frameworkAction_NoLayer: string;
+    frameworkAction_QueryByExtent: string;
+    defaultTextPlaceholder: string;
+    titlePlaceholder: string;
+    subTitlePlaceholder: string;
+    shortTitlePlaceholder: string;
+    shortSubTitlePlaceholder: string;
+    copyrightPlaceholder: string;
+    cardTitle: string;
+    bookmark: string;
+    number: string;
+    appItemCopy: string;
+};
+export default _default;

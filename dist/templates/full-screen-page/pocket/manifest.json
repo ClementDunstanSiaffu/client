@@ -1,0 +1,15 @@
+{
+  "name": "pocket",
+  "type": "template",
+  "templateType": "full-screen-page",
+  "label": "Pocket",
+  "description": "Pocket is a template created to display your bookmarks in an interactive slider to help navigate the features on your map.",
+  "thumbnail": "thumbnail.png",
+  "order": 9,
+  "tags": [
+    "WAB classic",
+    "Map centric"
+  ],
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

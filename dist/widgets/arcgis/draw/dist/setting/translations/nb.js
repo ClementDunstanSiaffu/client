@@ -1,0 +1,1 @@
+define({selectMapWidget:"Velg et kartminiprogram",isDisplayCanvasLayerTips:"Vis tegningen i kartlag.",arrangementTips:"Plassering",panelTips:"Panel",toolbarTips:"Verktøylinje",drawingToolsTips:"Tegneverktøy",isEnableMeasurementsTips:"Aktiver måling",drawingElevationMode3DTips:"3D-tegningseffekt",relativeToGroundTips:"I forhold til bakkenivå",onTheGroundTips:"På bakkenivå"});

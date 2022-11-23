@@ -1,0 +1,1 @@
+define({chooseTheme:"Tema",customTheme:"Tilpass",resetTheme:"Tilbakestill",backToMainThemePanel:"Tilbake",customPaletteTitle:"Tilpass palettfarger",customFontsetTitle:"Tilpass skriftsett",customAppElementsTitle:"Appelementer"});

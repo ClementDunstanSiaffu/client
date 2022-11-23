@@ -1,0 +1,16 @@
+{
+  "name": "voyage",
+  "type": "template",
+  "templateType": "app",
+  "label": "Voyage",
+  "description": "Voyage is a template featuring interactive planned routes of the Fly Controller widget with 3D map data, together with the illustration of Text, Image, and Button widgets for tour attractions.",
+  "thumbnail": "thumbnail.png",
+  "order": 9,
+  "tags": [
+    "Map centric"
+  ],
+  "isMultiplePage": false,
+  "isMapAware": true,
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

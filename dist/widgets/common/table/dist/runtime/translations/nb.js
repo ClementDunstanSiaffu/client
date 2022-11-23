@@ -1,0 +1,1 @@
+define({_widgetLabel:"Tabell",_widgetDescription:"Dette er et interaktivt tabellminiprogram",showAllRecords:"Vis alle poster",refresh:"Oppdater",showHideCols:"Vis/skjul kolonner",toggleSelect:"Vis utvalg/alle",_action_viewInTable_label:"Vis i tabell",tableDataActionLabel:"{layer} tabellutvalg"});

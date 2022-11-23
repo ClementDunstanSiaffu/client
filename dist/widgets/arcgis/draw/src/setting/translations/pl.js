@@ -1,0 +1,1 @@
+define({selectMapWidget:"Wybierz widżet Mapa",isDisplayCanvasLayerTips:"Wyświetl rysunek w warstwach mapy.",arrangementTips:"Rozmieszczenie",panelTips:"Panel",toolbarTips:"Pasek narzędzi",drawingToolsTips:"Narzędzia rysowania",isEnableMeasurementsTips:"Włącz pomiar",drawingElevationMode3DTips:"Efekt rysowania 3D",relativeToGroundTips:"Względem ziemi",onTheGroundTips:"Na ziemi"});

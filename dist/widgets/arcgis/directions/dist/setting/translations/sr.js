@@ -1,0 +1,1 @@
+define({selectMapWidget:"Selektuj vidžet mape",routeSettings:"Postavke rute",searchSettings:"Postavke pretrage",routeUrl:"URL adresa rutiranja",outputStops:"Stanice",outputRoute:"Ruta",outputDirectionPoints:"Tačke usmerenja",outputDirectionLines:"Linije usmerenja"});

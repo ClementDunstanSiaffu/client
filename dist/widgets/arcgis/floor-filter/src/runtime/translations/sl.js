@@ -1,0 +1,1 @@
+define({_widgetLabel:"Filter nadstropij",floorfilter_noMap:"Filter nadstropij",floorfilter_notFloorAware:"Izbrana karta ne zaznava nadstropij"});

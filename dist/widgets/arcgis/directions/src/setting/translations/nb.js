@@ -1,0 +1,1 @@
+define({selectMapWidget:"Velg et kartminiprogram",routeSettings:"Ruteinnstilling",searchSettings:"Søkeinnstillinger",routeUrl:"Rute-URL",outputStops:"Stopp",outputRoute:"Rute",outputDirectionPoints:"Retningspunkter",outputDirectionLines:"Retningslinjer"});

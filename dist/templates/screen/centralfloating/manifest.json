@@ -1,0 +1,10 @@
+{
+  "name": "centralfloating",
+  "type": "template",
+  "templateType": "screen",
+  "label": "Central Floating",
+  "thumbnail": "thumbnail.png",
+  "order": 2,
+  "thumbnailWidth": 328,
+  "thumbnailHeight": 200
+}

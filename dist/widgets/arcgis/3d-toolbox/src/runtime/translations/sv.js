@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D-verktygslåda",select3DScene:"Välj en 3D-scen för att aktivera denna widget",clearEffect:"Rensa effekt",clearAnalysis:"Rensa analys",showDevelopmentLayer:"Visa utvecklingslager"});

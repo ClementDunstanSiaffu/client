@@ -1,0 +1,1 @@
+define({chooseTheme:"Tema",customTheme:"Kustomisasi",resetTheme:"Atur Ulang",backToMainThemePanel:"Kembali",customPaletteTitle:"Kustomisasi warna palet",customFontsetTitle:"Kustomisasi rangkaian font",customAppElementsTitle:"Elemen aplikasi"});

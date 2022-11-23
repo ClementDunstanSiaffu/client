@@ -1,0 +1,1 @@
+define({pendingElementsInfo:"Dette området viser miniprogrammer som er konfigurert, men som ikke er på nåværende lerret. De kan finnes i andre enhetsmoduser.",element:"Sett inn miniprogram",new:"Ny",pending:"Pågående",widgetHelpIconLabel:"Om dette miniprogrammet",widgetGuideStart:"Bli med på omvisning"});

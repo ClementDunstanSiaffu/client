@@ -1,0 +1,10 @@
+{
+  "name": "simple",
+  "type": "template",
+  "templateType": "window",
+  "label": "Simple",
+  "thumbnail": "thumbnail.png",
+  "order": 3,
+  "thumbnailWidth": 332,
+  "thumbnailHeight": 280
+}

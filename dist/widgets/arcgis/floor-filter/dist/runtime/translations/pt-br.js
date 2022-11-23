@@ -1,0 +1,1 @@
+define({_widgetLabel:"Filtro de Piso",floorfilter_noMap:"Filtro de Piso",floorfilter_notFloorAware:"O mapa selecionado não reconhece o piso"});

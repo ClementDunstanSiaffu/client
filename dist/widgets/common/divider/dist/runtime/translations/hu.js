@@ -1,0 +1,1 @@
+define({_widgetLabel:"Osztó",quickStyleItem:"Gyors stílus {index}"});

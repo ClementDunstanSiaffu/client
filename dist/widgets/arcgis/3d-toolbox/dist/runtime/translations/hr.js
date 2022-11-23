@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D kutija za alat",select3DScene:"Odaberite 3D scenu kako biste aktivirali ovaj widget",clearEffect:"Očisti efekt",clearAnalysis:"Očisti analizu",showDevelopmentLayer:"Prikaži razvojni sloj"});

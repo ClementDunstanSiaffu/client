@@ -1,0 +1,17 @@
+{
+  "name": "booking",
+  "type": "template",
+  "templateType": "app",
+  "label": "Booking",
+  "description": "Booking template provides a multi-page layout with search and filter widgets to sift data. The search results are displayed on a separate page, with a detailed window showing more information.",
+  "thumbnail": "thumbnail.png",
+  "order": 35,
+  "isNewTemplate": true,
+  "tags": [
+    "Website"
+  ],
+  "isMultiplePage": true,
+  "isMapAware": false,
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

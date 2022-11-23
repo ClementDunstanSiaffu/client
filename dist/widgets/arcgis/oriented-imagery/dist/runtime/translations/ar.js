@@ -1,0 +1,1 @@
+define({_widgetLabel:"الصور الموجهة",toggleButtonOn:"إيقاف تشغيل المعالم المحددة في الخريطة",toggleButtonOff:"شغّل لاختيار نقطة تركيز في الخريطة لعرض الصورة",viewImage:"انقر هنا لعرض المعلم المختار في الصورة",updateButton:"تحديث",deleteButton:"حذف"});

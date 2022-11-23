@@ -1,0 +1,1 @@
+define({chooseTheme:"Tema",customTheme:"Tilpas",resetTheme:"Nulstil",backToMainThemePanel:"Bagside",customPaletteTitle:"Tilpas paletfarver",customFontsetTitle:"Tilpas skrifttypesæt",customAppElementsTitle:"App-elementer"});

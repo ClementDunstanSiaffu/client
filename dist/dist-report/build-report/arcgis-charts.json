@@ -1,0 +1,31 @@
+{
+  "entrypoints": {
+    "arcgis-charts": {
+      "chunks": [
+        {
+          "id": 2939,
+          "names": [
+            "arcgis-charts"
+          ],
+          "modules": [
+            "./jimu-ui/arcgis-charts.ts",
+            "./jimu-ui/set-arcgis-charts-public-path.ts",
+            "./node_modules/@arcgis/charts-js/dist/esm/index-c98e9beb.js",
+            "./node_modules/@arcgis/charts-js/dist/esm/index.js",
+            "./node_modules/@arcgis/charts-shared-utils/dist/esm/index.js",
+            "./node_modules/@arcgis/charts-spec/dist/ts-schema/chart-object-literals.js",
+            "./node_modules/@arcgis/charts-spec/dist/ts-schema/events.js",
+            "./node_modules/@arcgis/charts-spec/dist/ts-schema/index.js",
+            "./node_modules/@arcgis/charts-spec/dist/ts-schema/rest-js-object-literals.js",
+            "./node_modules/@arcgis/charts-spec/dist/ts-schema/web-chart.js"
+          ]
+        }
+      ]
+    }
+  },
+  "errors": [],
+  "warnings": [],
+  "outputPath": "D:\\jenkins\\workspace\\exb-DE-release-build\\client\\dist/arcgis-charts",
+  "publicPath": "",
+  "version": "5.70.0"
+}

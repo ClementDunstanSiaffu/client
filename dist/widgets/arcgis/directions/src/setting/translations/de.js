@@ -1,0 +1,1 @@
+define({selectMapWidget:"Karten-Widget auswählen",routeSettings:"Routeneinstellungen",searchSettings:"Sucheinstellungen",routeUrl:"Routen-URL",outputStops:"Stopps",outputRoute:"Route",outputDirectionPoints:"Wegbeschreibungspunkte",outputDirectionLines:"Wegbeschreibungslinien"});

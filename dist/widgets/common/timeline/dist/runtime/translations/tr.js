@@ -1,0 +1,1 @@
+define({_widgetLabel:"Zaman çizgisi"});

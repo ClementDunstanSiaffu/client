@@ -1,0 +1,256 @@
+{
+  "pages": {
+    "home": {
+      "type": "NORMAL",
+      "mode": "FIT_WINDOW",
+      "layout": {
+        "LARGE": "home-layout-large"
+      },
+      "isVisible": true,
+      "id": "home",
+      "isDefault": true,
+      "header": false
+    }
+  },
+  "layouts": {
+    "home-layout-large": {
+      "type": "FIXED",
+      "order": [
+        "0"
+      ],
+      "content": {
+        "0": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": 0,
+            "top": 0,
+            "width": "39.0720%",
+            "height": "52.1173%",
+            "right": 0,
+            "bottom": 0
+          },
+          "widgetId": "widget_23",
+          "setting": {
+            "autoProps": {
+              "left": false,
+              "right": false,
+              "width": "STRETCH",
+              "top": false,
+              "bottom": false,
+              "height": "STRETCH"
+            }
+          }
+        }
+      }
+    },
+    "layout_51": {
+      "type": "FIXED",
+      "order": [
+        "0",
+        "1"
+      ],
+      "content": {
+        "0": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "50%",
+            "top": "706px",
+            "width": "400px",
+            "height": "60px",
+            "bottom": "25px"
+          },
+          "widgetId": "widget_24",
+          "setting": {
+            "lockParent": true,
+            "autoProps": {
+              "top": true,
+              "left": false,
+              "right": true
+            },
+            "hCenter": true,
+            "vCenter": false
+          }
+        },
+        "1": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "50%",
+            "top": "0px",
+            "width": "360px",
+            "height": "46px"
+          },
+          "widgetId": "widget_25",
+          "setting": {
+            "lockParent": true,
+            "hCenter": true,
+            "autoProps": {
+              "left": false,
+              "right": true
+            }
+          }
+        }
+      }
+    },
+    "layout_52": {
+      "type": "FIXED",
+      "order": [
+        "0",
+        "1",
+        "2"
+      ],
+      "content": {
+        "0": {
+          "type": "WIDGET",
+          "bbox": {},
+          "widgetId": "widget_8"
+        },
+        "1": {
+          "type": "WIDGET",
+          "bbox": {},
+          "widgetId": "widget_9"
+        },
+        "2": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "NaNpx",
+            "right": "NaNpx",
+            "top": "NaNpx",
+            "bottom": "NaNpx",
+            "width": "600px",
+            "height": "400px"
+          },
+          "widgetId": "widget_26"
+        }
+      }
+    },
+    "layout_53": {
+      "content": {
+        "0": {
+          "type": "WIDGET",
+          "widgetId": "widget_26",
+          "bbox": {
+            "left": 0,
+            "top": 0,
+            "bottom": 0,
+            "right": 0
+          }
+        }
+      },
+      "order": [
+        "0"
+      ]
+    }
+  },
+  "widgets": {
+    "widget_23": {
+      "id": "widget_23",
+      "uri": "widgets/arcgis/arcgis-map/",
+      "config": {
+        "toolConifg": {
+          "canZoom": true,
+          "canHome": true,
+          "canSearch": true
+        },
+        "isUseCustomMapState": false,
+        "initialMapState": null
+      },
+      "layouts": {
+        "MapFixedLayout": {
+          "LARGE": "layout_51"
+        }
+      }
+    },
+    "widget_24": {
+      "id": "widget_24",
+      "uri": "widgets/common/controller/",
+      "config": {
+        "behavior": {
+          "onlyOpenOne": true,
+          "displayType": "STACK",
+          "vertical": false,
+          "size": {
+            "widget_26": {
+              "width": 527,
+              "height": 278
+            }
+          }
+        },
+        "appearance": {
+          "space": 0,
+          "advanced": false,
+          "card": {
+            "showLabel": false,
+            "labelGrowth": 10,
+            "avatar": {
+              "type": "primary",
+              "size": "default",
+              "shape": "circle"
+            }
+          }
+        }
+      },
+      "layouts": {
+        "controller": {
+          "LARGE": "layout_52"
+        },
+        "_openwidget": {
+          "LARGE": "layout_53"
+        }
+      },
+      "widgets": [
+        "widget_8",
+        "widget_9"
+      ]
+    },
+    "widget_25": {
+      "id": "widget_25",
+      "uri": "widgets/common/text/",
+      "config": {
+        "text": "<p></p>",
+        "placeholder": "<p style='text-align: center;'><span style='font-size: 24px; color: rgb(255, 255, 255);'>${titlePlaceholder}</span></p>",
+        "style": {
+          "verticalAlign": "center",
+          "wrap": true
+        }
+      },
+      "style": {
+        "background": {
+          "image": {
+            "url": ""
+          },
+          "color": "var(--primary-600)"
+        }
+      }
+    },
+    "widget_8": {
+      "id": "widget_8",
+      "uri": "widgets/arcgis/map-layers/",
+      "config": {
+        "useMapWidget": true
+      },
+      "useMapWidgetIds": [
+        "widget_23"
+      ]
+    },
+    "widget_9": {
+      "id": "widget_9",
+      "uri": "widgets/arcgis/legend/",
+      "config": {},
+      "useMapWidgetIds": [
+        "widget_23"
+      ]
+    },
+    "widget_26": {
+      "uri": "widgets/common/table/",
+      "config": {
+        "layersConfig": [],
+        "arrangeType": "TABS"
+      },
+      "id": "widget_26"
+    }
+  },
+  "views": {},
+  "sections": {},
+  "messageConfigs": {},
+  "template": "launchpad"
+}

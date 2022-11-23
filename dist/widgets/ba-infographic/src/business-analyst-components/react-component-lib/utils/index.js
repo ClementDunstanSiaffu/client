@@ -1,0 +1,1 @@
+import React from"react";export const dashToPascalCase=e=>e.toLowerCase().split("-").map((e=>e.charAt(0).toUpperCase()+e.slice(1))).join("");export const createForwardRef=(e,t)=>{const a=(t,a)=>React.createElement(e,Object.assign({},t,{forwardedRef:a}));return a.displayName=t,React.forwardRef(a)};export*from"./attachEventProps";

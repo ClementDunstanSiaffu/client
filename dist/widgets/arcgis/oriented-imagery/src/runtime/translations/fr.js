@@ -1,0 +1,1 @@
+define({_widgetLabel:"Imagerie orientée",toggleButtonOn:"Désactiver pour sélectionner les entités sur la carte",toggleButtonOff:"Activer pour choisir un point de focus sur la carte et voir l’image",viewImage:"Cliquez ici pour voir l’entité sélectionnée sur l’image",updateButton:"Mettre à jour",deleteButton:"Supprimer"});

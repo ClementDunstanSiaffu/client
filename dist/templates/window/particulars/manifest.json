@@ -1,0 +1,10 @@
+{
+  "name": "particulars",
+  "type": "template",
+  "templateType": "window",
+  "label": "Particulars",
+  "thumbnail": "thumbnail.png",
+  "order": 9,
+  "thumbnailWidth": 332,
+  "thumbnailHeight": 280
+}

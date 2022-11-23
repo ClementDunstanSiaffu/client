@@ -1,0 +1,1 @@
+define({_widgetLabel:"Orijentisani snimci",toggleButtonOn:"Isključite da biste izabrali geoobjekte na mapi",toggleButtonOff:"Uključite da biste izabrali tačku fokusa na mapi za prikaz snimka",viewImage:"Kliknite ovde da biste prikazali izabrani geoobjekat na snimku",updateButton:"Ažuriraj",deleteButton:"Izbriši"});

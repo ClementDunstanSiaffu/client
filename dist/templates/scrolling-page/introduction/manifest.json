@@ -1,0 +1,14 @@
+{
+  "name": "introduction",
+  "type": "template",
+  "templateType": "scrolling-page",
+  "label": "Introduction",
+  "description": "Introduction is a template with a modular layout designed to showcase your images and striking headlines.",
+  "thumbnail": "thumbnail.png",
+  "order": 3,
+  "tags": [
+    "Web page"
+  ],
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

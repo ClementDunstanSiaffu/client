@@ -1,0 +1,1 @@
+define({pendingElementsInfo:"Aquesta àrea mostra els widgets que s'han configurat, però no al llenç actual. Pot ser que existeixin en altres modes de dispositiu.",element:"Insereix un widget",new:"Nou",pending:"Pendent",widgetHelpIconLabel:"Quant a aquest widget",widgetGuideStart:"Fes un recorregut"});

@@ -1,0 +1,1 @@
+define({selectMapWidget:"Selektuj vidžet mape",isDisplayCanvasLayerTips:"Prikaz crteža na slojevima mape.",arrangementTips:"Raspored",panelTips:"Panel",toolbarTips:"Traka sa alatkama",drawingToolsTips:"Alati za crtanje",isEnableMeasurementsTips:"Omogući merenje",drawingElevationMode3DTips:"3D efekat za crtanje",relativeToGroundTips:"U odnosu na tlo",onTheGroundTips:"Na zemlji"});

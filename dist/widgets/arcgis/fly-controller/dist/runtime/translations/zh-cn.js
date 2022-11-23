@@ -1,0 +1,1 @@
+define({_widgetLabel:"飞行控制器",configErrorTip:"请至少选择一个飞行样式。",flyStyleRotate:"旋转飞行",flyStylePath:"沿路径飞行",flyStyleRoute:"计划路径",triggerDrawPoint:"绘制点",triggerDrawPath:"绘制路径",triggerSelectFeature:"选择要素",triggerClear:"清除绘图或选择",heading:"航向",plannedRoutesTip:"路径"});

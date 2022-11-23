@@ -1,0 +1,1 @@
+define({_widgetLabel:"Imágenes orientadas",toggleButtonOn:"Desactivar para seleccionar entidades en el mapa",toggleButtonOff:"Activar para elegir un punto de énfasis en el mapa para ver la imagen",viewImage:"Haga clic aquí para ver la entidad seleccionada en la imagen",updateButton:"Actualizar",deleteButton:"Eliminar"});

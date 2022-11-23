@@ -1,0 +1,1 @@
+define({_widgetLabel:"Bộ chia",quickStyleItem:"Thay đổi kiểu nhanh {index}"});

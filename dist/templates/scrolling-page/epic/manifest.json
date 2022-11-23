@@ -1,0 +1,14 @@
+{
+  "name": "epic",
+  "type": "template",
+  "templateType": "scrolling-page",
+  "label": "Epic",
+  "description": "Epic provides a long scrolling template designed for building a website experience.",
+  "thumbnail": "thumbnail.png",
+  "order": 6,
+  "tags": [
+    "Web page"
+  ],
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

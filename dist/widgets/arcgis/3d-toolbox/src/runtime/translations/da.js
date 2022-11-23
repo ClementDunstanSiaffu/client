@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D-værktøjskasse",select3DScene:"Vælg en 3D-scene for at aktivere denne widget",clearEffect:"Ryd effekt",clearAnalysis:"Ryd analyse",showDevelopmentLayer:"Vis udviklingslag"});

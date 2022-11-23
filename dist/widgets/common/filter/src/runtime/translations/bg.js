@@ -1,0 +1,1 @@
+define({_widgetLabel:"Филтър",allExprsMustBeTrue:"Всички тези изрази трябва да са верни:",anyExprsMustBeTrue:"Всеки от тези изрази е верен:"});

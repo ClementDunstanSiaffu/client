@@ -1,0 +1,15 @@
+{
+  "name": "launchpad",
+  "type": "template",
+  "templateType": "full-screen-page",
+  "label": "Launchpad",
+  "description": "Launchpad is a template designed with the emphasis on the map and a controller widget anchored at the bottom of the page.",
+  "thumbnail": "thumbnail.png",
+  "order": 3,
+  "tags": [
+    "WAB classic",
+    "Map centric"
+  ],
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

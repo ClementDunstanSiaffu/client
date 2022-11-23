@@ -1,0 +1,1 @@
+class DbgLog{constructor(){this.fixForLint=""}static log(o,...g){if(DbgLog.showDebugConsoleLogs&&(console.log("=======>"+o+": "),g&&g.length))for(let o=0;o<g.length;o++)console.log("...",g[o])}}DbgLog.showDebugConsoleLogs=!1;export default DbgLog;

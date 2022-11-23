@@ -1,0 +1,1 @@
+define({_widgetLabel:"Ausgerichtete Bilddaten",toggleButtonOn:"Zum Auswählen von Features in Karte deaktivieren",toggleButtonOff:"Zum Auswählen eines Fokuspunktes in der Karte zum Anzeigen des Bildes aktivieren",viewImage:"Klicken Sie hier, um das ausgewählten Feature im Bild anzuzeigen.",updateButton:"Aktualisieren",deleteButton:"Löschen"});

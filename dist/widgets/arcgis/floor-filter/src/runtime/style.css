@@ -1,0 +1,44 @@
+.widget-floorfilter {
+  width: 100%;
+  height: 100%; 
+}
+
+.widget-floorfilter-nomap {
+  color: var(--dark-600);
+  background-color: var(--light-200);
+}
+
+.widget-floorfilter-header {
+  margin: 10px 10px 5px;
+  font-weight: bold;
+}
+
+.widget-floorfilter-msg {
+  padding: 12px;
+  height: 48px;
+}
+
+.widget-floorfilter-container {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.widget-floorfilter .esri-floor-filter__zoom-button.esri-button--disabled {
+  opacity: 1;
+}
+
+ul.esri-floor-filter__filter-menu-items > li > button.esri-floor-filter__filter-menu-site,
+ul.esri-floor-filter__filter-menu-items > li > button.esri-floor-filter__filter-menu-facility,
+.esri-floor-filter__filter-menu-header .esri-icon-close,
+.esri-floor-filter .esri-floor-filter__filter-menu .esri-floor-filter__filter-menu-header-back {
+  color: var(--dark-600) !important;
+}
+
+.esri-floor-filter .esri-floor-filter__button-container .esri-widget--button-active {
+  color: var(--primary);
+}
+
+.esri-view-height-less-than-small .esri-floor-filter .esri-floor-filter__close-levels-button, 
+.esri-view-width-less-than-medium .esri-floor-filter .esri-floor-filter__close-levels-button {
+  background-color: var(--light-100) !important;
+}

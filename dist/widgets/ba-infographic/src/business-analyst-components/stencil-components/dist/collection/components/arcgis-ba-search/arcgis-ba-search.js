@@ -1,0 +1,1 @@
+import{Component,Host,h}from"@stencil/core";export class ArcgisBaSearch{render(){return h(Host,null,h("slot",null))}static get is(){return"arcgis-ba-search"}static get encapsulation(){return"shadow"}static get originalStyleUrls(){return{$:["arcgis-ba-search.css"]}}static get styleUrls(){return{$:["arcgis-ba-search.css"]}}}

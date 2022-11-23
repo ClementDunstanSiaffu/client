@@ -1,0 +1,1 @@
+define({chooseTheme:"Motīvs",customTheme:"Pielāgot",resetTheme:"Atiestatīt",backToMainThemePanel:"Atpakaļ",customPaletteTitle:"Pielāgot paletes krāsas",customFontsetTitle:"Pielāgot fontu kopu",customAppElementsTitle:"Lietotnes elementi"});

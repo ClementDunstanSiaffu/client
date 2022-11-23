@@ -1,0 +1,1 @@
+define({_widgetLabel:"チャート",datalimitedTip:"棒グラフの棒の最大数は 1,000 に制限されています。 データをフィルタリングまたは再集約して、もう一度やり直してください。",pieDatalimitedTip:"カテゴリが多過ぎるため、描画できません。 パイ チャートのカテゴリ数は最大 300 に制限されています。",dataEmptyTip:"データが見つかりません。",sumOf:"{field} の合計値",meanOf:"{field} の平均値",minOf:"{field} の最小値",maxOf:"{field} の最大値",medianOf:"{field} の中央値"});

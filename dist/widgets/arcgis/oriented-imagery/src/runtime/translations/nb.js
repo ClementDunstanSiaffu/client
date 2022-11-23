@@ -1,0 +1,1 @@
+define({_widgetLabel:"Orienterte bilder",toggleButtonOn:"Slå av for å velge geoobjekter i kart",toggleButtonOff:"Slå på for å velge et fokuspunkt i kart for visning av bilde",viewImage:"Klikk her for å vise det valgte geoobjektet i bilde",updateButton:"Oppdater",deleteButton:"Slett"});

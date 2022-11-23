@@ -1,0 +1,1 @@
+define({_widgetLabel:"Oriented Imagery",toggleButtonOn:"Uitschakelen om objecten in de kaart te selecteren",toggleButtonOff:"Inschakelen om een focuspunt in de kaart te kiezen om de afbeelding weer te geven",viewImage:"Klik hier om het geselecteerde object in de afbeelding weer te geven",updateButton:"Actualiseren",deleteButton:"Verwijderen"});

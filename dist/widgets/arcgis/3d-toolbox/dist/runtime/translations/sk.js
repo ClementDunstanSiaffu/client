@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D Toolbox",select3DScene:"Ak chcete aktivovať tento widget, vyberte 3D scénu",clearEffect:"Vyčistiť efekt",clearAnalysis:"Vyčistiť analýzu",showDevelopmentLayer:"Zobraziť vrstvu rozvoja"});

@@ -1,0 +1,17 @@
+{
+  "name": "dart",
+  "type": "template",
+  "templateType": "app",
+  "label": "Dart",
+  "description": "Dart is a template that focuses on the map, the widgets are placed inside a fixed panel positioned at the bottom of the map.",
+  "thumbnail": "thumbnail.png",
+  "order": 5,
+  "tags": [
+    "WAB classic",
+    "Map centric"
+  ],
+  "isMultiplePage": false,
+  "isMapAware": true,
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

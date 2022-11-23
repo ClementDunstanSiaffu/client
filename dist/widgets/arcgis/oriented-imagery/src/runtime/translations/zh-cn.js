@@ -1,0 +1,1 @@
+define({_widgetLabel:"定向影像",toggleButtonOn:"关闭以选择地图中的要素",toggleButtonOff:"开启以在地图中选取焦点并查看影像",viewImage:"单击此处查看影像中的所选要素",updateButton:"更新",deleteButton:"删除"});

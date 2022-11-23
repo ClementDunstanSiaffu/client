@@ -1,0 +1,1 @@
+define({verticalAlign:"محاذاة رأسية",spaceAround:"مسافات حول",spaceBetween:"مسافات بين",spaceEvenly:"مسافات متساوية",horizontalAlign:"محاذاة أفقية",scrollable:"قابلة للتمرير"});

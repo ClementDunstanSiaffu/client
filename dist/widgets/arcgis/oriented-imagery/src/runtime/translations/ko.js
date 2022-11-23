@@ -1,0 +1,1 @@
+define({_widgetLabel:"영상 지향",toggleButtonOn:"맵에서 피처를 선택하려면 끕니다.",toggleButtonOff:"맵에서 초점 포인트를 선택해 이미지를 보려면 켭니다.",viewImage:"이미지에서 선택한 피처를 보려면 여기를 클릭합니다.",updateButton:"업데이트",deleteButton:"삭제"});

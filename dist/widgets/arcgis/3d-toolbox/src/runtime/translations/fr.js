@@ -1,0 +1,1 @@
+define({_widgetLabel:"Boîte à outils 3D",select3DScene:"Sélectionnez une scène 3D pour activer ce widget",clearEffect:"Effacer l’effet",clearAnalysis:"Effacer l’analyse",showDevelopmentLayer:"Afficher la couche de développement"});

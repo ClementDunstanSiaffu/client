@@ -1,0 +1,1 @@
+define({_widgetLabel:"Yönlendirilmiş Görüntü",toggleButtonOn:"Haritada detay seçmek için kapatın",toggleButtonOff:"Görüntüyü görüntülemek amacıyla haritada bir odak noktası seçmek için açın",viewImage:"Görüntüde seçili detayı görüntülemek için buraya tıklayın",updateButton:"Güncelle",deleteButton:"Sil"});

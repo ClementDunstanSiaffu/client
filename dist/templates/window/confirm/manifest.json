@@ -1,0 +1,10 @@
+{
+  "name": "confirm",
+  "type": "template",
+  "templateType": "window",
+  "label": "Confirm",
+  "thumbnail": "thumbnail.png",
+  "order": 1,
+  "thumbnailWidth": 332,
+  "thumbnailHeight": 280
+}

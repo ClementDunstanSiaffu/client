@@ -1,0 +1,1 @@
+define({_widgetLabel:"Suunnattu kuva-aineisto",toggleButtonOn:"Poista käytöstä, jotta voit valita kohteet kartalta",toggleButtonOff:"Ota käyttöön, jotta voit valita kohdistuspisteen kartalta tarkastellaksesi kuvaa",viewImage:"Voit tarkastella kuvasta valittua kohdetta napsauttamalla tätä",updateButton:"Päivitä",deleteButton:"Poista"});

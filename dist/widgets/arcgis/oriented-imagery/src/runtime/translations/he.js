@@ -1,0 +1,1 @@
+define({_widgetLabel:"תמונה מכוונת",toggleButtonOn:"כבה כדי לבחור ישויות במפה",toggleButtonOff:"הפעל כדי לבחור נקודת התמקדות במפה כדי לראות תמונה",viewImage:"לחץ כאן כדי להציג את היישות שנבחרה בתמונה",updateButton:"עדכון",deleteButton:"מחיקה"});

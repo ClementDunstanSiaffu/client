@@ -1,0 +1,10 @@
+{
+  "dataSourceType": "WebMap",
+  "honorTimeSettings": true,
+  "timeStyle": "CLASSIC",
+  "enablePlayControl": true,
+  "speed": "MEDIUM",
+  "autoPlay": false,
+  "LoopContinuously": false,
+  "timeSettings": null
+}

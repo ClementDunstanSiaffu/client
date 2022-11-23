@@ -1,0 +1,1 @@
+define({selectMapWidget:"Vybrat widget mapy",isDisplayCanvasLayerTips:"Zobrazí kresbu ve vrstvách mapy.",arrangementTips:"Uspořádání",panelTips:"Panel",toolbarTips:"Panel nástrojů",drawingToolsTips:"Nástroje kreslení",isEnableMeasurementsTips:"Povolit měření",drawingElevationMode3DTips:"3D efekt kreslení",relativeToGroundTips:"Relativně vůči zemi",onTheGroundTips:"Na zemi"});

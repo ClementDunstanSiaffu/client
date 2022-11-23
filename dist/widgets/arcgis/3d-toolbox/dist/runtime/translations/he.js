@@ -1,0 +1,1 @@
+define({_widgetLabel:"ארגז כלים תלת-ממד",select3DScene:"בחר סצנת תלת-ממד כדי להפעיל וידג'ט זה",clearEffect:"נקה אפקט",clearAnalysis:"נקה ניתוח",showDevelopmentLayer:"הצג שכבת פיתוח"});

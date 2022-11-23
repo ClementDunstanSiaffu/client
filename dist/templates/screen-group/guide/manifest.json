@@ -1,0 +1,10 @@
+{
+  "name": "guide",
+  "type": "template",
+  "templateType": "screen-group",
+  "label": "Guide",
+  "thumbnail": "thumbnail.png",
+  "order": 5,
+  "thumbnailWidth": 400,
+  "thumbnailHeight": 240
+}

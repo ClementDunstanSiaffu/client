@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D-työkalulaatikko",select3DScene:"Ota tämä pienoisohjelma käyttöön valitsemalla 3D-maisema",clearEffect:"Tyhjennä tehoste",clearAnalysis:"Tyhjennä analyysi",showDevelopmentLayer:"Näytä kehityskarttataso"});

@@ -1,0 +1,1 @@
+define({selectMapWidget:"Valige kaardividin",isDisplayCanvasLayerTips:"Kuvage joonistus kaardikihtidel.",arrangementTips:"Paigutamine",panelTips:"Paneel",toolbarTips:"Tööriistariba",drawingToolsTips:"Joonistustööriistad",isEnableMeasurementsTips:"Luba mõõtmine",drawingElevationMode3DTips:"3D-joonistusefekt",relativeToGroundTips:"Maapinna suhtes",onTheGroundTips:"Maapinnal"});

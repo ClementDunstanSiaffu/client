@@ -1,0 +1,1 @@
+define({_widgetLabel:"Zobrazowania zorientowane",toggleButtonOn:"Wyłącz, aby wybrać obiekty na mapie",toggleButtonOff:"Włącz, aby wybrać punkt ostrości na mapie w celu wyświetlenia obrazu",viewImage:"Kliknij tutaj, aby wyświetlić wybrany obiekt w obrazie",updateButton:"Zmień",deleteButton:"Usuń"});

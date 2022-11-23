@@ -1,0 +1,1 @@
+define({_widgetLabel:"Jakaja",quickStyleItem:"Pikatyyli {index}"});

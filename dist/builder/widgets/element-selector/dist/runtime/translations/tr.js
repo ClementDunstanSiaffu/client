@@ -1,0 +1,1 @@
+define({pendingElementsInfo:"Bu alanda yapılandırılmış olan ancak geçerli kanvasta bulunmayan araçlar listelenir. Bunlar, diğer cihaz modlarında bulunabilir.",element:"Araç ekle",new:"Yeni",pending:"Beklemede",widgetHelpIconLabel:"Bu araç hakkında",widgetGuideStart:"Tura katılın"});

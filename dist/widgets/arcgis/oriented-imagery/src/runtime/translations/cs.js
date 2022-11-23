@@ -1,0 +1,1 @@
+define({_widgetLabel:"Orientované snímky",toggleButtonOn:"Vypnout pro výběr prvků v mapě",toggleButtonOff:"Zapnout pro výběr bodu zaměření v mapě pro zobrazení snímku",viewImage:"Zde klikněte, pokud chcete zobrazit vybraný prvek ve snímku",updateButton:"Aktualizovat",deleteButton:"Smazat"});

@@ -1,0 +1,1 @@
+define({_widgetLabel:"Cutie de instrumente 3D",select3DScene:"Selectați o scenă 3D pentru a activa acest widget",clearEffect:"Golire efect",clearAnalysis:"Golire analiză",showDevelopmentLayer:"Afișare strat tematic de dezvoltare"});

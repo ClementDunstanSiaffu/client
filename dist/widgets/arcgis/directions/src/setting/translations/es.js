@@ -1,0 +1,1 @@
+define({selectMapWidget:"Seleccionar un widget Mapa",routeSettings:"Configuración de ruta",searchSettings:"Configuración de búsqueda",routeUrl:"URL de ruta",outputStops:"Paradas",outputRoute:"Ruta",outputDirectionPoints:"Puntos de indicación",outputDirectionLines:"Líneas de indicación"});

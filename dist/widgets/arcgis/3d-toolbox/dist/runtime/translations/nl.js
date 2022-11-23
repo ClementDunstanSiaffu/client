@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D Toolbox",select3DScene:"Selecteer een 3D scene om deze widget te activeren",clearEffect:"Effect wissen",clearAnalysis:"Analyse wissen",showDevelopmentLayer:"Ontwikkelingslaag weergeven"});

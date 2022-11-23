@@ -1,0 +1,1 @@
+define({_widgetLabel:"Orientuoti vaizdai",toggleButtonOn:"Išjunkite, norėdami žemėlapyje pasirinkti elementus",toggleButtonOff:"Įjunkite, jei norite peržiūrėti vaizdą žemėlapyje pasirinkę jutiklio perspektyvą",viewImage:"Spustelėkite čia, jei norite peržiūrėti vaizde pasirinktą elementą",updateButton:"Atnaujinti",deleteButton:"Pašalinti"});

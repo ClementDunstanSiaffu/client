@@ -1,0 +1,1 @@
+define({selectMapWidget:"选择地图微件",routeSettings:"路径设置",searchSettings:"搜索设置",routeUrl:"路径 URL",outputStops:"停靠点",outputRoute:"路径",outputDirectionPoints:"方向点",outputDirectionLines:"方向线"});

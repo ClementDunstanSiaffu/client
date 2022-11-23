@@ -1,0 +1,1 @@
+define({_widgetLabel:"Rozdeľovač",quickStyleItem:"Rýchly štýl {index}"});

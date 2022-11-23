@@ -1,0 +1,1 @@
+define({_widgetLabel:"Lennonohjain",configErrorTip:"Valitse vähintään yksi lentotyyli.",flyStyleRotate:"Kiertävä lento",flyStylePath:"Lento polkua pitkin",flyStyleRoute:"Suunnittele reitit",triggerDrawPoint:"Piirrä piste",triggerDrawPath:"Piirrä polku",triggerSelectFeature:"Valitse kohde",triggerClear:"Tyhjennä piirustus tai valinta",heading:"Suunta",plannedRoutesTip:"Reitit"});

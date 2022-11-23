@@ -1,0 +1,1 @@
+define({selectMapWidget:"בחר ווידג'ט של מפה",routeSettings:"הגדרות מסלול",searchSettings:"הגדרות חיפוש",routeUrl:"URL של המסלול",outputStops:"עצירות",outputRoute:"מסלול",outputDirectionPoints:"נקודות כיוונים",outputDirectionLines:"קווי כיוונים"});

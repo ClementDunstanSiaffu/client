@@ -1,0 +1,1 @@
+define({_widgetLabel:"Våningsfilter",floorfilter_noMap:"Våningsfilter",floorfilter_notFloorAware:"Den valda kartan är inte våningsmedveten"});

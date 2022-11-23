@@ -1,0 +1,10 @@
+{
+  "name": "rightdock",
+  "type": "template",
+  "templateType": "screen",
+  "label": "Right Dock",
+  "thumbnail": "thumbnail.png",
+  "order": 5,
+  "thumbnailWidth": 328,
+  "thumbnailHeight": 200
+}

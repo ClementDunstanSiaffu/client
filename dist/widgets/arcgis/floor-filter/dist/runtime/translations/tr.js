@@ -1,0 +1,1 @@
+define({_widgetLabel:"Kat Filtresi",floorfilter_noMap:"Kat Filtresi",floorfilter_notFloorAware:"Seçili harita katlara duyarlı değil"});

@@ -1,0 +1,16 @@
+{
+  "name": "scenic",
+  "type": "template",
+  "templateType": "app",
+  "label": "Scenic",
+  "description": "Scenic allows you to create a narrative tour using the bookmark widget in a multi-page layout.",
+  "thumbnail": "thumbnail.png",
+  "order": 32,
+  "tags": [
+    "Website"
+  ],
+  "isMultiplePage": true,
+  "isMapAware": false,
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D кутия с инструменти",select3DScene:"Моля, изберете 3D сцена, за да активирате този изпълним модул",clearEffect:"Изчистване на ефект",clearAnalysis:"Изчистване на анализ",showDevelopmentLayer:"Показване на слоя за развитие"});

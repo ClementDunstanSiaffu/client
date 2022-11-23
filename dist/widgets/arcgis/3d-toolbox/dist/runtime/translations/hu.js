@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D-eszköztár",select3DScene:"Válasszon 3D térképet, amely majd aktív lesz a widgetben",clearEffect:"Effektus törlése",clearAnalysis:"Elemzés törlése",showDevelopmentLayer:"Fejlesztési réteg megjelenítése"});

@@ -1,0 +1,10 @@
+{
+  "name": "carousel",
+  "type": "template",
+  "templateType": "window",
+  "label": "Carousel",
+  "thumbnail": "thumbnail.png",
+  "order": 8,
+  "thumbnailWidth": 332,
+  "thumbnailHeight": 280
+}

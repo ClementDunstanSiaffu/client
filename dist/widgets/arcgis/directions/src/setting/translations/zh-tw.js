@@ -1,0 +1,1 @@
+define({selectMapWidget:"選擇地圖 widget",routeSettings:"路線設定",searchSettings:"搜尋設定",routeUrl:"路線 URL",outputStops:"停靠點",outputRoute:"路線",outputDirectionPoints:"方向點",outputDirectionLines:"方向線"});

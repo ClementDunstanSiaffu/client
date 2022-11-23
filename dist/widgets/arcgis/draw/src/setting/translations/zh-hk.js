@@ -1,0 +1,1 @@
+define({selectMapWidget:"選擇地圖 widget",isDisplayCanvasLayerTips:"顯示地圖塗層中的繪圖。",arrangementTips:"排列",panelTips:"面板",toolbarTips:"工具列",drawingToolsTips:"繪製工具",isEnableMeasurementsTips:"啟用測量",drawingElevationMode3DTips:"3D 繪製效果",relativeToGroundTips:"相對於地面",onTheGroundTips:"地面上"});

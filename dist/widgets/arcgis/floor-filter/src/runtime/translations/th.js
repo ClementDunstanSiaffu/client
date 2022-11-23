@@ -1,0 +1,1 @@
+define({_widgetLabel:"ตัวกรองชั้น",floorfilter_noMap:"ตัวกรองชั้น",floorfilter_notFloorAware:"แผนที่ที่เลือกไม่รับรู้ชั้น"});

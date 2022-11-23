@@ -1,0 +1,1 @@
+define({chooseTheme:"Tema",customTheme:"Anpassa",resetTheme:"Återställ",backToMainThemePanel:"Backa",customPaletteTitle:"Anpassa palettfärgerna",customFontsetTitle:"Anpassa teckensnittsuppsättningen",customAppElementsTitle:"Appelement"});

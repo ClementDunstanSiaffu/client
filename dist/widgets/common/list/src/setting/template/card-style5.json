@@ -1,0 +1,232 @@
+
+
+
+{
+	"widgetId": "widget_x",
+	"config": {
+		"layouts": {
+			"layout_5": {
+				"type": "FIXED",
+				"content": {
+					"0": {
+						"type": "WIDGET",
+						"bbox": {
+							"left": "3.56%",
+							"top": "50%",
+							"width": "8.5829%",
+							"height": "53px",
+							"right": "2.79%",
+							"bottom": "23.26%"
+						},
+						"widgetId": "widget_5",
+						"setting": {
+							"lockParent": true,
+							"vCenter": true,
+							"hCenter": false,
+							"autoProps": {
+								"width": "CUSTOM",
+								"height": "CUSTOM",
+								"top": false,
+								"bottom": true
+							},
+							"heightMode": "ratio",
+							"aspectRatio": 1
+						},
+						"isPending": false
+					},
+					"1": {
+						"type": "WIDGET",
+						"bbox": {
+							"left": "13.8029%",
+							"width": "36.5%",
+							"height": "35%",
+							"right": "38.8333%",
+							"top": "50%",
+							"bottom": 24
+						},
+						"widgetId": "widget_6",
+						"setting": {
+							"lockParent": true,
+							"autoProps": {
+								"width": true,
+								"height": false,
+								"top": false,
+								"bottom": true
+							},
+							"vCenter": true,
+							"hCenter": false
+						},
+						"isPending": false
+					},
+					"2": {
+						"type": "WIDGET",
+						"bbox": {
+							"left": 400,
+							"top": "50%",
+							"width": "27.89%",
+							"height": "34.88%",
+							"right": "7.3574%",
+							"bottom": "28.4944%"
+						},
+						"widgetId": "widget_7",
+						"setting": {
+							"lockParent": true,
+							"autoProps": {
+								"width": false,
+								"height": false,
+								"left": true,
+								"right": false,
+								"top": false,
+								"bottom": true
+							},
+							"vCenter": true,
+							"hCenter": false
+						}
+					}
+				},
+				"order": ["0", "1", "2"],
+				"label": "Regular"
+			}
+		},
+		"widgets": {
+      "widget_x": {
+        "config": {
+          "maxItems": 100,
+          "space": 10,
+					"verticalSpace": 10,
+					"horizontalSpace": 10,
+          "itemsPerPage": 10,
+          "isItemStyleConfirm": false,
+          "isInitialed": false,
+          "pageStyle": "SCROLL",
+          "itemStyle": "STYLE5",
+          "hoverType": "HOVER0",
+          "selectedStyle": "STYLE0",
+          "differentOddEven": false,
+          "scrollBarOpen": true,
+          "direction": "VERTICAL",
+					"layoutType": "ROW",
+          "alignType": "CENTER",
+          "scrollStep": 2,
+          "cardConfigs": {
+            "REGULAR": {
+              "cardSize": {
+                "LARGE": {
+                  "width": 320,
+                  "height": 88
+                }
+              },
+              "enable": true,
+              "backgroundStyle": {
+                "border": {
+                  "type": "solid",
+                  "color": "var(--light-400)",
+                  "width": "1px"
+                }
+              },
+              "listLayout": "Custom"
+            },
+            "HOVER": {
+              "cardSize": {
+                "LARGE": {
+                  "width": 320,
+                  "height": 88
+                }
+              },
+              "enable": false,
+              "backgroundStyle": {
+                "border": {
+                  "type": "solid",
+                  "color": "var(--light-400)",
+                  "width": "1px"
+                }
+              },
+              "listLayout": "Auto"
+            },
+            "SELECTED": {
+              "cardSize": {
+                "LARGE": {
+                  "width": 320,
+                  "height": 88
+                }
+              },
+              "backgroundStyle": {
+                "border": {
+                  "type": "solid",
+                  "color": "var(--primary-500)",
+                  "width": "1px"
+                }
+              },
+              "selectionMode": "SINGLE",
+              "listLayout": "Auto"
+            }
+          },
+          "style": {
+            "id": "default"
+          }
+        },
+        "layouts": {
+          "REGULAR": {
+            "LARGE": "layout_5"
+          }
+        }
+      },
+			"widget_5": {
+				"uri": "widgets/common/image/",
+				"config": {
+					"functionConfig": {
+						"altText": "",
+						"toolTip": "",
+						"linkParam": {},
+						"scale": "Fit",
+						"imageParam": {
+							"cropParam": {
+								"cropShape": "circle",
+								"svgPath": "M28 14c0 7.732-6.268 14-14 14S0 21.732 0 14 6.268 0 14 0s14 6.268 14 14z",
+								"svgViewBox": "0 0 28 28"
+							}
+						}
+					},
+					"styleConfig": {}
+				}
+			},
+			"widget_6": {
+				"uri": "widgets/common/text/",
+				"config": {
+					"text": "",
+					"placeholder": "<p><span style=\"font-size: 16px;color: var(--dark-800);\">${textPlaceholder}</span></p>",
+					"style": {
+						"verticalAlign": "start",
+						"wrap": true,
+						"overflow": "scroll",
+						"padding": "p-1"
+					}
+				}
+			},
+			"widget_7": {
+				"uri": "widgets/common/button/",
+				"config": {
+					"functionConfig": {
+						"text": "${buttonText}",
+						"toolTip": "",
+						"linkParam": {}
+					},
+					"styleConfig": {
+						"name": "Default",
+						"themeStyle": {
+							"className": "jimu-widget d-block",
+							"color": "primary"
+						},
+						"customStyle": {
+							"regular": {},
+							"hover": {},
+							"clicked": {}
+						}
+					}
+				}
+			}
+		},
+		"views": {},
+		"sections": {}
+	}
+}

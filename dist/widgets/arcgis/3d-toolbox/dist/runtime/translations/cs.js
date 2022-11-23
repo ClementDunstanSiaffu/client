@@ -1,0 +1,1 @@
+define({_widgetLabel:"3D toolbox",select3DScene:"Pro aktivaci tohoto widgetu vyberte 3D scénu",clearEffect:"Vymazat efekt",clearAnalysis:"Vymazat analýzu",showDevelopmentLayer:"Zobrazit vrstvu plánované výstavby"});

@@ -1,0 +1,10 @@
+{
+  "name": "novel",
+  "type": "template",
+  "templateType": "window",
+  "label": "Novel",
+  "thumbnail": "thumbnail.png",
+  "order": 5,
+  "thumbnailWidth": 332,
+  "thumbnailHeight": 280
+}

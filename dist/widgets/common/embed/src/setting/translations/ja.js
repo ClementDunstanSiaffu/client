@@ -1,0 +1,1 @@
+define({_widgetLabel:"埋め込み",websiteAddress:"Web サイトのアドレス",code:"コード",codePlaceholder:"埋め込みたい HTML コードを貼り付けます。",embedBy:"埋め込み方法",attributeHint:"属性からの URL",expressionHint:"条件式による URL",autoRefresh:"自動更新",autoInterval:"間隔",autoUnit:"分",reloadSetting:"URL 変更時に iframe を再読み込みしない",maxLimit:"最大文字数を超えています。"});

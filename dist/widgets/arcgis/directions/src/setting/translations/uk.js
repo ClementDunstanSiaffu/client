@@ -1,0 +1,1 @@
+define({selectMapWidget:"Виберіть віджет карти",routeSettings:"Налаштування маршруту",searchSettings:"Налаштування пошуку",routeUrl:"URL маршруту",outputStops:"Зупинки",outputRoute:"Маршрут",outputDirectionPoints:"Точки напрямку",outputDirectionLines:"Лінії напрямку"});

@@ -1,0 +1,1 @@
+define({pendingElementsInfo:"此區域列出已配置、但不在目前畫布上的 widget。 它們可能以其他裝置模式存在。",element:"插入 widget",new:"新建",pending:"待決定",widgetHelpIconLabel:"關於此 widget",widgetGuideStart:"進行導覽"});

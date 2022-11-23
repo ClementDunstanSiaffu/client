@@ -1,0 +1,1 @@
+define({selectMapWidget:"Bir Harita aracı seç",isDisplayCanvasLayerTips:"Harita katmanlarındaki çizimleri göster.",arrangementTips:"Düzen",panelTips:"Panel",toolbarTips:"Araç çubuğu",drawingToolsTips:"Çizim araçları",isEnableMeasurementsTips:"Ölçümü etkinleştir",drawingElevationMode3DTips:"3B çizim efekti",relativeToGroundTips:"Zemine göre",onTheGroundTips:"Zeminde"});

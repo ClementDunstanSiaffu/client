@@ -1,0 +1,1 @@
+define({_widgetLabel:"타임라인"});

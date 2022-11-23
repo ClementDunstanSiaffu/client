@@ -1,0 +1,1 @@
+define({_widgetLabel:"Skrzynka narzędziowa 3D",select3DScene:"Wybierz scenę 3D, aby aktywować ten widżet.",clearEffect:"Wyczyść efekt",clearAnalysis:"Wyczyść analizę",showDevelopmentLayer:"Pokaż warstwę opracowania"});

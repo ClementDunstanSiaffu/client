@@ -1,0 +1,15 @@
+{
+  "name": "showcase",
+  "type": "template",
+  "templateType": "full-screen-page",
+  "label": "Showcase",
+  "description": "Showcase is a template with four equal-sized Card widgets which show more details when hovered over.",
+  "thumbnail": "thumbnail.png",
+  "order": 15,
+  "isNewTemplate": true,
+  "tags": [
+    "Web page"
+  ],
+  "thumbnailWidth": 320,
+  "thumbnailHeight": 214
+}

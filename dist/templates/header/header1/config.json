@@ -1,0 +1,404 @@
+{
+  "layouts": {
+    "layout_1": {
+      "type": "FIXED",
+      "order": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "content": {
+        "0": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "15px",
+            "top": "50%",
+            "width": 54,
+            "height": 30
+          },
+          "widgetId": "widget_1",
+          "isPending": false,
+          "setting": {
+            "vCenter": true,
+            "hCenter": false,
+            "autoProps": {
+              "top": false,
+              "bottom": true
+            }
+          }
+        },
+        "1": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": 90,
+            "top": "0.0000%",
+            "width": 295,
+            "height": "100.0000%"
+          },
+          "widgetId": "widget_2",
+          "setting": {
+            "hCenter": false,
+            "vCenter": false
+          },
+          "isPending": false
+        },
+        "2": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "385px",
+            "top": "0.0000%",
+            "width": "226px",
+            "height": "100.0000%"
+          },
+          "widgetId": "widget_3",
+          "isPending": false,
+          "setting": {
+            "vCenter": false,
+            "hCenter": false
+          }
+        },
+        "3": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "72.8802%",
+            "top": "0.0000%",
+            "width": "347px",
+            "height": "100.0000%",
+            "right": "0px"
+          },
+          "widgetId": "widget_4",
+          "setting": {
+            "autoProps": {
+              "right": false,
+              "left": true
+            },
+            "hCenter": false
+          }
+        }
+      }
+    },
+    "layout_2": {
+      "type": "FIXED",
+      "content": {
+        "0": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "15px",
+            "top": "50%",
+            "width": 54,
+            "height": 30
+          },
+          "widgetId": "widget_1",
+          "isPending": false,
+          "setting": {
+            "vCenter": true,
+            "hCenter": false,
+            "autoProps": {
+              "top": false,
+              "bottom": true
+            }
+          }
+        },
+        "1": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": 90,
+            "top": "0.0000%",
+            "width": 295,
+            "height": "100.0000%"
+          },
+          "widgetId": "widget_2",
+          "setting": {
+            "hCenter": false,
+            "vCenter": false
+          },
+          "isPending": true
+        },
+        "2": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "385px",
+            "top": "0.0000%",
+            "width": "226px",
+            "height": "100.0000%"
+          },
+          "widgetId": "widget_3",
+          "isPending": true,
+          "setting": {
+            "vCenter": false,
+            "hCenter": false
+          }
+        },
+        "3": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "72.8802%",
+            "top": "0.0000%",
+            "width": "347px",
+            "height": "100.0000%",
+            "right": "0px"
+          },
+          "widgetId": "widget_4",
+          "setting": {
+            "autoProps": {
+              "right": false,
+              "left": true
+            },
+            "hCenter": false
+          },
+          "isPending": true
+        },
+        "4": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "28.8889%",
+            "top": "0.0000%",
+            "width": "83px",
+            "height": "100.0000%",
+            "right": 0
+          },
+          "widgetId": "widget_5",
+          "setting": {
+            "autoProps": {
+              "right": false,
+              "left": true
+            }
+          }
+        }
+      },
+      "order": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "layout_3": {
+      "type": "FIXED",
+      "content": {
+        "0": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "15px",
+            "top": "50%",
+            "width": 54,
+            "height": 30
+          },
+          "widgetId": "widget_1",
+          "isPending": false,
+          "setting": {
+            "vCenter": true,
+            "hCenter": false,
+            "autoProps": {
+              "top": false,
+              "bottom": true
+            }
+          }
+        },
+        "1": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": 90,
+            "top": "0.0000%",
+            "width": 295,
+            "height": "100.0000%"
+          },
+          "widgetId": "widget_2",
+          "setting": {
+            "hCenter": false,
+            "vCenter": false
+          },
+          "isPending": false
+        },
+        "2": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "385px",
+            "top": "0.0000%",
+            "width": "226px",
+            "height": "100.0000%"
+          },
+          "widgetId": "widget_3",
+          "isPending": true,
+          "setting": {
+            "vCenter": false,
+            "hCenter": false
+          }
+        },
+        "3": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "72.8802%",
+            "top": "0.0000%",
+            "width": "347px",
+            "height": "100.0000%",
+            "right": "0px"
+          },
+          "widgetId": "widget_4",
+          "setting": {
+            "autoProps": {
+              "right": false,
+              "left": true
+            },
+            "hCenter": false
+          },
+          "isPending": true
+        },
+        "4": {
+          "type": "WIDGET",
+          "bbox": {
+            "left": "91.2%",
+            "right": "0.0%",
+            "top": "0.0%",
+            "bottom": "0.0%",
+            "width": "8.8%",
+            "height": "100.0%"
+          },
+          "widgetId": "widget_5",
+          "setting": {
+            "autoProps": {
+              "right": false,
+              "left": true,
+              "top": true,
+              "bottom": false
+            },
+            "vCenter": false,
+            "hCenter": false
+          },
+          "isPending": false
+        }
+      },
+      "order": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    }
+  },
+  "widgets": {
+    "widget_1": {
+      "uri": "widgets/common/image/",
+      "config": {
+        "functionConfig": {
+          "altText": "",
+          "toolTip": "",
+          "linkParam": {},
+          "scale": "Fit",
+          "imageParam": {}
+        },
+        "styleConfig": {}
+      },
+      "id": "widget_1"
+    },
+    "widget_2": {
+      "uri": "widgets/common/text/",
+      "config": {
+        "text": "<p></p>",
+        "placeholder": "<p><span style=\"font-size: 1.5rem;\">${title}</span></p>",
+        "style": {
+          "verticalAlign": "center",
+          "wrap": true
+        }
+      },
+      "id": "widget_2"
+    },
+    "widget_3": {
+      "uri": "widgets/common/text/",
+      "config": {
+        "text": "<p></p>",
+        "placeholder": "<p style=\"line-height: 2.5;\"><span style=\"font-size: 1rem;\">${shortSubTitlePlaceholder}</span></p>",
+        "style": {
+          "verticalAlign": "center",
+          "wrap": true
+        }
+      },
+      "id": "widget_3"
+    },
+    "widget_4": {
+      "uri": "widgets/common/menu/",
+      "config": {
+        "type": "nav",
+        "menuStyle": "default",
+        "vertical": false,
+        "standard": {
+          "icon": {
+            "svg": "<svg viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\" class=\"css-1i7frhi jimu-icon\"><path d=\"M2 1a1 1 0 100 2h12a1 1 0 100-2H2zm0-1h12a2 2 0 010 4H2a2 2 0 010-4zm0 7a1 1 0 100 2h12a1 1 0 100-2H2zm0-1h12a2 2 0 010 4H2a2 2 0 010-4zm0 7a1 1 0 100 2h12a1 1 0 100-2H2zm0-1h12a2 2 0 010 4H2a2 2 0 010-4z\" fill=\"currentColor\" fill-rule=\"nonzero\"></path></svg>",
+            "properties": {
+              "color": "#121212",
+              "size": 20
+            }
+          },
+          "submenuMode": "dropdown",
+          "textAlign": "center",
+          "showIcon": false,
+          "showText": true,
+          "iconPosition": "start",
+          "gap": "0px"
+        },
+        "advanced": true,
+        "variant": {
+          "item": {
+            "default": {
+              "color": "rgba(255, 255, 255, 0.65)"
+            },
+            "hover": {
+              "color": "rgb(255, 255, 255)"
+            },
+            "active": {
+              "color": "rgb(255, 255, 255)"
+            }
+          }
+        }
+      },
+      "id": "widget_4"
+    },
+    "widget_5": {
+      "uri": "widgets/common/menu/",
+      "config": {
+        "type": "drawer",
+        "menuStyle": "default",
+        "vertical": true,
+        "standard": {
+          "icon": {
+            "svg": "<svg viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\" class=\"css-1i7frhi jimu-icon\"><path d=\"M2 1a1 1 0 100 2h12a1 1 0 100-2H2zm0-1h12a2 2 0 010 4H2a2 2 0 010-4zm0 7a1 1 0 100 2h12a1 1 0 100-2H2zm0-1h12a2 2 0 010 4H2a2 2 0 010-4zm0 7a1 1 0 100 2h12a1 1 0 100-2H2zm0-1h12a2 2 0 010 4H2a2 2 0 010-4z\" fill=\"currentColor\" fill-rule=\"nonzero\"></path></svg>",
+            "properties": {
+              "filename": null,
+              "originalName": null,
+              "path": null,
+              "color": "#fff",
+              "size": 20,
+              "inlineSvg": false
+            }
+          },
+          "submenuMode": "foldable",
+          "textAlign": "center",
+          "showIcon": false,
+          "showText": true,
+          "iconPosition": "start",
+          "gap": "0px",
+          "anchor": "right"
+        },
+        "advanced": false
+      },
+      "id": "widget_5"
+    }
+  },
+  "views": {},
+  "sections": {},
+  "messageConfigs": {},
+  "header": {
+    "layout": {
+      "LARGE": "layout_1",
+      "SMALL": "layout_2",
+      "MEDIUM": "layout_3"
+    },
+    "height": {
+      "LARGE": "50"
+    }
+  },
+  "template": "header1"
+}

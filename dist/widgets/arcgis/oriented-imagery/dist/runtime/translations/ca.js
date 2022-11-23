@@ -1,0 +1,1 @@
+define({_widgetLabel:"Imatges amb orientació",toggleButtonOn:"Desactiveu-ho per seleccionar entitats al mapa",toggleButtonOff:"Activeu-ho per seleccionar un punt d'enfocament al mapa per veure la imatge",viewImage:"Feu clic aquí per veure l'entitat seleccionada a la imatge",updateButton:"Actualitza",deleteButton:"Suprimeix"});

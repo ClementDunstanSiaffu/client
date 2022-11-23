@@ -1,0 +1,1 @@
+define({_widgetLabel:"Fly-controller",configErrorTip:"Vælg mindst én fly-typografi.",flyStyleRotate:"Roter fly",flyStylePath:"Flyv langs med rute",flyStyleRoute:"Planlæg ruter",triggerDrawPoint:"Tegn et punkt",triggerDrawPath:"Tegn en sti",triggerSelectFeature:"Vælg et objekt",triggerClear:"Ryd tegning eller markering",heading:"Overskrift",plannedRoutesTip:"Ruter"});

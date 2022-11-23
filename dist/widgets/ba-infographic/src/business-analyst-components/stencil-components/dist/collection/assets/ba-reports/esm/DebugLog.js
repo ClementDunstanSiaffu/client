@@ -1,0 +1,1 @@
+var DebugLog=function(){function o(){this.fixForLint=""}return o.log=function(n){for(var e=[],g=1;g<arguments.length;g++)e[g-1]=arguments[g];if(o.showDebugConsoleLogs&&(console.log("=======>"+n+": "),e&&e.length))for(var l=0;l<e.length;l++)console.log("...",e[l])},o.showDebugConsoleLogs=!1,o}();export default DebugLog;

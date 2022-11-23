@@ -1,0 +1,1 @@
+define({chooseTheme:"Tema",customTheme:"Prilagodi",resetTheme:"Vrati izvorno",backToMainThemePanel:"Natrag",customPaletteTitle:"Prilagodi palete boja",customFontsetTitle:"Prilagodi skup fontova",customAppElementsTitle:"Elementi appa"});

@@ -1,0 +1,1 @@
+define({_widgetLabel:"Nadzornik preleta",configErrorTip:"Izberite vsaj en slog preleta.",flyStyleRotate:"Zavrti prelet",flyStylePath:"Prelet vzdolž poti",flyStyleRoute:"Načrtuj pot",triggerDrawPoint:"Nariši točko",triggerDrawPath:"Nariši pot",triggerSelectFeature:"Izberi geoobjekt",triggerClear:"Počisti risbo ali izbiro",heading:"Glava",plannedRoutesTip:"Poti"});

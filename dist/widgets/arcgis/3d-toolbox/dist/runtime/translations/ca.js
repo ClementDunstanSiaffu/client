@@ -1,0 +1,1 @@
+define({_widgetLabel:"Caixa d'eines 3D",select3DScene:"Seleccioneu una escena 3D per activar aquest widget",clearEffect:"Esborra l'efecte",clearAnalysis:"Esborra l'anàlisi",showDevelopmentLayer:"Mostra la capa de desenvolupament"});

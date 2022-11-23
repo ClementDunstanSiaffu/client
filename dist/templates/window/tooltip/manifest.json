@@ -1,0 +1,10 @@
+{
+  "name": "tooltip",
+  "type": "template",
+  "templateType": "window",
+  "label": "Tooltip",
+  "thumbnail": "thumbnail.png",
+  "order": 7,
+  "thumbnailWidth": 332,
+  "thumbnailHeight": 280
+}

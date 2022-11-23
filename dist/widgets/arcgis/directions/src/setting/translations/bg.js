@@ -1,0 +1,1 @@
+define({selectMapWidget:"Изберете изпълним модул за карта",routeSettings:"Настройки на маршрута",searchSettings:"Настройки за търсене",routeUrl:"URL адрес на маршрута",outputStops:"Спирки",outputRoute:"Маршрут",outputDirectionPoints:"Точки за посока",outputDirectionLines:"Линии за посока"});

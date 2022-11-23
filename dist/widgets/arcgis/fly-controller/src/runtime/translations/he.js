@@ -1,0 +1,1 @@
+define({_widgetLabel:"פקד תעופה",configErrorTip:"בחר סגנון תעופה אחד לפחות.",flyStyleRotate:"סובב תעופה",flyStylePath:"עוף לאורך נתיב",flyStyleRoute:"תכנן מסלולים",triggerDrawPoint:"שרטט נקודה",triggerDrawPath:"שרטט נתיב",triggerSelectFeature:"בחר ישות",triggerClear:"נקה שרטוט או בחירה",heading:"כותרת",plannedRoutesTip:"מסלולים"});

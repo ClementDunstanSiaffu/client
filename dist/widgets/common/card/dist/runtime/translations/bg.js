@@ -1,0 +1,1 @@
+define({_layout_REGULAR_label:"Редовен",_layout_HOVER_label:"Въртящ се с поставяне на мишката",applyTo:"Прилагане към {status}",isolate:"Изолиране",linkedToAnd:"Свързан към {where1} и {where2}",linkedTo:"Свързан към {where}",placeHolderTip:"Моля, изберете шаблон за картичка.",showSelected:"Показване на избора",_widgetLabel:"Карта"});

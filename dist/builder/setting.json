@@ -1,0 +1,9 @@
+{
+  "devEnv": {
+    "prod": {
+      "portalUrl": "https://where-tech.maps.arcgis.com",
+      "clientId": "dgvVQKar6Ft3Dx84",
+      "isWebTier": false
+    }
+  }
+}
