@@ -4,14 +4,18 @@ import Sketch from "@arcgis/core/widgets/Sketch";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
+import DisplayGeometry from '../components/display_geometry';
 
 export default class DrawingWidget extends React.PureComponent<AllWidgetProps<any>&{stateValue:any},any>{
     
     graphicsLayer=null
 
+
+
     constructor(props:AllWidgetProps<any>&{stateValue:any}){
         super(props)
         this.props.dispatch(appActions.widgetStatePropChange(this.props.id,"drawWigetVisibility",true))
+        this.state = {displayGeomtry:false,paths:[]}
     }
 
     static mapExtraStateProps(state:IMState){
@@ -51,6 +55,10 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
     openAnotherWidget = (paths:number[])=>{
         this.props.dispatch(appActions.widgetStatePropChange("id","paths",paths));
         this.props.dispatch(appActions.widgetStatePropChange("id","displayGeomtry",true));
+        this.setState({
+            paths:paths,
+            displayGeomtry:true
+        })
     }
 
     componentDidMount(): void {
@@ -72,8 +80,10 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
                 </div>
                 
             )
+        }else{
+            return <DisplayGeometry  paths = {this.state.paths} displayGeomtry ={this.state.displayGeomtry} parent = {this}/>
         }
-        return null;
+        
   
     }
 }
