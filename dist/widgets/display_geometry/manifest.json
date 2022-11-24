@@ -1,0 +1,30 @@
+{
+  "name": "display_geometry",
+  "type": "widget",
+  "dependency": "jimu-arcgis",
+  "version": "1.9.0",
+  "exbVersion": "1.9.0",
+  "author": "Clement Dunstan Siaffu",
+  "description": "This show the out put of the geometry drawn",
+  "copyright": "",
+  "license": "",
+  "messageActions": [
+    {
+      "name": "query",
+      "label": "query",
+      "uri": "actions/query-action",
+      "settingUri": "actions/query-action-setting"
+    }
+  ],
+  "properties": {
+    "hasConfig": false,
+    "hasSettingPage": false
+  },
+  "translatedLocales": [
+    "en"
+  ],
+  "defaultSize": {
+    "width": 1920,
+    "height": 1080
+  }
+}

@@ -6392,9 +6392,9 @@
     "manifest": {
       "name": "add-layers-to-a-map",
       "type": "widget",
-      "version": "1.8.0",
+      "version": "1.9.0",
       "dependency": "jimu-arcgis",
-      "exbVersion": "1.8.0",
+      "exbVersion": "1.9.0",
       "author": "Clement Dunstan Siaffu",
       "description": "This is the starter widget",
       "copyright": "",
@@ -6416,20 +6416,28 @@
     "group": 7
   },
   {
-    "name": "drawing_widget",
+    "name": "display_geometry",
     "manifest": {
-      "name": "drawing_widget",
+      "name": "display_geometry",
       "type": "widget",
-      "version": "1.8.0",
       "dependency": "jimu-arcgis",
-      "exbVersion": "1.8.0",
+      "version": "1.9.0",
+      "exbVersion": "1.9.0",
       "author": "Clement Dunstan Siaffu",
-      "description": "This is the starter widget",
+      "description": "This show the out put of the geometry drawn",
       "copyright": "",
       "license": "",
+      "messageActions": [
+        {
+          "name": "query",
+          "label": "query",
+          "uri": "actions/query-action",
+          "settingUri": "actions/query-action-setting"
+        }
+      ],
       "properties": {
-        "hasSettingPage": false,
-        "hasConfig": false
+        "hasConfig": false,
+        "hasSettingPage": false
       },
       "translatedLocales": [
         "en"
@@ -6438,6 +6446,37 @@
         "width": 1920,
         "height": 1080
       }
+    },
+    "i18nLabel": {},
+    "i18nDescription": {},
+    "uri": "widgets/display_geometry/",
+    "icon": "widgets/display_geometry/icon.png",
+    "order": 700,
+    "group": 7
+  },
+  {
+    "name": "drawing_widget",
+    "manifest": {
+      "name": "drawing_widget",
+      "type": "widget",
+      "version": "1.9.0",
+      "dependency": "jimu-arcgis",
+      "exbVersion": "1.9.0",
+      "author": "Clement Dunstan Siaffu",
+      "description": "This is the starter widget",
+      "copyright": "",
+      "license": "",
+      "properties": {},
+      "translatedLocales": [
+        "en"
+      ],
+      "defaultSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "publishMessages": [
+        "DATA_RECORDS_SELECTION_CHANGE"
+      ]
     },
     "i18nLabel": {},
     "i18nDescription": {},
@@ -6451,9 +6490,9 @@
     "manifest": {
       "name": "get-map-coordinates",
       "type": "widget",
-      "version": "1.8.0",
+      "version": "1.9.0",
       "dependency": "jimu-arcgis",
-      "exbVersion": "1.8.0",
+      "exbVersion": "1.9.0",
       "author": "Clement Dunstan Siaffu",
       "description": "This is the starter widget",
       "copyright": "",

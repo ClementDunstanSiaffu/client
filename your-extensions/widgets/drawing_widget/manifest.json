@@ -1,11 +1,10 @@
 
-
  {
     "name": "drawing_widget",
     "type": "widget",
-    "version": "1.8.0",
+    "version": "1.9.0",
     "dependency": "jimu-arcgis",
-    "exbVersion": "1.8.0",
+    "exbVersion": "1.9.0",
     "author": "Clement Dunstan Siaffu",
     "description": "This is the starter widget",
     "copyright": "",
@@ -17,5 +16,9 @@
     "defaultSize": {
       "width":1920,
       "height":1080
-    }
+    },
+    "publishMessages": [
+      "DATA_RECORDS_SELECTION_CHANGE"
+    ]
+    
   }

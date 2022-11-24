@@ -1,15 +1,22 @@
 
-import {React,jsx,AllWidgetProps, WidgetManager} from 'jimu-core'
-import { JimuMapViewComponent,JimuMapView } from 'jimu-arcgis'
+import {React,jsx,AllWidgetProps,appActions, IMState} from 'jimu-core'
 import Sketch from "@arcgis/core/widgets/Sketch";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import MapView from "@arcgis/core/views/MapView";
 import Map from "@arcgis/core/Map";
 
-export default class DrawingWidget extends React.PureComponent<AllWidgetProps<any>,any>{
+export default class DrawingWidget extends React.PureComponent<AllWidgetProps<any>&{stateValue:any},any>{
     
-    sketch = null;
     graphicsLayer=null
+
+    constructor(props:AllWidgetProps<any>&{stateValue:any}){
+        super(props)
+        this.props.dispatch(appActions.widgetStatePropChange(this.props.id,"drawWigetVisibility",true))
+    }
+
+    static mapExtraStateProps(state:IMState){
+        return {stateValue:state.widgetsState};
+    }
 
     _init(){
         this.graphicsLayer = new GraphicsLayer();
@@ -35,18 +42,15 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
             view.ui.add(sketch,"top-right");
             sketch.on("create",(evt)=>{
                 if(evt.state === "complete"){
-                    console.log("sketch is complete",evt.graphic.geometry?.paths);
-                    this.openAnotherWidget()
+                    this.openAnotherWidget(evt.graphic.geometry?.paths)
                 }
             })
         })
     }
 
-    openAnotherWidget = ()=>{
-        const wm = WidgetManager.getInstance();
-        const myWidget = wm.getWidgetClass('Widget');
-        console.log(myWidget);
-        wm.openWidget("get-map-coordinates");
+    openAnotherWidget = (paths:number[])=>{
+        this.props.dispatch(appActions.widgetStatePropChange("id","paths",paths));
+        this.props.dispatch(appActions.widgetStatePropChange("id","displayGeomtry",true));
     }
 
     componentDidMount(): void {
@@ -54,17 +58,22 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
     }
 
     render(): React.ReactNode {
-        return (
-            <div 
-                id = "display_map" 
-                style = {{   
-                    padding: 0,
-                    margin:0,
-                    height:900,
-                    width: "100%"
-                }}
-            >
-            </div>
-        )
+        if (!this.props.stateValue?.["id"]?.displayGeomtry){
+            return (
+                <div 
+                    id = "display_map" 
+                    style = {{   
+                        padding: 0,
+                        margin:0,
+                        height:900,
+                        width: "100%"
+                    }}
+                >
+                </div>
+                
+            )
+        }
+        return null;
+  
     }
 }

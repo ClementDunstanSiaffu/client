@@ -10,6 +10,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<IMConfig>
   }
 
   render () {
+    console.log(this.props.useDataSources,"check data source from drawing")
     return (
       <div className="widget-demo jimu-widget m-2">
         <p>Simple Widget</p>
