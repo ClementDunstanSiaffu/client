@@ -45,15 +45,16 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
             })
             view.ui.add(sketch,"top-right");
             sketch.on("create",(evt)=>{
+                this.props.dispatch(appActions.widgetStatePropChange("id","paths",evt.graphic.geometry?.paths[0]));
                 if(evt.state === "complete"){
-                    this.openAnotherWidget(evt.graphic.geometry?.paths)
+                    // this.openAnotherWidget(evt.graphic.geometry?.paths)
                 }
             })
         })
     }
 
     openAnotherWidget = (paths:number[])=>{
-        this.props.dispatch(appActions.widgetStatePropChange("id","paths",paths));
+        this.props.dispatch(appActions.widgetStatePropChange("id","paths",paths[0]));
         this.props.dispatch(appActions.widgetStatePropChange("id","displayGeomtry",true));
         this.setState({
             paths:paths,
@@ -81,7 +82,7 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
                 
             )
         }else{
-            return <DisplayGeometry  paths = {this.state.paths} displayGeomtry ={this.state.displayGeomtry} parent = {this}/>
+            return <DisplayGeometry  paths = {this.state.paths[0]} displayGeomtry ={this.state.displayGeomtry} parent = {this}/>
         }
         
   
