@@ -8,7 +8,8 @@ import DisplayGeometry from '../components/display_geometry';
 
 export default class DrawingWidget extends React.PureComponent<AllWidgetProps<any>&{stateValue:any},any>{
     
-    graphicsLayer=null
+    graphicsLayer=null;
+    timer = null;
 
     constructor(props:AllWidgetProps<any>&{stateValue:any}){
         super(props)
@@ -18,6 +19,15 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
 
     static mapExtraStateProps(state:IMState){
         return {stateValue:state.widgetsState};
+    }
+
+    autoOpenComponent(paths:number[]){
+        if (this.timer){
+            clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(()=>{
+            this.openAnotherWidget(paths)
+        },10000)
     }
 
     _init(){
@@ -45,15 +55,19 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
 
             sketch.on("create",(evt)=>{
                 this.props.dispatch(appActions.widgetStatePropChange("id","paths",evt.graphic.geometry?.paths[0]));
-                if(evt.state === "complete"){
-                    this.openAnotherWidget(evt.graphic.geometry?.paths)
-                }
+                this.autoOpenComponent(evt.graphic.geometry?.paths)
+                // if(evt.state === "complete"){
+                //     this.openAnotherWidget(evt.graphic.geometry?.paths)
+                // }
             })
 
             sketch.on("update",(evt)=>{
                 if (evt.state==="start"){
                     const deleteGraphics = ()=>{
-                        sketch.delete()
+                        sketch.delete();
+                        clearTimeout(this.timer)
+                        this.setState({path:[[0,0]],displayGeomtry:false})
+                        this.props.dispatch(appActions.widgetStatePropChange("id","displayGeomtry",false));
                     }
                     this.props.dispatch(appActions.widgetStatePropChange("id","deleteGraphics",deleteGraphics));
                 }
@@ -72,6 +86,10 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
 
     componentDidMount(): void {
         this._init();
+    }
+
+    componentWillUnmount(): void {
+        clearTimeout(this.timer);
     }
 
     render(): React.ReactNode {
