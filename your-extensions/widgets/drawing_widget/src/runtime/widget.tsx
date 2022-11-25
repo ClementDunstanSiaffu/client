@@ -10,8 +10,6 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
     
     graphicsLayer=null
 
-
-
     constructor(props:AllWidgetProps<any>&{stateValue:any}){
         super(props)
         this.props.dispatch(appActions.widgetStatePropChange(this.props.id,"drawWigetVisibility",true))
@@ -44,10 +42,20 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
                 creationMode:"update"
             })
             view.ui.add(sketch,"top-right");
+
             sketch.on("create",(evt)=>{
                 this.props.dispatch(appActions.widgetStatePropChange("id","paths",evt.graphic.geometry?.paths[0]));
                 if(evt.state === "complete"){
                     this.openAnotherWidget(evt.graphic.geometry?.paths)
+                }
+            })
+
+            sketch.on("update",(evt)=>{
+                if (evt.state==="start"){
+                    const deleteGraphics = ()=>{
+                        sketch.delete()
+                    }
+                    this.props.dispatch(appActions.widgetStatePropChange("id","deleteGraphics",deleteGraphics));
                 }
             })
         })
