@@ -13,7 +13,7 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
     constructor(props:AllWidgetProps<any>&{stateValue:any}){
         super(props)
         this.props.dispatch(appActions.widgetStatePropChange(this.props.id,"drawWigetVisibility",true))
-        this.state = {displayGeomtry:false,paths:[]}
+        this.state = {displayGeomtry:false,paths:[[0,0]]}
     }
 
     static mapExtraStateProps(state:IMState){

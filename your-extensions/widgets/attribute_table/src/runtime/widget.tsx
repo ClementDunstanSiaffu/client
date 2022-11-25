@@ -1,5 +1,5 @@
 
-import {React,jsx,AllWidgetProps, IMState} from 'jimu-core';
+import {React,jsx,AllWidgetProps, IMState,appActions} from 'jimu-core';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Table,Button} from  'reactstrap'
 
@@ -13,6 +13,7 @@ export default class AttributeTable extends React.PureComponent<AllWidgetProps<a
     deleteGraphics = ()=>{
       if (this.props.stateValue["id"]?.deleteGraphics){
         this.props.stateValue["id"]?.deleteGraphics();
+        this.props.dispatch(appActions.widgetStatePropChange("id","paths",[[0,0]]));
       }
     }
 
