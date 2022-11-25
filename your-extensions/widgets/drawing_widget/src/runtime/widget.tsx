@@ -47,7 +47,7 @@ export default class DrawingWidget extends React.PureComponent<AllWidgetProps<an
             sketch.on("create",(evt)=>{
                 this.props.dispatch(appActions.widgetStatePropChange("id","paths",evt.graphic.geometry?.paths[0]));
                 if(evt.state === "complete"){
-                    // this.openAnotherWidget(evt.graphic.geometry?.paths)
+                    this.openAnotherWidget(evt.graphic.geometry?.paths)
                 }
             })
         })
