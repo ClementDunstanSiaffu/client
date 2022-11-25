@@ -14,13 +14,13 @@ export default class DisplayGeometry extends React.PureComponent<{paths:number[]
             return (
                 <div style={{width:"100%",height:"100%",position:"absolute",top:0,bottom:0}}>
                     <div style = {{marginLeft:"auto",marginRight:"auto"}}>
-                        <div style = {{fontSize:20,color:"grey"}}>Path coordinates</div>
+                        <div style = {{fontSize:20,color:"grey"}}>Path coordinates (x,y)</div>
                         {
                             this.props.paths?.length > 0 ?
                             this.props.paths.map((path)=>{
                                 return (
                                     <div style = {{marginTop:20,marginLeft:20}}>
-                                        {path}
+                                        ({path[0]+","+path[1] })
                                     </div>
                                 )
                             }):null
