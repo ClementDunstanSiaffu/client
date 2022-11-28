@@ -6450,6 +6450,40 @@
     "group": 7
   },
   {
+    "name": "creative_widget",
+    "manifest": {
+      "name": "creative_widget",
+      "type": "widget",
+      "version": "1.9.0",
+      "dependency": "jimu-arcgis",
+      "exbVersion": "1.9.0",
+      "author": "Clement Dunstan Siaffu",
+      "description": "This is the starter widget",
+      "copyright": "",
+      "license": "",
+      "properties": {
+        "hasSettingPage": false,
+        "hasConfig": false
+      },
+      "translatedLocales": [
+        "en"
+      ],
+      "defaultSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "publishMessages": [
+        "DATA_RECORDS_SELECTION_CHANGE"
+      ]
+    },
+    "i18nLabel": {},
+    "i18nDescription": {},
+    "uri": "widgets/creative_widget/",
+    "icon": "widgets/creative_widget/icon.png",
+    "order": 700,
+    "group": 7
+  },
+  {
     "name": "display_geometry",
     "manifest": {
       "name": "display_geometry",
