@@ -624,5 +624,12 @@
       "zh-tw": null
     },
     "order": 4
+  },
+  {
+    "name": "demo-theme",
+    "label": "Demo Theme",
+    "uri": "themes/demo-theme/",
+    "i18nLabel": {},
+    "i18nDescription": {}
   }
 ]

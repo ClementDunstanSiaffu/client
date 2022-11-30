@@ -1,0 +1,10 @@
+
+{
+  "colors": {
+      "primary":"#FF0000"
+  },
+  "typography": {
+      "fontFamilyBase": "Impact, Arial",
+      "fontSizeBase": "1rem"
+    }
+}

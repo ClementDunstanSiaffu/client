@@ -1,0 +1,12 @@
+{
+  "darkTheme":false,
+  "coloration":"red",
+  "colors": {
+    "primary":"red",
+    "secondary":"red"
+  },
+  "typography": {
+    "fontFamilyBase": "Open Sans",
+    "fontSizeBase": "1rem"
+  }
+}

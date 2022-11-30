@@ -1,0 +1,19 @@
+{
+  "name": "override_theme",
+  "label": "OverrideTheme",
+  "type": "theme",
+  "thumbnails ": [],
+  "version": "1.9.0",
+  "exbVersion": "1.9.0",
+  "author": "Clement Dunstan Siaffu",
+  "description": "This is a demo theme containing all customizable theme variables.",
+  "copyright": "",
+  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "translatedLocales": [
+    "en"
+  ],
+  "styleFiles": {
+    "css": false,
+    "js": false
+  }
+}

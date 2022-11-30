@@ -1,13 +1,13 @@
 
-import {React,jsx,AllWidgetProps} from 'jimu-core'
+import {React,jsx,AllWidgetProps,appActions,IMState} from 'jimu-core'
 // import '../assets/images/favicon.ico';
 import '../assets/css/vendor.css';
 // import '../assets/css/core.css';
 import '../assets/css/main_css.css'
 import '../assets/css/icons.min.css';
 import '../assets/css/vendor/jquery-jvectormap-1.2.2.css';
-import '../assets/css/app-creative-dark.min.css';
-import '../assets/css/app-creative.min.css';
+// import '../assets/css/app-creative-dark.min.css';
+// import '../assets/css/app-creative.min.css';
 const darrImage = require('../assets/images/logo-light.png')
 const usImage = require('../assets/images/flags/us.jpg')
 const germanyFlag = require('../assets/images/flags/germany.jpg')
@@ -24,10 +24,48 @@ const bitbucketImage = require('../assets/images/brands/bitbucket.png')
 const dropboxImage = require("../assets/images/brands/dropbox.png")
 const gsuiteImage = require('../assets/images/brands/g-suite.png')
 
+import { Button } from 'jimu-ui';
 
-export default class CreativeWidget extends React.PureComponent<AllWidgetProps<any>,any>{
+type stateValueType = {
+    stateValue:any
+}
+
+export default class CreativeWidget extends React.PureComponent<AllWidgetProps<any>&stateValueType,any>{
+
+
+    constructor (props:AllWidgetProps<any>&stateValueType){
+        super(props);
+        let currentScheme = localStorage.getItem("colorSCheme");
+        currentScheme = currentScheme ?? "light";
+        this.state = {colorScheme:"dark"}
+    }
+
+    static mapExtraStateProps(state:IMState){
+        return {stateValue:state.widgetsState}
+    }
+
+    changeScheme = ()=>{
+        const currentScheme = localStorage.getItem("colorSCheme");
+        let selectedScheme = "dark";
+        if (currentScheme){
+            selectedScheme = currentScheme === "dark" ? "light":"dark";
+        }
+        localStorage.setItem("colorSCheme",selectedScheme)
+        window.location.reload();
+    }
+
 
     render(): React.ReactNode {
+
+        let lightComp = null;
+        let darkComp = null;
+
+        let currentScheme = localStorage.getItem("colorSCheme");
+        if (currentScheme === "dark"){
+            lightComp = require('../components/themesComponents/darkTheme')
+        }else{
+            darkComp = require('../components/themesComponents/lightTheme');
+        }  
         return(
             <div className="loading" data-layout="topnav" data-layout-config='{"layoutBoxed":false,"darkMode":false,"showRightSidebarOnStart": true}'>
               <div className = "wrapper">
@@ -43,6 +81,7 @@ export default class CreativeWidget extends React.PureComponent<AllWidgetProps<a
                                         <img src="assets/images/logo_sm_dark.png" alt="" height="16" />
                                     </span>
                                 </a>
+                           
 
                                 <ul className="list-unstyled topbar-menu float-end mb-0">
                                     
@@ -56,6 +95,10 @@ export default class CreativeWidget extends React.PureComponent<AllWidgetProps<a
                                             </form>
                                         </div>
                                     </li>
+
+                                    <Button type = "primary" onClick={this.changeScheme}>
+                                        <div>Change scheme</div>
+                                    </Button>
 
                                     <li className="dropdown notification-list topbar-dropdown d-none d-lg-block">
                                         <a className="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" id="topbar-languagedrop" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -145,6 +188,8 @@ export default class CreativeWidget extends React.PureComponent<AllWidgetProps<a
                                                         <small>Wow ! this admin looks good and awesome design</small>
                                                     </p>
                                                 </a>
+
+                                               
 
                                                 <a href="javascript:void(0);" className ="dropdown-item notify-item">
                                                     <div className ="notify-icon bg-info">
@@ -1167,6 +1212,7 @@ export default class CreativeWidget extends React.PureComponent<AllWidgetProps<a
         </div>
         </div>
     </div>
+
 )
     }
 }

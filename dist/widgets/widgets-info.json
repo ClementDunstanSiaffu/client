@@ -6610,5 +6610,35 @@
     "icon": "widgets/simple/icon.svg",
     "order": 700,
     "group": 7
+  },
+  {
+    "name": "use_theme_ui",
+    "manifest": {
+      "name": "use_theme_ui",
+      "type": "widget",
+      "version": "1.9.0",
+      "exbVersion": "1.9.0",
+      "author": "Clement Dunstan Siaffu",
+      "description": "This use overriden theme",
+      "copyright": "",
+      "license": "http://www.apache.org/licenses/LICENSE-2.0",
+      "properties": {
+        "hasSettingPage": false,
+        "hasConfig": false
+      },
+      "translatedLocales": [
+        "en"
+      ],
+      "defaultSize": {
+        "width": 800,
+        "height": 500
+      }
+    },
+    "i18nLabel": {},
+    "i18nDescription": {},
+    "uri": "widgets/use_theme_ui/",
+    "icon": "widgets/use_theme_ui/icon.png",
+    "order": 700,
+    "group": 7
   }
 ]
