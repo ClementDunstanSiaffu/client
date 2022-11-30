@@ -32,18 +32,6 @@ type stateValueType = {
 
 export default class CreativeWidget extends React.PureComponent<AllWidgetProps<any>&stateValueType,any>{
 
-
-    constructor (props:AllWidgetProps<any>&stateValueType){
-        super(props);
-        let currentScheme = localStorage.getItem("colorSCheme");
-        currentScheme = currentScheme ?? "light";
-        this.state = {colorScheme:"dark"}
-    }
-
-    static mapExtraStateProps(state:IMState){
-        return {stateValue:state.widgetsState}
-    }
-
     changeScheme = ()=>{
         const currentScheme = localStorage.getItem("colorSCheme");
         let selectedScheme = "dark";
