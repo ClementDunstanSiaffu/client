@@ -45,15 +45,15 @@ export default class CreativeWidget extends React.PureComponent<AllWidgetProps<a
 
     render(): React.ReactNode {
 
-        let lightComp = null;
-        let darkComp = null;
+        // let lightComp = null;
+        // let darkComp = null;
 
-        let currentScheme = localStorage.getItem("colorSCheme");
-        if (currentScheme === "dark"){
-            lightComp = require('../components/themesComponents/darkTheme')
-        }else{
-            darkComp = require('../components/themesComponents/lightTheme');
-        }  
+        // let currentScheme = localStorage.getItem("colorSCheme");
+        // if (currentScheme === "dark"){
+        //     lightComp = require('../components/themesComponents/darkTheme')
+        // }else{
+        //     darkComp = require('../components/themesComponents/lightTheme');
+        // }  
         return(
             <div className="loading" data-layout="topnav" data-layout-config='{"layoutBoxed":false,"darkMode":false,"showRightSidebarOnStart": true}'>
               <div className = "wrapper">
