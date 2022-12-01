@@ -626,9 +626,23 @@
     "order": 4
   },
   {
+    "name": "dark_theme",
+    "label": "Dark Theme",
+    "uri": "themes/dark_theme/",
+    "i18nLabel": {},
+    "i18nDescription": {}
+  },
+  {
     "name": "demo-theme",
     "label": "Demo Theme",
     "uri": "themes/demo-theme/",
+    "i18nLabel": {},
+    "i18nDescription": {}
+  },
+  {
+    "name": "light_theme",
+    "label": "Light Theme",
+    "uri": "themes/light_theme/",
     "i18nLabel": {},
     "i18nDescription": {}
   }
