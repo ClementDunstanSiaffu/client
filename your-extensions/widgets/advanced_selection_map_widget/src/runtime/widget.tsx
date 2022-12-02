@@ -1,13 +1,25 @@
 
-import {React,jsx,AllWidgetProps,appActions, DataSourceManager} from 'jimu-core'
+import {React,jsx,AllWidgetProps,appActions,IMState} from 'jimu-core'
 import { JimuMapViewComponent,JimuMapView } from 'jimu-arcgis';
 import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
-import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
+import GraphicsLayer from 'esri/layers/GraphicsLayer';
+import MapView from "@arcgis/core/views/MapView";
 
 
-export default class MapViewWidget extends React.PureComponent<AllWidgetProps<any>,any>{
+type stateValueType = {
+    stateValue:any
+}
 
-    state = {layers:[]};
+const  sketchLayer = new GraphicsLayer({ id: 'export-map', listMode: 'hide', visible: true })
+
+export default class MapViewWidget extends React.PureComponent<AllWidgetProps<any>&stateValueType,any>{
+
+    static mapExtraStateProps(state:IMState){
+        return {stateValue:state.widgetsState};
+    }
+
+    state = {layers:[],activView:null};
+    sketch = null;
 
     getMapLayers = (activeView:JimuMapView)=>{
         let lastView = null;
@@ -22,54 +34,44 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
                                     return newLayerArray;
                                 },[])
         this.props.dispatch(appActions.widgetStatePropChange("value","layers",newLayersArray));
-        const  sketchLayer = new GraphicsLayer()
+  
+
+        this.setState({activeView:activeView});
+        let view = activeView?.view;
         const sketchViewlModel = new SketchViewModel({
             layer:sketchLayer,
-            view:lastView,
-            pointSymbol: {
-                type: "simple-marker",
-                style: "circle",
-                size: 10,
-                color: [255, 255, 255, 0.8],
-                outline: {
-                  color: [211, 132, 80, 0.7],
-                }
-            },
-            polylineSymbol: {
-                type: "simple-line",
-                color: [211, 132, 80, 0.7],
-                width: 6
-            },
-            polygonSymbol: {
-                type: "polygon-3d",
-                symbolLayers: [
-                  {
-                    type: "fill",
-                    material: {
-                      color: [255, 255, 255, 0.8]
-                    },
-                    outline: {
-                      color: [211, 132, 80, 0.7],
-                      size: "10px"
-                    }
-                  }
-                ]
-            },
-            defaultCreateOptions: { hasZ: false }
+            view:view
         })
-        sketchViewlModel.on("create", (event) => {
-            console.log("is it called")
-            if (event.state === "complete") {
+        this.sketch = sketchViewlModel;
+        // sketchViewlModel.on("create", (event) => {
+        //     console.log("is it called")
+        //     if (event.state === "complete") {
               
-            }
-        });
+        //     }
+        // });
 
-        const startSketching = (geometryType:any)=>{
-            console.log(sketchViewlModel,geometryType,"check geometry type")
-            sketchViewlModel.create(geometryType)
-        }
-        this.props.dispatch(appActions.widgetStatePropChange("value","sketch",startSketching))
+        // const startSketching = (geometryType:any)=>{
+        //     console.log(sketchViewlModel,geometryType,"check geometry type")
+        //     sketchViewlModel.create(geometryType)
+        // }
+        // this.props.dispatch(appActions.widgetStatePropChange("value","sketch",startSketching))
     }
+
+    componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any): void {
+        console.log("is called")
+        if (this.props?.stateValue["value"]?.sketch && this.props.stateValue["value"]?.geometryType){
+            if (this.sketch){
+                this.sketch.create('point');
+                if (this.state.activView){
+                    this.state.activView.view.add(sketchLayer)
+                    this.sketch.on("create", (event) => {
+                        console.log(event,"check event")
+                    });
+                }
+            }
+        }
+    }
+
 
     render(): React.ReactNode {
         return(
