@@ -161,7 +161,7 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,any
             </Container>
             <Container height={450} width = {"100%"} overflow = "auto"  style = {{paddingTop:20,paddingBottom:20,marginLeft:"auto",marginRight:"auto"}}>
                     {
-                        this.props.layers.map((layer,k)=>{
+                        this.props.layers?.map((layer,k)=>{
                             const isItemSelected = this.isSelected(layer?.layerName);
                             return(
                                 <div key = {`${k}`+layer?.layerName} className = "layer-content-container">
