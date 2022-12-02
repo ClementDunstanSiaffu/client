@@ -26,6 +26,8 @@
     "@esri/arcgis-rest-types": "^3.4.3",
     "@esri/calcite-components": "^1.0.0-beta.80",
     "@esri/calcite-components-react": "^0.21.0",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/material": "^5.10.16",
     "@popperjs/core": "^2.11.4",
     "@react-spring/web": "^9.4.4",
     "@testing-library/user-event": "^14.0.4",
