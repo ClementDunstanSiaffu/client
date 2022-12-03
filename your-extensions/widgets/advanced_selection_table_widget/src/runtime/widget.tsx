@@ -1,7 +1,6 @@
 
 import {React,jsx,AllWidgetProps,IMState, appActions} from 'jimu-core';
 import LayersTable from '../component/layer_table';
-import Sketch from "@arcgis/core/widgets/Sketch";
 
 type StateValueType = {
     stateValue:any
@@ -14,7 +13,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
 
     sketchGeometry = (geometryType:any)=>{
-        // this.props.stateValue["value"]?.sketch(geometryType);
         this.props.dispatch(appActions.widgetStatePropChange("value","sketch",true));
         this.props.dispatch(appActions.widgetStatePropChange("value","geometryType",geometryType));
     }
