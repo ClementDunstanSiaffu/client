@@ -1,7 +1,7 @@
 
 import {React,jsx,AllWidgetProps,appActions,IMState} from 'jimu-core'
 import { JimuMapViewComponent,JimuMapView } from 'jimu-arcgis';
-import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
+import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import MapView from "@arcgis/core/views/MapView";
 
@@ -10,7 +10,7 @@ type stateValueType = {
     stateValue:any
 }
 
-const  sketchLayer = new GraphicsLayer({ id: 'export-map', listMode: 'hide', visible: true })
+const  sketchLayer = new GraphicsLayer()
 
 export default class MapViewWidget extends React.PureComponent<AllWidgetProps<any>&stateValueType,any>{
 
@@ -18,8 +18,9 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         return {stateValue:state.widgetsState};
     }
 
-    state = {layers:[],activView:null};
+    state = {layers:[],activeView:null};
     sketch = null;
+
 
     getMapLayers = (activeView:JimuMapView)=>{
         let lastView = null;
@@ -58,12 +59,11 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
     }
 
     componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any): void {
-        console.log("is called")
         if (this.props?.stateValue["value"]?.sketch && this.props.stateValue["value"]?.geometryType){
             if (this.sketch){
-                this.sketch.create('point');
-                if (this.state.activView){
-                    this.state.activView.view.add(sketchLayer)
+                this.sketch.create(this.props.stateValue["value"]?.geometryType);
+                if (this.state.activeView){
+                    this.state.activeView.view.map.add(sketchLayer);
                     this.sketch.on("create", (event) => {
                         console.log(event,"check event")
                     });

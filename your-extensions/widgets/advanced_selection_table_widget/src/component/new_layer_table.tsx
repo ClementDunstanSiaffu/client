@@ -3,7 +3,7 @@ import {React,jsx,AllWidgetProps} from 'jimu-core'
 import styled from '@emotion/styled';
 import Checkbox from '@mui/material/Checkbox';
 import '../assets/style.scss'
-import SelectGeometry from './dropdown';
+import SelectGeometry from './select_geometry';
 
 
 type StylesType = {
