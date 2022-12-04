@@ -18,7 +18,8 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
 
     render(): React.ReactNode {
-        const layers = this.props.stateValue?.value?.layers
-        return <LayersTable layers={layers} sketchGeometry = {this.sketchGeometry}/>;
+        const layers = this.props.stateValue?.value?.layers;
+        const layersContents = this.props.stateValue?.value?.layerContents
+        return <LayersTable layers={layers} sketchGeometry = {this.sketchGeometry} layersContents = {layersContents}/>;
     }
 }

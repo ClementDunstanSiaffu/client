@@ -7,34 +7,10 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import SelectGeometry from './select_geometry';
 import '../assets/style.scss'
-import styled from '@emotion/styled';
-
-type StylesType = {
-    height?:number|string,
-    width?:number|string,
-    borderWidth?:number,
-    borderColor?:string,
-    borderStyle?:string,
-    borderBottomWidth?:number,
-    borderBottomColor?:string,
-    backgroundColor?:string,
-    borderRadius?:number,
-    overflow?:string
-}
-
-const Container = styled.div((props:StylesType)=>({
-    width:props?.width??150,
-    height:props.height??"auto",
-    borderWidth:props.borderWidth??0,
-    borderColor:"lightgrey",
-    borderStyle:"solid",
-    borderBottomWidth:props.borderBottomWidth??0,
-    borderBottomColor:props.borderBottomColor??"transparent",
-    backgroundColor:props.backgroundColor??"white",
-    borderRadius:props.borderRadius??0,
-    overflow:props.overflow??"hidden",
-}));
-
+import Container from '../assets/style'
+import LayersTable from './layer_table'
+import helper from '../helper/helper'
+import layerObject from '../interface/interface'
 
 interface EnhancedTableToolbarProps {numSelected: number,sketchGeometry:(geometryType:any)=>void}
 
@@ -61,32 +37,56 @@ class  EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProp
   
 }
 
-interface layerObject {layers:{[key:string]:any}}
 
-type layerContentType = {layers:layerObject[],sketchGeometry:(geometryType:any)=>void,component_type:string}
+
+type layerContentType = {
+    layers:layerObject[],
+    sketchGeometry:(geometryType:any)=>void,
+    component_type:string,
+    parent:LayersTable
+}
 
 export default class  LayerContents extends React.PureComponent<layerContentType,any>{
 
   state = {selected:[],rowsPerPage:5}
 
-  handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+  handleClick = (event: React.MouseEvent<unknown>, name: string,id:string) => {
+    const self = this.props?.parent;
     const selectedIndex = this.state.selected.indexOf(name);
     let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(this.state.selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(this.state.selected.slice(1));
-    } else if (selectedIndex === this.state.selected.length - 1) {
-      newSelected = newSelected.concat(this.state.selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        this.state.selected.slice(0, selectedIndex),
-        this.state.selected.slice(selectedIndex + 1),
-      );
+      newSelected = newSelected.concat(this.state.selected,name);
+    }else{
+        const returnedAttributes = helper.getLayerAttributes(id,self?.props?.layersContents);
+        console.log(returnedAttributes,self?.props?.layersContents,"check layer id")
+        if (returnedAttributes.length > 0 ){
+            this.goToAttributesContents(name,returnedAttributes)
+        }else{
+            if (selectedIndex === 0) {
+                newSelected = newSelected.concat(this.state.selected.slice(1));
+              } else if (selectedIndex === this.state.selected.length - 1) {
+                newSelected = newSelected.concat(this.state.selected.slice(0, -1));
+              } else if (selectedIndex > 0) {
+                newSelected = newSelected.concat(
+                  this.state.selected.slice(0, selectedIndex),
+                  this.state.selected.slice(selectedIndex + 1),
+                );
+              }
+        }
     }
     this.setState({selected:newSelected});
   };
+
+
+  goToAttributesContents = (layerTitle:string,returnedAttributes:any[])=>{
+    const self = this.props.parent;
+      self?.setState({
+        layerTitle:layerTitle,
+        selectedAttributes:returnedAttributes,
+        component_type:"ATTRIBUTE_CONTENTS"
+      });
+  }
 
   handleChangePage = (event: unknown, newPage: number) => {this.setState({page:newPage})};
 
@@ -114,14 +114,18 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                 </Container>
                 <Container height={450} width = {"100%"} overflow = "auto"  style = {{paddingTop:20,paddingBottom:20,marginLeft:"auto",marginRight:"auto"}}>
                   {
-                    this.props.layers?.map((layer,k)=>{
-                      const isItemSelected = this.isSelected(layer?.layerName);
+                    this.props.layers?.map((layer:layerObject,k)=>{
+                      const isItemSelected = this.isSelected(layer.layerName);
                       return(
                         <div key = {`${k}`+layer?.layerName} className = "layer-content-container">
                           <div className='check-box-container'>
-                            <Checkbox color="primary" checked={isItemSelected} onClick = {(e)=>this.handleClick(e,layer?.layerName)}/>
+                            <Checkbox 
+                                color="primary" 
+                                checked={isItemSelected} 
+                                onClick = {(e)=>this.handleClick(e,layer.layerName,layer.id)}
+                            />
                           </div>
-                          <div className='layer-name-container'>{layer?.layerName}</div>
+                          <div className='layer-name-container'>{layer.layerName}</div>
                         </div>
                       )
                     })
