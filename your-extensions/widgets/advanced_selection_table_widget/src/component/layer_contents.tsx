@@ -1,4 +1,3 @@
-
 import {React,jsx} from 'jimu-core';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -9,7 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import SelectGeometry from './select_geometry';
 import '../assets/style.scss'
 import styled from '@emotion/styled';
-import LayerContents from './layer_contents';
 
 type StylesType = {
     height?:number|string,
@@ -65,11 +63,11 @@ class  EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProp
 
 interface layerObject {layers:{[key:string]:any}}
 
-type TablePropsType = {layers:layerObject[],sketchGeometry:(geometryType:any)=>void}
+type layerContentType = {layers:layerObject[],sketchGeometry:(geometryType:any)=>void,component_type:string}
 
-export default class  LayersTable extends React.PureComponent<TablePropsType,any>{
+export default class  LayerContents extends React.PureComponent<layerContentType,any>{
 
-  state = {selected:[],rowsPerPage:5,component_type:"LAYERS_CONTENTS"}
+  state = {selected:[],rowsPerPage:5}
 
   handleClick = (event: React.MouseEvent<unknown>, name: string) => {
     const selectedIndex = this.state.selected.indexOf(name);
@@ -99,17 +97,41 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,any
   isSelected = (name: string) => this.state.selected.indexOf(name) !== -1;
 
   render(){
-    return (
-      <Box sx={{ width: '100%',height:600 }}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
-          <LayerContents 
-            layers={this.props.layers} 
-            sketchGeometry = {this.props.sketchGeometry} 
-            component_type = {this.state.component_type}
-          />
-        </Paper>
-      </Box>
-    )
+    if (this.props.component_type === "LAYERS_CONTENTS"){
+        return (
+            <>
+                <EnhancedTableToolbar numSelected={this.state.selected.length} sketchGeometry = {this.props.sketchGeometry}/>
+                <Container 
+                  height = {1} 
+                  width = "96%" 
+                  borderBottomColor='grey' 
+                  borderBottomWidth={1}
+                  style = {{marginLeft:"auto",marginRight:"auto"}}
+                >
+                </Container>
+                <Container width = "96%" style = {{marginLeft:"auto",marginRight:"auto",display:"flex",alignItems:'center'}}>
+                  <Container><div>Layers</div></Container>
+                </Container>
+                <Container height={450} width = {"100%"} overflow = "auto"  style = {{paddingTop:20,paddingBottom:20,marginLeft:"auto",marginRight:"auto"}}>
+                  {
+                    this.props.layers?.map((layer,k)=>{
+                      const isItemSelected = this.isSelected(layer?.layerName);
+                      return(
+                        <div key = {`${k}`+layer?.layerName} className = "layer-content-container">
+                          <div className='check-box-container'>
+                            <Checkbox color="primary" checked={isItemSelected} onClick = {(e)=>this.handleClick(e,layer?.layerName)}/>
+                          </div>
+                          <div className='layer-name-container'>{layer?.layerName}</div>
+                        </div>
+                      )
+                    })
+                  }
+                </Container>
+            </>
+        )
+    }
+    return null;
+    
   }
 }
 
