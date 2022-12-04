@@ -59,8 +59,8 @@ export default class  LayerContents extends React.PureComponent<layerContentType
       newSelected = newSelected.concat(this.state.selected,name);
     }else{
         const returnedAttributes = helper.getLayerAttributes(id,self?.props?.layersContents);
-        console.log(returnedAttributes,self?.props?.layersContents,"check layer id")
-        if (returnedAttributes.length > 0 ){
+        if (returnedAttributes?.length > 0 ){
+            newSelected = this.state.selected;
             this.goToAttributesContents(name,returnedAttributes)
         }else{
             if (selectedIndex === 0) {

@@ -14,16 +14,29 @@ type attributeContentsType = {
 
 export default class AttributesContents extends React.PureComponent<attributeContentsType,any>{
 
+    backToTableContents = ()=>{
+        const self = this.props.parent;
+        self?.setState({ component_type:"LAYERS_CONTENTS",selectedAttributes:[]})
+    }
+
     render(): React.ReactNode {
         if (this.props.component_type === "ATTRIBUTE_CONTENTS"){
             return(
                 <>
                     <Container  width="100%" style = {{paddingLeft:20}}>
                         <div className = "layer-content-container">
-                            <div className='check-box-container'>
+                            <div className='check-box-container' onClick={this.backToTableContents}>
                                 <ArrowBackIcon />
                             </div>
-                            <div className='layer-name-container'>
+                            <div 
+                                style={{
+                                    flex:1,
+                                    display:"flex",
+                                    justifyContent:"center",
+                                    fontWeight:"400",
+                                    fontSize:20
+                                }} 
+                            >
                                 {this.props.layerTitle}
                             </div>
                         </div>

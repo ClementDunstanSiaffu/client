@@ -6,14 +6,18 @@ type layerContentsObjectType = {
 
 class Helper {
 
-    getLayerAttributes = (selectedLayerId:string,layerContents:layerContentsObjectType[]):any=>{
-        const attributesObject = layerContents.find((layerContent:layerContentsObjectType)=>{
-            if (layerContent?.id === selectedLayerId){
-                return layerContent?.attributes;
-            }
-            
-        })
-        return attributesObject?.attributes;
+    getLayerAttributes = (selectedLayerId:string,layerContents:layerContentsObjectType[]):any[]=>{
+        let attributes = [];
+        if (layerContents?.length > 0){
+            const attributesObject = layerContents.find((layerContent:layerContentsObjectType)=>{
+                if (layerContent?.id === selectedLayerId){
+                    return layerContent?.attributes;
+                }
+            })
+            attributes = attributesObject?.attributes;
+        }
+    
+        return attributes;
     }
 }
 
