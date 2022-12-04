@@ -28,15 +28,7 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                             <div className='check-box-container' onClick={this.backToTableContents}>
                                 <ArrowBackIcon />
                             </div>
-                            <div 
-                                style={{
-                                    flex:1,
-                                    display:"flex",
-                                    justifyContent:"center",
-                                    fontWeight:"400",
-                                    fontSize:20
-                                }} 
-                            >
+                            <div className='layer-title'>
                                 {this.props.layerTitle}
                             </div>
                         </div>

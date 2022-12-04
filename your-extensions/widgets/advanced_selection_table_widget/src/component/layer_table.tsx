@@ -1,17 +1,10 @@
 
 import {React,jsx} from 'jimu-core';
-import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import SelectGeometry from './select_geometry';
 import '../assets/style.scss'
-import styled from '@emotion/styled';
 import LayerContents from './layer_contents';
 import AttributesContents from './attributes_contents'
-import helper from '../helper/helper';
 import layerObject from '../interface/interface'
 
 type TablePropsType = {

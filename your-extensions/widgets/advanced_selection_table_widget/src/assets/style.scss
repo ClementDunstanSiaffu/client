@@ -13,3 +13,29 @@
     flex: auto;
 }
 
+.layer-title{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    font-weight:400;
+    font-size:20px;
+}
+
+.centerize-contents{
+    margin:0 auto 0 auto;
+    &.display-row-contents{
+        display:flex;
+        align-items:center;
+    }
+    &.padding-contents{
+        padding-top:20px;
+        padding-bottom:20px;
+    }
+}
+
+.dropdown-toggle{
+    background-color:green;
+    width:180px;
+    color:white
+}
+

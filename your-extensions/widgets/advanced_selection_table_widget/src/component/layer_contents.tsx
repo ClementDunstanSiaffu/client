@@ -106,13 +106,13 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                   width = "96%" 
                   borderBottomColor='grey' 
                   borderBottomWidth={1}
-                  style = {{marginLeft:"auto",marginRight:"auto"}}
+                  className = "centerize-contents"
                 >
                 </Container>
-                <Container width = "96%" style = {{marginLeft:"auto",marginRight:"auto",display:"flex",alignItems:'center'}}>
+                <Container width = "96%" className='centerize-contents display-row-contents'>
                   <Container><div>Layers</div></Container>
                 </Container>
-                <Container height={450} width = {"100%"} overflow = "auto"  style = {{paddingTop:20,paddingBottom:20,marginLeft:"auto",marginRight:"auto"}}>
+                <Container height={450} width = {"100%"} overflow = "auto"  className='centerize-contents padding-contents'>
                   {
                     this.props.layers?.map((layer:layerObject,k)=>{
                       const isItemSelected = this.isSelected(layer.layerName);
@@ -135,7 +135,6 @@ export default class  LayerContents extends React.PureComponent<layerContentType
         )
     }
     return null;
-    
   }
 }
 
