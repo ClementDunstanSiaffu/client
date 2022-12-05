@@ -19,6 +19,14 @@ class Helper {
     
         return attributes;
     }
+
+    getAttributeKeyArray = (attributes:any):string[]=>{
+        let returnedKeys = [];
+        if (attributes && Object.keys(attributes).length > 0){
+            returnedKeys = Object.keys(attributes);
+        }
+        return returnedKeys;
+    }
 }
 
 export default new Helper();

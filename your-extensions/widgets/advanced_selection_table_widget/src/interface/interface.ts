@@ -7,5 +7,11 @@ interface layerObject  {
     id:string
 }
 
+export interface popupContentType {
+    title:string,
+    contents:any,
+}
+
 export default layerObject;
+
 

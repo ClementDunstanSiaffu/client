@@ -6,11 +6,14 @@ import '../assets/style.scss'
 import LayerContents from './layer_contents';
 import AttributesContents from './attributes_contents'
 import layerObject from '../interface/interface'
+import {popupContentType} from '../interface/interface'
+
 
 type TablePropsType = {
   layers:layerObject[],
   sketchGeometry:(geometryType:any)=>void,
-  layersContents:{id:string,attributes:any[]}[]
+  layersContents:{id:string,attributes:any[]}[],
+  openPopUp:(popcontents:popupContentType)=>void
 }
 
 type stateType = {

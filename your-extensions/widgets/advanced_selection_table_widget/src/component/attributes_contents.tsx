@@ -4,12 +4,17 @@ import Container from '../assets/style';
 import '../assets/style.scss';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LayersTable from './layer_table';
+import PopupTemplate from 'esri/PopupTemplate'
+import {popupContentType} from '../interface/interface'
+import helper from '../helper/helper';
+
 
 type attributeContentsType = {
     attributes:any[],
     layerTitle:string,
     component_type:string,
-    parent:LayersTable
+    parent:LayersTable,
+
 }
 
 export default class AttributesContents extends React.PureComponent<attributeContentsType,any>{
@@ -17,6 +22,23 @@ export default class AttributesContents extends React.PureComponent<attributeCon
     backToTableContents = ()=>{
         const self = this.props.parent;
         self?.setState({ component_type:"LAYERS_CONTENTS",selectedAttributes:[]})
+    }
+
+    openPopup = (attribute:any)=>{
+        const self = this.props.parent;
+        const title = this.props.layerTitle;
+        let contents = " ";
+        let openDivTag = "<div>"
+        const attributKeysArray = helper.getAttributeKeyArray(attribute);
+        attributKeysArray.map((attributeKey,k)=>{
+            openDivTag += 
+                `<div class = "attribute-container">
+                    <span class = "attribute-key">${attributeKey}<span> : <span class = "attribute-value">${attribute[attributeKey]}<span>
+                </div>`
+        })
+        contents = openDivTag + "</div>"
+        const popupContents = {title:title,contents:contents}
+        self?.props.openPopUp(popupContents)
     }
 
     render(): React.ReactNode {
@@ -36,7 +58,11 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                             {
                                 this.props.attributes.map((attribute,k)=>{
                                     return(
-                                        <div key = {k} className = "layer-content-container">
+                                        <div 
+                                            key = {k} 
+                                            className = "layer-content-container" 
+                                            onClick = {()=>this.openPopup(attribute)}
+                                        >
                                             <div className='check-box-container'>
                                                 <Container 
                                                     width={50} 

@@ -17,6 +17,12 @@ type StateType = {
 
 let  sketchLayer = new GraphicsLayer()
 
+let zoomOut = {
+    title:"Zoom Out",
+    id:"zoom-out",
+    class:"esri-icon-zoom-out-magnifying-glass"
+}
+
 export default class MapViewWidget extends React.PureComponent<AllWidgetProps<any>&stateValueType,StateType>{
 
     static mapExtraStateProps(state:IMState){
@@ -45,6 +51,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         let view = activeView?.view;
         const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
         this.sketch = sketchViewlModel;
+        view.popup.actions.push(zoomOut);
     }
 
     selectFeatureLayer = (geometry:any)=>{
@@ -53,24 +60,57 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
                 const selectedLayersContents = helper.getSelectedContentsLayer(results);
                 this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents))
             })
-            .catch((err)=>{console.log(err,"check err")})
+            .catch((err)=>{})
 
         }
     }
 
-    componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any): void {
-        if (this.props?.stateValue["value"]?.sketch && this.props.stateValue["value"]?.geometryType){
-            if (this.sketch){
-                this.sketch.create(this.props.stateValue["value"]?.geometryType);
-                if (this.state.activeView){
-                    this.state.activeView.view.map.add(sketchLayer);
-                    this.sketch.on("create", async(event) => {
-                        if (event?.state === "complete"){
-                            this.selectFeatureLayer(event?.graphic)
-                        }
-                    });
-                }
+    startSketching = ()=>{
+        if (this.sketch){
+            this.sketch.create(this.props.stateValue["value"]?.geometryType);
+            if (this.state.activeView){
+                this.state.activeView.view.map.add(sketchLayer);
+                this.sketch.on("create", async(event) => {
+                    if (event?.state === "complete"){
+                        this.selectFeatureLayer(event?.graphic);
+                        this.props.dispatch(appActions.widgetStatePropChange("value","sketch",false));
+                    }
+                });
             }
+        }
+    }
+
+    zoomOut() {
+        const view = this.state.activeView?.view;
+        view.goTo({center: view?.center,zoom: view?.zoom - 2});
+      }
+
+    openPopup = ()=>{
+        const popcontents =  this.props.stateValue.value.popupContents;
+        if (this.state.activeView?.view?.popup){
+            const popup = this.state.activeView.view.popup;
+            popup.title = popcontents?.title;
+            popup.content = popcontents?.contents;
+            try{
+                popup.open();
+            }
+            catch(err){
+
+            }
+            popup?.on("trigger-action",(event)=>{
+                if(event.action.id === "zoom-out"){
+                    this.zoomOut();
+                }
+            })
+        }
+    }
+
+    componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any): void {
+        if (this.props?.stateValue?.value?.sketch && this.props.stateValue?.value?.geometryType){
+            this.startSketching()
+        }
+        if (this.props?.stateValue?.value?.popup && this.props.stateValue?.value?.popupContents){
+            this.openPopup()
         }
     }
 
