@@ -85,6 +85,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
                 });
                 this.sketch.on("update",(event)=>{
                     this.sketch?.delete();
+                    this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",[]));
                 })
             }
         }
