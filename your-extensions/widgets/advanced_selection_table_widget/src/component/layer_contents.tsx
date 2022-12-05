@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import SelectGeometry from './select_geometry';
-import '../assets/style.scss'
-import Container from '../assets/style'
+import '../assets/css/style.scss'
+import Container from '../assets/css/style'
 import LayersTable from './layer_table'
 import helper from '../helper/helper'
 import layerObject from '../interface/interface'

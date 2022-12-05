@@ -1,7 +1,7 @@
 
 import {React,jsx} from 'jimu-core';
-import Container from '../assets/style';
-import '../assets/style.scss';
+import Container from '../assets/css/style';
+import '../assets/css/style.scss';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LayersTable from './layer_table';
 import PopupTemplate from 'esri/PopupTemplate'
