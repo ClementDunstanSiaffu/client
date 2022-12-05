@@ -52,6 +52,13 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
         this.sketch = sketchViewlModel;
         view.popup.actions.push(zoomOut);
+        view.popup.watch("visible",(visible)=>{
+            if(visible && !this.props?.stateValue?.value?.popup){
+                view.popup.visible = false;
+            }else{
+                this.props.dispatch(appActions.widgetStatePropChange("value","popup",false));
+            }
+        })
     }
 
     selectFeatureLayer = (geometry:any)=>{
@@ -92,6 +99,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         const popcontents =  this.props.stateValue.value.popupContents;
         if (this.state.activeView?.view?.popup){
             const popup = this.state.activeView.view.popup;
+            popup.visible = true;
             popup.title = popcontents?.title;
             popup.content = popcontents?.contents;
             try{
