@@ -60,7 +60,7 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                                     return(
                                         <div 
                                             key = {k} 
-                                            className = "layer-content-container" 
+                                            className = "attribute-contents-container" 
                                             onClick = {()=>this.openPopup(attribute)}
                                         >
                                             <div className='check-box-container'>
@@ -74,7 +74,7 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                                                 </Container>
                                             </div>
                                             <div className='layer-name-container'>
-                                                {this.props.layerTitle}:{k}
+                                                {this.props.layerTitle}:{attribute?.objectId??k}
                                             </div>
                                       </div>
                                     )

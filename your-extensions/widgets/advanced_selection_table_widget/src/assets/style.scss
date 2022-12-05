@@ -39,6 +39,24 @@
     color:white
 }
 
+.attribute-contents-container:nth-child(even){
+    background-color: rgb(237, 231, 231);
+    padding:10px 5px 10px 5px; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.attribute-contents-container:nth-child(odd){
+    background-color:rgb(218, 215, 215);
+    padding:10px 5px 10px 5px; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
 .attribute-container:nth-child(even){
     background-color: rgb(237, 231, 231);
     padding:10px;
