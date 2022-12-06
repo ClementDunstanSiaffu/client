@@ -64,7 +64,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
 
     selectFeatureLayer = (geometry:any)=>{
         if (this.state.activeView){
-            this.state.activeView?.selectFeaturesByGraphic(geometry,"intersects").then((results)=>{
+            this.state.activeView?.selectFeaturesByGraphic(geometry,"contains").then((results)=>{
                 const selectedLayersContents = helper.getSelectedContentsLayer(results);
                 this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents))
             })
@@ -83,7 +83,6 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
                         this.selectFeatureLayer(event?.graphic);
                         this.props.dispatch(appActions.widgetStatePropChange("value","sketch",false));
                         this.setState({geometry:event?.graphic?.geometry});
-                        console.log(event?.graphic?.geometry?.extent,"check geometry")
                     }
                 });
                 this.sketch.on("update",(event)=>{
