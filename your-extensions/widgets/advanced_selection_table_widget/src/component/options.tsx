@@ -6,10 +6,14 @@ import Container from '../assets/css/style';
 import '../assets/css/style.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import * as images from '../assets/images/'
+import helper from '../helper/helper';
 
 type PropsType = {
     parent:LayerContents,
-    anchorEl:EventTarget & HTMLButtonElement
+    anchorEl:EventTarget & HTMLButtonElement,
+    layerId:string,
+    layerContents:{id:string,attributes:any[]}[],
+    isSelected:boolean
 }
 
 const options = [
@@ -54,14 +58,21 @@ const options = [
 
 export default class  Options extends React.PureComponent<PropsType,any> {
 
-    onClickZoomIn = ()=>{
-        const self = this.props.parent;
-        self.props.parent.zoomIn();
+    onClickOption = (value:string)=>{
+        const returnedAttributes = helper.getLayerAttributes(this.props.layerId,this.props.layerContents);
+        console.log(this.props.isSelected,returnedAttributes,this.props.layerId,"checking")
+        if (this.props.isSelected && returnedAttributes.length > 0){
+            if (value === "zoomIn"){
+                const self = this.props.parent;
+                self.props.parent.zoomIn(); 
+            }
+        }
+     
     }
 
     render(){
         const open = Boolean(this.props.anchorEl);
-        const self = this.props.parent
+        const self = this.props.parent;
         return (
             <div>
                 <Menu
@@ -93,7 +104,7 @@ export default class  Options extends React.PureComponent<PropsType,any> {
                                         width={"100%"} 
                                         className = 'centerize-contents display-row-contents padding-contents10' 
                                         backgroundColor='transparent'
-                                        onClick={this.onClickZoomIn}
+                                        onClick={()=>this.onClickOption(option.value)}
                                     >
                                         <div>
                                             <img src = {option.icon} className = 'icon-style' />

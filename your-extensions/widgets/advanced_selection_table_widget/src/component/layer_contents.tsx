@@ -47,7 +47,7 @@ type layerContentType = {
 
 export default class  LayerContents extends React.PureComponent<layerContentType,any>{
 
-  state = {selected:[],rowsPerPage:5,anchorEl:null}
+  state = {selected:[],rowsPerPage:5,anchorEl:null,layerId:null,isItemSelected:false}
 
   handleClick = (event: React.MouseEvent<unknown>, name: string,id:string) => {
     const self = this.props?.parent;
@@ -57,7 +57,7 @@ export default class  LayerContents extends React.PureComponent<layerContentType
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(this.state.selected,name);
     }else{
-        const returnedAttributes = helper.getLayerAttributes(id,self?.props?.layersContents);
+        const returnedAttributes = helper.getLayerAttributes(id,self.props.layersContents);
         if (returnedAttributes?.length > 0 ){
             newSelected = this.state.selected;
             this.goToAttributesContents(name,returnedAttributes)
@@ -95,8 +95,8 @@ export default class  LayerContents extends React.PureComponent<layerContentType
 
   isSelected = (name: string) => this.state.selected.indexOf(name) !== -1;
 
-  handleClickMoreHorizonIcon = (event: React.MouseEvent<HTMLButtonElement>) => {
-    this.setState({anchorEl:event.currentTarget})
+  handleClickMoreHorizonIcon = (event: React.MouseEvent<HTMLButtonElement>,layerId:string,isItemSelected:boolean) => {
+    this.setState({anchorEl:event.currentTarget,layerId:layerId,isItemSelected:isItemSelected})
   };
 
   handleCloseMoreHorizonIcon = () => {
@@ -130,28 +130,34 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                         <div key = {`${k}`+layer?.layerName} className = "layer-content-container">
                           <div className='check-box-container'>
                             <Checkbox 
-                                color="primary" 
-                                checked={isItemSelected} 
-                                onClick = {(e)=>this.handleClick(e,layer.layerName,layer.id)}
+                              color="primary" 
+                              checked={isItemSelected} 
+                              onClick = {(e)=>this.handleClick(e,layer.layerName,layer.id)}
                             />
                           </div>
                           <div className='flex-auto'>{layer.layerName}</div>
-                          <Button 
-                            id="basic-button"
-                            aria-controls={open ? 'basic-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            className='morehorizicon-container' 
-                            onClick={this.handleClickMoreHorizonIcon}
-                          >
-                            <MoreHorizIcon style={{color:"grey"}}/>
-                          </Button>
+                            <Button 
+                              id="basic-button"
+                              aria-controls={open ? 'basic-menu' : undefined}
+                              aria-haspopup="true"
+                              aria-expanded={open ? 'true' : undefined}
+                              className='morehorizicon-container' 
+                              onClick={(e)=>this.handleClickMoreHorizonIcon(e,layer.id,isItemSelected)}
+                            >
+                              <MoreHorizIcon style={{color:"grey"}}/>
+                            </Button>
                         </div>
                       )
                     })
                   }
                 </Container>
-                <Options parent = {this} anchorEl  = {this.state.anchorEl}/>
+                <Options 
+                  parent = {this} 
+                  anchorEl  = {this.state.anchorEl}
+                  isSelected = {this.state.isItemSelected}
+                  layerId = {this.state.layerId}
+                  layerContents = {self.props.layersContents}
+                />
             </>
         )
     }
