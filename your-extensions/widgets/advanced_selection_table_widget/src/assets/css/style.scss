@@ -9,8 +9,11 @@
     cursor: pointer;
 }
 
-.layer-name-container{
+.flex-auto{
     flex: auto;
+    &.text-style-400{
+        font-weight:400;
+    }
 }
 
 .layer-title{
@@ -27,9 +30,21 @@
         display:flex;
         align-items:center;
     }
-    &.padding-contents{
+    &.padding-contents20{
         padding-top:20px;
         padding-bottom:20px;
+    }
+    &.padding-contents10{
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+}
+
+.display-flex-end{
+    display: flex;
+    justify-content: flex-end;
+    &.close-button{
+        cursor: pointer;
     }
 }
 
@@ -80,9 +95,40 @@
     font-size:14px;
 }
 
-.attribute-icon{
+.icon-style{
     width:20px;
     height: 20px;
 }
+
+.morehorizicon-container{
+    margin-right:5px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper  {
+    -webkit-overflow-scrolling: touch;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    position: absolute;
+    overflow-y: auto;
+    overflow-x: hidden;
+    outline: 0;
+    width: 25%;
+    height:450px;
+    overflow: auto;
+}
+
+.menu-item-text-container{
+    padding: 0 10px 0 10px;
+    font-size: 14px;
+    flex: auto;
+}
+
 
 

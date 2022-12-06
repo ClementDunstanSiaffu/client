@@ -56,7 +56,7 @@ export default class SelectGeometry extends React.PureComponent<any,any>{
                     {
                         selectionsGeometries.map((selectionGeometry,k)=>(
                             <DropdownItem key={k} onClick = {()=>this.onSelectGeometry(selectionGeometry.value)}>
-                                <img src={selectionGeometry.icon} className = 'attribute-icon'/>   <span className='ttribute-title'>{selectionGeometry.name}</span>
+                                <img src={selectionGeometry.icon} className = 'icon-style'/>   <span className='ttribute-title'>{selectionGeometry.name}</span>
                             </DropdownItem>
                         ))
                     }

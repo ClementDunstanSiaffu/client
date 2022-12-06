@@ -12,7 +12,8 @@ type stateValueType = {
 
 type StateType = {
     layers:any,
-    activeView:JimuMapView
+    activeView:JimuMapView,
+    geometry:any
 }
 
 let  sketchLayer = new GraphicsLayer()
@@ -29,7 +30,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         return {stateValue:state.widgetsState};
     }
 
-    state = {layers:[],activeView:null};
+    state = {layers:[],activeView:null,geometry:null};
     sketch = null;
     mapLayer = null;
     layer = null;
@@ -81,6 +82,8 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
                     if (event?.state === "complete"){
                         this.selectFeatureLayer(event?.graphic);
                         this.props.dispatch(appActions.widgetStatePropChange("value","sketch",false));
+                        this.setState({geometry:event?.graphic?.geometry});
+                        console.log(event?.graphic?.geometry?.extent,"check geometry")
                     }
                 });
                 this.sketch.on("update",(event)=>{
@@ -93,7 +96,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
 
     zoomOut() {
         const view = this.state.activeView?.view;
-        view.goTo({center: view?.center,zoom: view?.zoom - 2});
+        view?.goTo({center: view?.center,zoom: view?.zoom - 2});
       }
 
     openPopup = ()=>{
@@ -117,12 +120,23 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         }
     }
 
+    onClickZoomIn = ()=>{
+        const view = this.state.activeView?.view;
+        const extent = this.state.geometry?.extent;
+        if (view && extent){
+            view.goTo(extent);
+        }
+    }
+
     componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any): void {
         if (this.props?.stateValue?.value?.sketch && this.props.stateValue?.value?.geometryType){
-            this.startSketching()
+            this.startSketching();
         }
         if (this.props?.stateValue?.value?.popup && this.props.stateValue?.value?.popupContents){
-            this.openPopup()
+            this.openPopup();
+        }
+        if (this.props.stateValue?.value?.zoomIn){
+            this.onClickZoomIn();
         }
     }
 

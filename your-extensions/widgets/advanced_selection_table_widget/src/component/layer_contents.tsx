@@ -1,9 +1,7 @@
 import {React,jsx} from 'jimu-core';
 import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import SelectGeometry from './select_geometry';
 import '../assets/css/style.scss'
@@ -11,6 +9,9 @@ import Container from '../assets/css/style'
 import LayersTable from './layer_table'
 import helper from '../helper/helper'
 import layerObject from '../interface/interface'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import Button from '@mui/material/Button';
+import Options from './options';
 
 interface EnhancedTableToolbarProps {numSelected: number,sketchGeometry:(geometryType:any)=>void}
 
@@ -30,14 +31,12 @@ class  EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProp
                     }),
                 }}
             >
-                <Typography component="div"><SelectGeometry sketchGeometry = {this.props.sketchGeometry}/></Typography>
+              <Typography component="div"><SelectGeometry sketchGeometry = {this.props.sketchGeometry}/></Typography>
             </Toolbar>
         );
     }
   
 }
-
-
 
 type layerContentType = {
     layers:layerObject[],
@@ -48,7 +47,7 @@ type layerContentType = {
 
 export default class  LayerContents extends React.PureComponent<layerContentType,any>{
 
-  state = {selected:[],rowsPerPage:5}
+  state = {selected:[],rowsPerPage:5,anchorEl:null}
 
   handleClick = (event: React.MouseEvent<unknown>, name: string,id:string) => {
     const self = this.props?.parent;
@@ -96,7 +95,18 @@ export default class  LayerContents extends React.PureComponent<layerContentType
 
   isSelected = (name: string) => this.state.selected.indexOf(name) !== -1;
 
+  handleClickMoreHorizonIcon = (event: React.MouseEvent<HTMLButtonElement>) => {
+    this.setState({anchorEl:event.currentTarget})
+  };
+
+  handleCloseMoreHorizonIcon = () => {
+    this.setState({anchorEl:null})
+  };
+
   render(){
+
+    const self = this.props.parent;
+
     if (this.props.component_type === "LAYERS_CONTENTS"){
         return (
             <>
@@ -112,7 +122,7 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                 <Container width = "96%" className='centerize-contents display-row-contents'>
                   <Container><div>Layers</div></Container>
                 </Container>
-                <Container height={450} width = {"100%"} overflow = "auto"  className='centerize-contents padding-contents'>
+                <Container height={450} width = {"100%"} overflow = "auto"  className='centerize-contents padding-contents20'>
                   {
                     this.props.layers?.map((layer:layerObject,k)=>{
                       const isItemSelected = this.isSelected(layer.layerName);
@@ -125,12 +135,23 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                                 onClick = {(e)=>this.handleClick(e,layer.layerName,layer.id)}
                             />
                           </div>
-                          <div className='layer-name-container'>{layer.layerName}</div>
+                          <div className='flex-auto'>{layer.layerName}</div>
+                          <Button 
+                            id="basic-button"
+                            aria-controls={open ? 'basic-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            className='morehorizicon-container' 
+                            onClick={this.handleClickMoreHorizonIcon}
+                          >
+                            <MoreHorizIcon style={{color:"grey"}}/>
+                          </Button>
                         </div>
                       )
                     })
                   }
                 </Container>
+                <Options parent = {this} anchorEl  = {this.state.anchorEl}/>
             </>
         )
     }

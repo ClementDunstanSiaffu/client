@@ -22,14 +22,19 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         this.props.dispatch(appActions.widgetStatePropChange("value","popupContents",popcontents));
     }
 
+    onClickZoomIn = ()=>{
+        this.props.dispatch(appActions.widgetStatePropChange("value","zoomIn",true))
+    }
+
     render(): React.ReactNode {
         const layers = this.props.stateValue?.value?.layers;
         const layersContents = this.props.stateValue?.value?.layerContents
         return <LayersTable 
+                    sketchGeometry={this.sketchGeometry}
                     layers={layers} 
-                    sketchGeometry = {this.sketchGeometry} 
                     layersContents = {layersContents}
                     openPopUp = {this.openPopUp}
+                    parent = {this}
                 />;
     }
 }

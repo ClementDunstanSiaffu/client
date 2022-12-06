@@ -73,7 +73,7 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                                                 >
                                                 </Container>
                                             </div>
-                                            <div className='layer-name-container'>
+                                            <div className='flex-auto'>
                                                 {this.props.layerTitle}:{attribute?.objectId??k}
                                             </div>
                                       </div>
