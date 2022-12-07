@@ -2,7 +2,6 @@
 import {React,jsx} from 'jimu-core'
 import 'bootstrap/dist/css/bootstrap.css';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import TimelineIcon from '@mui/icons-material/Timeline';
 import '../assets/css/style.scss'
 import * as images from '../assets/images/';
 

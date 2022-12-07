@@ -73,27 +73,6 @@ export default class  LayerContents extends React.PureComponent<layerContentType
     if (selectedIndex !== -1){
       this.removeAttributes(id);
     }
-  
-    // if (selectedIndex === -1) {
-    //   newSelected = newSelected.concat(this.state.selected,name);
-    // }else{
-    //     const returnedAttributes = helper.getLayerAttributes(id,self.props.layersContents);
-    //     if (returnedAttributes?.length > 0 ){
-    //         newSelected = this.state.selected;
-    //         this.goToAttributesContents(name,returnedAttributes)
-    //     }else{
-    //         if (selectedIndex === 0) {
-    //             newSelected = newSelected.concat(this.state.selected.slice(1));
-    //           } else if (selectedIndex === this.state.selected.length - 1) {
-    //             newSelected = newSelected.concat(this.state.selected.slice(0, -1));
-    //           } else if (selectedIndex > 0) {
-    //             newSelected = newSelected.concat(
-    //               this.state.selected.slice(0, selectedIndex),
-    //               this.state.selected.slice(selectedIndex + 1),
-    //             );
-    //           }
-    //     }
-    // }
     self.dispatchCheckedLayer(id)
     this.setState({selected:newSelected});
   };

@@ -64,7 +64,6 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
 
     selectFeatureLayer = (geometry:any)=>{
         const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
-        console.log(checkedLayers,"see the checkedlayers")
         if (this.state.activeView){
             this.state.activeView?.selectFeaturesByGraphic(geometry,"contains").then((results)=>{
                 const selectedLayersContents = helper.getSelectedContentsLayer(results,checkedLayers);

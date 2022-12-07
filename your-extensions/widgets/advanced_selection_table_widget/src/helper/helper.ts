@@ -27,14 +27,6 @@ class Helper {
         }
         return returnedKeys;
     }
-
-    // getNumberOfAttributes = (layersContents:{id:string,attributes:any[]}[])=>{
-    //    let layerContentsObject = {};
-    //     for (let i=0;i < layersContents.length;i++){
-    //         layerContentsObject = {...layerContentsObject,["id"]:layersContents[i]?.attributes?.length??0}
-    //     }
-    //    return layerContentsObject;
-    // }
 }
 
 export default new Helper();

@@ -60,7 +60,6 @@ export default class  Options extends React.PureComponent<PropsType,any> {
 
     onClickOption = (value:string)=>{
         const returnedAttributes = helper.getLayerAttributes(this.props.layerId,this.props.layerContents);
-        console.log(this.props.isSelected,returnedAttributes,this.props.layerId,"checking")
         if (this.props.isSelected && returnedAttributes.length > 0){
             if (value === "zoomIn"){
                 const self = this.props.parent;
