@@ -1,5 +1,5 @@
 
-import {React,jsx} from 'jimu-core';
+import {React,jsx, appActions} from 'jimu-core';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import '../assets/css/style.scss'
@@ -15,7 +15,9 @@ type TablePropsType = {
   sketchGeometry:(geometryType:any)=>void,
   layersContents:{id:string,attributes:any[]}[],
   openPopUp:(popcontents:popupContentType)=>void,
-  parent:AdvancedSelectionTable
+  parent:AdvancedSelectionTable,
+  numberOfAttribute:{[key:string]:number},
+  checkedLayers:string[]
 }
 
 type stateType = {
@@ -43,7 +45,36 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,sta
     self.onClickZoomIn();
   }
 
+  dispatchCheckedLayer = (layerId:string)=>{
+    const self = this.props.parent;
+    const currentCheckedLayers = this.props.checkedLayers;
+    let index = -1;
+    let newCheckedLayers = []
+    if (currentCheckedLayers?.length > 0){
+      index = currentCheckedLayers.indexOf(layerId);
+      if (index !== -1){
+        newCheckedLayers = currentCheckedLayers.reduce((newArray,id:string)=>{
+          if (id !== layerId){
+            newArray.push(id);
+          }
+          return newArray;
+        },[])
+      }else{
+        newCheckedLayers = [...currentCheckedLayers,layerId]
+      }
+    }else{
+      newCheckedLayers.push(layerId);
+    }
+    self.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers));
+  }
+
+  removeAttributes = (newLayersContents:{id:string,attributes:any[]}[])=>{
+    const self = this.props.parent;
+    self.props.dispatch(appActions.widgetStatePropChange("value","layerContents",newLayersContents));
+  }
+
   render(){
+    const self = this.props.parent;
     return (
       <Box sx={{ width: '100%',height:600 }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
@@ -51,6 +82,7 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,sta
             layers={this.props.layers} 
             sketchGeometry = {this.props.sketchGeometry} 
             component_type = {this.state.component_type}
+            numberOfAttribute = {self.props.stateValue?.value?.numberOfAttribute}
             parent = {this}
           />
           <AttributesContents 

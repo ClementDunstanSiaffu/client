@@ -42,40 +42,75 @@ type layerContentType = {
     layers:layerObject[],
     sketchGeometry:(geometryType:any)=>void,
     component_type:string,
+    numberOfAttribute:{[key:string]:number}
     parent:LayersTable
 }
 
 export default class  LayerContents extends React.PureComponent<layerContentType,any>{
 
-  state = {selected:[],rowsPerPage:5,anchorEl:null,layerId:null,isItemSelected:false}
+  state = {
+    selected:[],
+    rowsPerPage:5,
+    anchorEl:null,
+    layerId:null,
+    isItemSelected:false,
+  }
 
   handleClick = (event: React.MouseEvent<unknown>, name: string,id:string) => {
     const self = this.props?.parent;
     const selectedIndex = this.state.selected.indexOf(name);
     let newSelected: readonly string[] = [];
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(this.state.selected,name);
-    }else{
-        const returnedAttributes = helper.getLayerAttributes(id,self.props.layersContents);
-        if (returnedAttributes?.length > 0 ){
-            newSelected = this.state.selected;
-            this.goToAttributesContents(name,returnedAttributes)
-        }else{
-            if (selectedIndex === 0) {
-                newSelected = newSelected.concat(this.state.selected.slice(1));
-              } else if (selectedIndex === this.state.selected.length - 1) {
-                newSelected = newSelected.concat(this.state.selected.slice(0, -1));
-              } else if (selectedIndex > 0) {
-                newSelected = newSelected.concat(
-                  this.state.selected.slice(0, selectedIndex),
-                  this.state.selected.slice(selectedIndex + 1),
-                );
-              }
-        }
+    }else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(this.state.selected.slice(1));
+    } else if (selectedIndex === this.state.selected.length - 1) {
+      newSelected = newSelected.concat(this.state.selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(this.state.selected.slice(0, selectedIndex),this.state.selected.slice(selectedIndex + 1));
     }
+
+    if (selectedIndex !== -1){
+      this.removeAttributes(id);
+    }
+  
+    // if (selectedIndex === -1) {
+    //   newSelected = newSelected.concat(this.state.selected,name);
+    // }else{
+    //     const returnedAttributes = helper.getLayerAttributes(id,self.props.layersContents);
+    //     if (returnedAttributes?.length > 0 ){
+    //         newSelected = this.state.selected;
+    //         this.goToAttributesContents(name,returnedAttributes)
+    //     }else{
+    //         if (selectedIndex === 0) {
+    //             newSelected = newSelected.concat(this.state.selected.slice(1));
+    //           } else if (selectedIndex === this.state.selected.length - 1) {
+    //             newSelected = newSelected.concat(this.state.selected.slice(0, -1));
+    //           } else if (selectedIndex > 0) {
+    //             newSelected = newSelected.concat(
+    //               this.state.selected.slice(0, selectedIndex),
+    //               this.state.selected.slice(selectedIndex + 1),
+    //             );
+    //           }
+    //     }
+    // }
+    self.dispatchCheckedLayer(id)
     this.setState({selected:newSelected});
   };
+
+
+  removeAttributes = (id:string)=>{
+    const self = this.props.parent;
+    const currentLayerContents = self.props.layersContents??[];
+    const copiedLayerContents = [...currentLayerContents];
+    const newLayerContents = copiedLayerContents.reduce((newArray,item:{id:string,attributes:any[]})=>{
+      if (item?.id !== id){
+        newArray.push(item);
+      }
+      return newArray;
+    },[])
+    self.removeAttributes(newLayerContents)
+  }
 
 
   goToAttributesContents = (layerTitle:string,returnedAttributes:any[])=>{
@@ -102,6 +137,15 @@ export default class  LayerContents extends React.PureComponent<layerContentType
   handleCloseMoreHorizonIcon = () => {
     this.setState({anchorEl:null})
   };
+
+  onClickLayerName = (id:string,layerName:string)=>{
+    const self = this.props.parent;
+    const returnedAttributes = helper.getLayerAttributes(id,self.props.layersContents);
+    if (returnedAttributes?.length > 0){
+      this.goToAttributesContents(layerName,returnedAttributes)
+    }
+  }
+
 
   render(){
 
@@ -135,8 +179,19 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                               onClick = {(e)=>this.handleClick(e,layer.layerName,layer.id)}
                             />
                           </div>
-                          <div className='flex-auto'>{layer.layerName}</div>
-                            <Button 
+                          <div 
+                            className='flex-auto 
+                            cursor-style' onClick={()=>this.onClickLayerName(layer?.id,layer?.layerName)}
+                          >
+                            {layer.layerName}
+                          </div>
+                          <div>
+                            {
+                              this.props?.numberOfAttribute && isItemSelected?
+                              this.props?.numberOfAttribute[layer.id]??0:0 
+                            }
+                          </div>
+                          <Button 
                               id="basic-button"
                               aria-controls={open ? 'basic-menu' : undefined}
                               aria-haspopup="true"

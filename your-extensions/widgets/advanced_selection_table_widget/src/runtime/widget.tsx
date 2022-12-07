@@ -28,12 +28,16 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
 
     render(): React.ReactNode {
         const layers = this.props.stateValue?.value?.layers;
-        const layersContents = this.props.stateValue?.value?.layerContents
+        const layersContents = this.props.stateValue?.value?.layerContents;
+        const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute;
+        const checkedLayers = this.props.stateValue?.value?.checkedLayers;
         return <LayersTable 
                     sketchGeometry={this.sketchGeometry}
                     layers={layers} 
                     layersContents = {layersContents}
                     openPopUp = {this.openPopUp}
+                    numberOfAttribute = {numberOfAttribute}
+                    checkedLayers = {checkedLayers}
                     parent = {this}
                 />;
     }

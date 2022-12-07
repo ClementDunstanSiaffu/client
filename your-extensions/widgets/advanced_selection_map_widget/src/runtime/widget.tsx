@@ -36,7 +36,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
     layer = null;
 
     getMapLayers = (activeView:JimuMapView)=>{
-        const newLayersArray = Object.keys(activeView?.jimuLayerViews).reduce((newLayerArray,item)=>{
+        const newLayersArray = Object.keys(activeView?.jimuLayerViews)?.reduce((newLayerArray,item)=>{
             let object = {
                 layerName:activeView?.jimuLayerViews[item]?.layer?.title??item,
                 layerId:activeView?.jimuLayerViews[item]?.jimuLayerId??" ",
@@ -52,8 +52,8 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         let view = activeView?.view;
         const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
         this.sketch = sketchViewlModel;
-        view.popup.actions.push(zoomOut);
-        view.popup.watch("visible",(visible)=>{
+        view?.popup.actions.push(zoomOut);
+        view?.popup.watch("visible",(visible)=>{
             if(visible && !this.props?.stateValue?.value?.popup){
                 view.popup.visible = false;
             }else{
@@ -63,10 +63,14 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
     }
 
     selectFeatureLayer = (geometry:any)=>{
+        const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
+        console.log(checkedLayers,"see the checkedlayers")
         if (this.state.activeView){
             this.state.activeView?.selectFeaturesByGraphic(geometry,"contains").then((results)=>{
-                const selectedLayersContents = helper.getSelectedContentsLayer(results);
-                this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents))
+                const selectedLayersContents = helper.getSelectedContentsLayer(results,checkedLayers);
+                this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents));
+                const numberOfAttributes = helper.getNumberOfAttributes(selectedLayersContents);
+                this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",numberOfAttributes));
             })
             .catch((err)=>{})
 
