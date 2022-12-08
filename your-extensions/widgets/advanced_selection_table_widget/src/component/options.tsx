@@ -59,11 +59,13 @@ const options = [
 export default class  Options extends React.PureComponent<PropsType,any> {
 
     onClickOption = (value:string)=>{
+        const self = this.props.parent;
         const returnedAttributes = helper.getLayerAttributes(this.props.layerId,this.props.layerContents);
         if (this.props.isSelected && returnedAttributes.length > 0){
             if (value === "zoomIn"){
-                const self = this.props.parent;
                 self.props.parent.zoomIn(); 
+            }else if (value === "csv"){
+                self.props.parent.changeToCsv(returnedAttributes)
             }
         }
      

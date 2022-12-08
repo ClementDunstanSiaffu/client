@@ -1,6 +1,7 @@
 import {React,jsx,AllWidgetProps,IMState, appActions} from 'jimu-core';
 import LayersTable from '../component/layer_table';
 import {popupContentType} from '../interface/interface'
+import { buildURI } from '../lib/toCsv/toCsv';
 
 type StateValueType = {
     stateValue:any
@@ -24,6 +25,14 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
 
     onClickZoomIn = ()=>{
         this.props.dispatch(appActions.widgetStatePropChange("value","zoomIn",true))
+    }
+
+    convertToCsv = (selectedAttributes:any[])=>{
+        // this.props.dispatch(appActions.widgetStatePropChange("value","csv",true));
+        // this.props.dispatch(appActions.widgetStatePropChange("value","optionSelectedAttributes",selectedAttributes));
+        const uri = buildURI(selectedAttributes);
+        window.open(uri,"blank")
+        console.log(uri,"check uri")
     }
 
     render(): React.ReactNode {

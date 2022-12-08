@@ -137,6 +137,11 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         }
     }
 
+    convertToCsv = async()=>{
+        const selectedAttributes = this.props.stateValue?.value?.optionSelectedAttributes;
+        await helper.convertToCsv(selectedAttributes);
+    }
+
     componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any): void {
         if (this.props?.stateValue?.value?.sketch && this.props.stateValue?.value?.geometryType){
             this.startSketching();
@@ -146,6 +151,9 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         }
         if (this.props.stateValue?.value?.zoomIn){
             this.onClickZoomIn();
+        }
+        if (this.props.stateValue?.value?.csv){
+            this.convertToCsv()
         }
     }
 

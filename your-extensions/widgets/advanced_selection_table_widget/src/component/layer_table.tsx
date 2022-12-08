@@ -45,6 +45,11 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,sta
     self.onClickZoomIn();
   }
 
+  changeToCsv = (optionSelectedAttributes:any[])=>{
+    const self = this.props.parent;
+    self.convertToCsv(optionSelectedAttributes);
+  }
+
   dispatchCheckedLayer = (layerId:string)=>{
     const self = this.props.parent;
     const currentCheckedLayers = this.props.checkedLayers;
