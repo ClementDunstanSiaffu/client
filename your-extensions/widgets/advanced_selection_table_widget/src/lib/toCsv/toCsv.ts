@@ -83,15 +83,11 @@ export const toCSV = (data:any, headers:any[], separator:string, enclosingCharac
   throw new TypeError(`Data should be a "String", "Array of arrays" OR "Array of objects" `);
 };
 
-
-
-
 export const buildURI = ((data:any, uFEFFValue=uFEFF , headers?:any[], separatorValue = separator, enclosingCharacterValue = enclosingCharacter) => {
   const csv = toCSV(data, headers, separatorValue, enclosingCharacterValue);
   const type = isSafari() ? 'application/csv' : 'text/csv';
   const blob = new Blob([uFEFFValue ? '\uFEFF' : '', csv], { type });
   const dataURI = `data:${type};charset=utf-8,${uFEFFValue ? '\uFEFF' : ''}${csv}`;
-  console.log(dataURI,"check data uri")
   const URL = window.URL || window.webkitURL;
 
   return (typeof URL.createObjectURL === 'undefined')

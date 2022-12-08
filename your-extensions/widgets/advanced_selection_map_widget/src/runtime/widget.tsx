@@ -1,9 +1,8 @@
 
 import {React,jsx,AllWidgetProps,appActions,IMState} from 'jimu-core'
-import { JimuMapViewComponent,JimuMapView,JimuFeatureLayerView} from 'jimu-arcgis';
+import { JimuMapViewComponent,JimuMapView} from 'jimu-arcgis';
 import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
-import geometryEngineAsync from 'esri/geometry/geometryEngineAsync'
 import helper from '../helper/helper'
 
 type stateValueType = {
@@ -29,7 +28,6 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
     static mapExtraStateProps(state:IMState){
         return {stateValue:state.widgetsState};
     }
-
     state = {layers:[],activeView:null,geometry:null};
     sketch = null;
     mapLayer = null;
@@ -137,11 +135,6 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         }
     }
 
-    convertToCsv = async()=>{
-        const selectedAttributes = this.props.stateValue?.value?.optionSelectedAttributes;
-        await helper.convertToCsv(selectedAttributes);
-    }
-
     componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any): void {
         if (this.props?.stateValue?.value?.sketch && this.props.stateValue?.value?.geometryType){
             this.startSketching();
@@ -151,9 +144,6 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         }
         if (this.props.stateValue?.value?.zoomIn){
             this.onClickZoomIn();
-        }
-        if (this.props.stateValue?.value?.csv){
-            this.convertToCsv()
         }
     }
 

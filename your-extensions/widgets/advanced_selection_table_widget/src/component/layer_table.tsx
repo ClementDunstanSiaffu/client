@@ -12,7 +12,6 @@ import AdvancedSelectionTable from '../runtime/widget';
 
 type TablePropsType = {
   layers:layerObject[],
-  sketchGeometry:(geometryType:any)=>void,
   layersContents:{id:string,attributes:any[]}[],
   openPopUp:(popcontents:popupContentType)=>void,
   parent:AdvancedSelectionTable,
@@ -84,8 +83,6 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,sta
       <Box sx={{ width: '100%',height:600 }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
           <LayerContents 
-            layers={this.props.layers} 
-            sketchGeometry = {this.props.sketchGeometry} 
             component_type = {this.state.component_type}
             numberOfAttribute = {self.props.stateValue?.value?.numberOfAttribute}
             parent = {this}

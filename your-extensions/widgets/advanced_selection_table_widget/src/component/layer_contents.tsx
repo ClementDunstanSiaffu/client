@@ -39,8 +39,6 @@ class  EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProp
 }
 
 type layerContentType = {
-    layers:layerObject[],
-    sketchGeometry:(geometryType:any)=>void,
     component_type:string,
     numberOfAttribute:{[key:string]:number}
     parent:LayersTable
@@ -133,7 +131,7 @@ export default class  LayerContents extends React.PureComponent<layerContentType
     if (this.props.component_type === "LAYERS_CONTENTS"){
         return (
             <>
-                <EnhancedTableToolbar numSelected={this.state.selected.length} sketchGeometry = {this.props.sketchGeometry}/>
+                <EnhancedTableToolbar numSelected={this.state.selected.length} sketchGeometry = {self.props.parent.sketchGeometry}/>
                 <Container 
                   height = {1} 
                   width = "96%" 
@@ -147,7 +145,7 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                 </Container>
                 <Container height={450} width = {"100%"} overflow = "auto"  className='centerize-contents padding-contents20'>
                   {
-                    this.props.layers?.map((layer:layerObject,k)=>{
+                    self.props.layers?.map((layer:layerObject,k)=>{
                       const isItemSelected = this.isSelected(layer.layerName);
                       return(
                         <div key = {`${k}`+layer?.layerName} className = "layer-content-container row-color-hover">

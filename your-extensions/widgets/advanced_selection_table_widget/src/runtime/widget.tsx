@@ -28,11 +28,8 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
 
     convertToCsv = (selectedAttributes:any[])=>{
-        // this.props.dispatch(appActions.widgetStatePropChange("value","csv",true));
-        // this.props.dispatch(appActions.widgetStatePropChange("value","optionSelectedAttributes",selectedAttributes));
         const uri = buildURI(selectedAttributes);
         window.open(uri,"blank")
-        console.log(uri,"check uri")
     }
 
     render(): React.ReactNode {
@@ -41,7 +38,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute;
         const checkedLayers = this.props.stateValue?.value?.checkedLayers;
         return <LayersTable 
-                    sketchGeometry={this.sketchGeometry}
                     layers={layers} 
                     layersContents = {layersContents}
                     openPopUp = {this.openPopUp}
