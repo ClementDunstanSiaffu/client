@@ -77,8 +77,14 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
     }
 
     startSketching = ()=>{
+        let mode = "hybrid";
+        let limitedGeometryArray = ["rectangle","circle"];
+        let currentGeometry = this.props.stateValue["value"]?.geometryType??"rectangle";
+        if (limitedGeometryArray.includes(currentGeometry)){
+            mode = "freehand";
+        }
         if (this.sketch){
-            this.sketch.create(this.props.stateValue["value"]?.geometryType);
+            this.sketch.create(currentGeometry,{mode:mode});
             if (this.state.activeView){
                 this.state.activeView.view.map.add(sketchLayer);
                 this.sketch.on("create", async(event) => {
@@ -91,6 +97,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
                 this.sketch.on("update",(event)=>{
                     this.sketch?.delete();
                     this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",[]));
+                    this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",{}))
                 })
             }
         }

@@ -150,7 +150,7 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                     this.props.layers?.map((layer:layerObject,k)=>{
                       const isItemSelected = this.isSelected(layer.layerName);
                       return(
-                        <div key = {`${k}`+layer?.layerName} className = "layer-content-container">
+                        <div key = {`${k}`+layer?.layerName} className = "layer-content-container row-color-hover">
                           <div className='check-box-container'>
                             <Checkbox 
                               color="primary" 

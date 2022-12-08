@@ -3,6 +3,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    &.row-color-hover:hover{
+        background-color: rgb(237, 231, 231);
+        cursor: pointer;
+    }
+    
 }
 
 .check-box-container{

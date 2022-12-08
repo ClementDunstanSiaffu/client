@@ -57,6 +57,10 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                         <Container style = {{marginTop:20}}  height={450} width = {"100%"} overflow = "auto">
                             {
                                 this.props.attributes.map((attribute,k)=>{
+                                    let attributeName = k;
+                                    if (attribute && Object.keys(attribute).length > 0){
+                                        attributeName = attribute[Object.keys(attribute)[0]];
+                                    }
                                     return(
                                         <div 
                                             key = {k} 
@@ -74,7 +78,7 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                                                 </Container>
                                             </div>
                                             <div className='flex-auto'>
-                                                {this.props.layerTitle}:{attribute?.objectId??attribute?.objectid??attribute?.OBJECTID??k}
+                                                {this.props.layerTitle}:{attributeName}
                                             </div>
                                       </div>
                                     )
