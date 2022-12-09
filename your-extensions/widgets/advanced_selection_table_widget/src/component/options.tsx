@@ -65,7 +65,9 @@ export default class  Options extends React.PureComponent<PropsType,any> {
             if (value === "zoomIn"){
                 self.props.parent.zoomIn(); 
             }else if (value === "csv"){
-                self.props.parent.changeToCsv(returnedAttributes)
+                self.props.parent.changeToCsv(returnedAttributes,"csv");
+            }else if (value === "json"){
+                self.props.parent.changeToCsv(returnedAttributes,"json");
             }
         }
      
