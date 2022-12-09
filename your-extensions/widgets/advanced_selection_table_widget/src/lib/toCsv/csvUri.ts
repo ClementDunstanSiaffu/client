@@ -1,4 +1,6 @@
 
+import { appActions } from 'jimu-core';
+import AdvancedSelectionTable from '../../runtime/widget';
 import {defaultParemeters} from './default_data'
 
 const {separator,filename,uFEFF,asyncOnClick,enclosingCharacter} = defaultParemeters;
@@ -83,13 +85,13 @@ export const toCSV = (data:any, headers:any[], separator:string, enclosingCharac
   throw new TypeError(`Data should be a "String", "Array of arrays" OR "Array of objects" `);
 };
 
-export const getCsvUri = ((data:any, uFEFFValue=uFEFF , headers?:any[], separatorValue = separator, enclosingCharacterValue = enclosingCharacter) => {
+export const getCsvUri = ((data:any,self:AdvancedSelectionTable,uFEFFValue=uFEFF , headers?:any[], separatorValue = separator, enclosingCharacterValue = enclosingCharacter) => {
   const csv = toCSV(data, headers, separatorValue, enclosingCharacterValue);
   const type = isSafari() ? 'application/csv' : 'text/csv';
   const blob = new Blob([uFEFFValue ? '\uFEFF' : '', csv], { type });
   const dataURI = `data:${type};charset=utf-8,${uFEFFValue ? '\uFEFF' : ''}${csv}`;
   const URL = window.URL || window.webkitURL;
-
+  self.props.dispatch(appActions.widgetStatePropChange("value","exportType","csv"));
   return (typeof URL.createObjectURL === 'undefined')
     ? dataURI
     : URL.createObjectURL(blob);

@@ -5,6 +5,7 @@ import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import helper from '../helper/helper'
 
+
 type stateValueType = {
     stateValue:any
 }
@@ -95,9 +96,18 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
                 this.sketch.on("update",(event)=>{
                     const exportStatus = this.props.stateValue?.value?.exportStatus;
                     const uri = this.props.stateValue?.value?.uri;
-                    // this.sketch?.delete();
+                    const exportType = this.props.stateValue?.value?.exportType;
+                    const blobValue = this.props.stateValue?.value?.blobValue;
                     if (exportStatus && uri){
-                        window.open(uri,"blank");
+                        if(exportType === "csv"){
+                            window.open(uri,"blank");
+                        }else{
+                            if (window.saveAs && blobValue){
+                                window.saveAs(blobValue,"feature.json")
+                            }else{
+                                window.open(uri,"blank");
+                            }
+                        }
                         this.props.dispatch(appActions.widgetStatePropChange("value","exportStatus",false));
                         this.props.dispatch(appActions.widgetStatePropChange("value","uri",""));
                     }else{
