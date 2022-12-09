@@ -28,8 +28,10 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
 
     convertToCsv = (selectedAttributes:any[],exportTYpe:string)=>{
-        const uri = getUri(selectedAttributes,exportTYpe)
-        window.open(uri,"blank")
+        const uri = getUri(selectedAttributes,exportTYpe);
+        this.props.dispatch(appActions.widgetStatePropChange("value","exportStatus",true));
+        this.props.dispatch(appActions.widgetStatePropChange("value","uri",uri));
+        // window.open(uri,"blank")
     }
 
     render(): React.ReactNode {

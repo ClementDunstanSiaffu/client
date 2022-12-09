@@ -93,9 +93,18 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
                     }
                 });
                 this.sketch.on("update",(event)=>{
-                    this.sketch?.delete();
-                    this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",[]));
-                    this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",{}))
+                    const exportStatus = this.props.stateValue?.value?.exportStatus;
+                    const uri = this.props.stateValue?.value?.uri;
+                    // this.sketch?.delete();
+                    if (exportStatus && uri){
+                        window.open(uri,"blank");
+                        this.props.dispatch(appActions.widgetStatePropChange("value","exportStatus",false));
+                        this.props.dispatch(appActions.widgetStatePropChange("value","uri",""));
+                    }else{
+                        this.sketch?.delete();
+                        this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",[]));
+                        this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",{}))
+                    }
                 })
             }
         }
