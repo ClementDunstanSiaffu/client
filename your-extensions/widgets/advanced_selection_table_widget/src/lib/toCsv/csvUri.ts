@@ -15,7 +15,7 @@ export const isArrays = ((array:any[]) => Array.isArray(array) && array.every(
 
 export const jsonsHeaders = ((array:any) => Array.from(
   array.map(json => Object.keys(json))
-    .reduce((a, b) => new Set([...a, ...b]), [])
+    .reduce((a:any, b:any) => new Set([...a, ...b]), [])
 ));
 
 export const jsons2arrays = (jsons:any[], headers?:any) => {
@@ -83,7 +83,7 @@ export const toCSV = (data:any, headers:any[], separator:string, enclosingCharac
   throw new TypeError(`Data should be a "String", "Array of arrays" OR "Array of objects" `);
 };
 
-export const buildURI = ((data:any, uFEFFValue=uFEFF , headers?:any[], separatorValue = separator, enclosingCharacterValue = enclosingCharacter) => {
+export const getCsvUri = ((data:any, uFEFFValue=uFEFF , headers?:any[], separatorValue = separator, enclosingCharacterValue = enclosingCharacter) => {
   const csv = toCSV(data, headers, separatorValue, enclosingCharacterValue);
   const type = isSafari() ? 'application/csv' : 'text/csv';
   const blob = new Blob([uFEFFValue ? '\uFEFF' : '', csv], { type });

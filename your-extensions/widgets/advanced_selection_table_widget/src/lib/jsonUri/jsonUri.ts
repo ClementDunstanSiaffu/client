@@ -1,5 +1,5 @@
 
-export const saveJson = (obj:any) =>{
+export const getJsonUri = (obj:any) =>{
     let url = " ";
     if (obj instanceof Object || obj instanceof Array){
         const str = JSON.stringify(obj);

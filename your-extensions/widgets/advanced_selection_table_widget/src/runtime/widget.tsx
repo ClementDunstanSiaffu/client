@@ -1,8 +1,7 @@
 import {React,jsx,AllWidgetProps,IMState, appActions} from 'jimu-core';
 import LayersTable from '../component/layer_table';
 import {popupContentType} from '../interface/interface'
-// import { buildURI } from '../lib/toCsv/toCsv';
-import {url} from '../lib/build_uri'
+import {getUri} from '../lib/build_uri'
 
 type StateValueType = {
     stateValue:any
@@ -29,8 +28,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
 
     convertToCsv = (selectedAttributes:any[],exportTYpe:string)=>{
-        // const uri = buildURI(selectedAttributes);
-        const uri = url(selectedAttributes,exportTYpe)
+        const uri = getUri(selectedAttributes,exportTYpe)
         window.open(uri,"blank")
     }
 
