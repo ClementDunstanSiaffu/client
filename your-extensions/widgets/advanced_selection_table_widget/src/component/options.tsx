@@ -119,7 +119,7 @@ export default class  Options extends React.PureComponent<PropsType,any> {
                         })
                     }
                 </Menu>
-    </div>
-  );
+            </div>
+        );
     }
 }

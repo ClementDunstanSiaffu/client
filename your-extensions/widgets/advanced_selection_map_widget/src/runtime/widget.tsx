@@ -13,7 +13,8 @@ type stateValueType = {
 type StateType = {
     layers:any,
     activeView:JimuMapView,
-    geometry:any
+    geometry:any,
+    selectedGraphic:any
 }
 
 let  sketchLayer = new GraphicsLayer()
@@ -29,7 +30,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
     static mapExtraStateProps(state:IMState){
         return {stateValue:state.widgetsState};
     }
-    state = {layers:[],activeView:null,geometry:null};
+    state = {layers:[],activeView:null,geometry:null,selectedGraphic:null};
     sketch = null;
     mapLayer = null;
     layer = null;
@@ -58,6 +59,11 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
             }else{
                 this.props.dispatch(appActions.widgetStatePropChange("value","popup",false));
             }
+        })
+
+        view.on("click",(event)=>{
+            event.stopPropagation();
+            this.exportCsvAndJson()
         })
     }
 
@@ -89,35 +95,44 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
                 this.sketch.on("create", async(event) => {
                     if (event?.state === "complete"){
                         this.selectFeatureLayer(event?.graphic);
+                        this.setState({selectedGraphic:event?.graphic});
                         this.props.dispatch(appActions.widgetStatePropChange("value","sketch",false));
                         this.setState({geometry:event?.graphic?.geometry});
+                        this.sketch?.update([event?.graphic],{
+                            enableScaling:false,
+                            preserveAspectRatio: true,
+                            toggleToolOnClick:false,
+
+                        })
                     }
                 });
                 this.sketch.on("update",(event)=>{
-                    const exportStatus = this.props.stateValue?.value?.exportStatus;
-                    const uri = this.props.stateValue?.value?.uri;
-                    const exportType = this.props.stateValue?.value?.exportType;
-                    const blobValue = this.props.stateValue?.value?.blobValue;
-                    if (exportStatus && uri){
-                        if(exportType === "csv"){
-                            window.open(uri,"blank");
-                        }else{
-                            if (window.saveAs && blobValue){
-                                window.saveAs(blobValue,"feature.json")
-                            }else{
-                                window.open(uri,"blank");
-                            }
-                        }
-                        this.props.dispatch(appActions.widgetStatePropChange("value","exportStatus",false));
-                        this.props.dispatch(appActions.widgetStatePropChange("value","uri",""));
-                    }else{
-                        this.sketch?.delete();
-                        this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",[]));
-                        this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",{}))
-                    }
+                    this.sketch?.delete();
                 })
             }
         }
+    }
+
+    exportCsvAndJson = ()=>{
+        const exportStatus = this.props.stateValue?.value?.exportStatus;
+        const uri = this.props.stateValue?.value?.uri;
+        const exportType = this.props.stateValue?.value?.exportType;
+        const blobValue = this.props.stateValue?.value?.blobValue;
+        if (exportStatus && uri){
+            if(exportType === "csv"){
+                window.open(uri,"blank");
+            }else{
+                if (window.saveAs && blobValue){
+                    window.saveAs(blobValue,"feature.json")
+                }else{
+                    window.open(uri,"blank");
+                }
+            }
+        }
+        this.props.dispatch(appActions.widgetStatePropChange("value","exportStatus",false));
+        this.props.dispatch(appActions.widgetStatePropChange("value","uri",""));
+        this.props.dispatch(appActions.widgetStatePropChange("value","exportType",""));
+        this.props.dispatch(appActions.widgetStatePropChange("value","blobValue",null));
     }
 
     zoomOut() {
