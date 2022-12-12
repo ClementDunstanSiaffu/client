@@ -12,31 +12,32 @@ import layerObject from '../interface/interface'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Button from '@mui/material/Button';
 import Options from './options';
+import EnhancedTableToolbar from './common/enhanced_toolbar';
 
-interface EnhancedTableToolbarProps {numSelected: number,sketchGeometry:(geometryType:any)=>void}
+// interface EnhancedTableToolbarProps {numSelected: number,sketchGeometry:(geometryType:any)=>void}
 
-class  EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProps,any>{
+// class  EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProps,any>{
 
-    render(): React.ReactNode {
-        const { numSelected } = this.props;
+//     render(): React.ReactNode {
+//         const { numSelected } = this.props;
         
-        return (
-            <Toolbar
-                sx={{
-                    pl: { sm: 2 },
-                    pr: { xs: 1, sm: 1 },
-                    ...(numSelected > 0 && {
-                    bgcolor: (theme) =>
-                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-                    }),
-                }}
-            >
-              <Typography component="div"><SelectGeometry sketchGeometry = {this.props.sketchGeometry}/></Typography>
-            </Toolbar>
-        );
-    }
+//         return (
+//             <Toolbar
+//                 sx={{
+//                     pl: { sm: 2 },
+//                     pr: { xs: 1, sm: 1 },
+//                     ...(numSelected > 0 && {
+//                     bgcolor: (theme) =>
+//                         alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+//                     }),
+//                 }}
+//             >
+//               <Typography component="div"><SelectGeometry sketchGeometry = {this.props.sketchGeometry}/></Typography>
+//             </Toolbar>
+//         );
+//     }
   
-}
+// }
 
 type layerContentType = {
     component_type:string,
@@ -80,13 +81,18 @@ export default class  LayerContents extends React.PureComponent<layerContentType
     const self = this.props.parent;
     const currentLayerContents = self.props.layersContents??[];
     const copiedLayerContents = [...currentLayerContents];
+    const newNumberOfAttribute = {...this.props.numberOfAttribute}
     const newLayerContents = copiedLayerContents.reduce((newArray,item:{id:string,attributes:any[]})=>{
       if (item?.id !== id){
         newArray.push(item);
+      }else{
+        if (newNumberOfAttribute[id]){
+          delete newNumberOfAttribute[id];
+        }
       }
       return newArray;
     },[])
-    self.removeAttributes(newLayerContents)
+    self.removeAttributes(newLayerContents,newNumberOfAttribute)
   }
 
 
@@ -127,11 +133,12 @@ export default class  LayerContents extends React.PureComponent<layerContentType
   render(){
 
     const self = this.props.parent;
-
-    if (this.props.component_type === "LAYERS_CONTENTS"){
-        return (
-            <>
-                <EnhancedTableToolbar numSelected={this.state.selected.length} sketchGeometry = {self.props.parent.sketchGeometry}/>
+    return (
+      <>
+        {/* <EnhancedTableToolbar numSelected={this.state.selected.length} sketchGeometry = {self.props.parent.sketchGeometry}/> */}
+          <EnhancedTableToolbar numSelected={this.state.selected.length}>
+                  <SelectGeometry sketchGeometry = {self.props.parent.sketchGeometry}/>
+                </EnhancedTableToolbar>
                 <Container 
                   height = {1} 
                   width = "96%" 
@@ -192,8 +199,7 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                 />
             </>
         )
-    }
-    return null;
+    
   }
 }
 

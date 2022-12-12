@@ -60,7 +60,8 @@ export default class  Options extends React.PureComponent<PropsType,any> {
 
     onClickOption = (value:string)=>{
         const self = this.props.parent;
-        const returnedAttributes = helper.getLayerAttributes(this.props.layerId,this.props.layerContents);
+        const layerId = this.props.layerId;
+        const returnedAttributes = helper.getLayerAttributes(layerId,this.props.layerContents);
         if (this.props.isSelected && returnedAttributes.length > 0){
             if (value === "zoomIn"){
                 self.props.parent.zoomIn(); 
@@ -68,6 +69,8 @@ export default class  Options extends React.PureComponent<PropsType,any> {
                 self.props.parent.changeToCsv(returnedAttributes,"csv");
             }else if (value === "json"){
                 self.props.parent.changeToCsv(returnedAttributes,"json");
+            }else if (value === "statistics"){
+                self.props.parent.controlStatisticModal(layerId);
             }
         }
      

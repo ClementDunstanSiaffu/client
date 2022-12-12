@@ -84,6 +84,7 @@
     "reselect": "^4.1.5",
     "save-file": "^2.3.1",
     "seamless-immutable": "^7.1.4",
+    "statistics.js": "^1.0.0",
     "stylis-plugin-rtl": "^2.1.1",
     "systemjs": "^6.12.1",
     "true-case-path": "^2.2.1",

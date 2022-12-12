@@ -8,6 +8,8 @@ import AttributesContents from './attributes_contents'
 import layerObject from '../interface/interface'
 import {popupContentType} from '../interface/interface'
 import AdvancedSelectionTable from '../runtime/widget';
+import helper from '../helper/helper';
+import StatisticsModal from './statistics';
 
 
 type TablePropsType = {
@@ -16,7 +18,7 @@ type TablePropsType = {
   openPopUp:(popcontents:popupContentType)=>void,
   parent:AdvancedSelectionTable,
   numberOfAttribute:{[key:string]:number},
-  checkedLayers:string[]
+  checkedLayers:string[],
 }
 
 type stateType = {
@@ -25,6 +27,7 @@ type stateType = {
   component_type:string,
   selectedAttributes:any[],
   layerTitle:string,
+  openStatistics:boolean,
 }
 
 export default class  LayersTable extends React.PureComponent<TablePropsType,stateType>{
@@ -35,6 +38,7 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,sta
     component_type:"LAYERS_CONTENTS",
     selectedAttributes:[],
     layerTitle:" ",
+    openStatistics:false
 }
 
   isSelected = (name: string) => this.state.selected.indexOf(name) !== -1;
@@ -47,6 +51,14 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,sta
   changeToCsv = (optionSelectedAttributes:any[],exportTYpe:string)=>{
     const self = this.props.parent;
     self.convertToCsv(optionSelectedAttributes,exportTYpe);
+  }
+
+  controlStatisticModal = (layerId:string)=>{
+    const self = this.props.parent;
+    const layersContents = this.props.layersContents;
+    const returnedAttributes = helper.getLayerAttributes(layerId,layersContents)
+    // self.setState({openStatistics:!self.state.openStatistics});
+    this.setState({selectedAttributes:returnedAttributes,openStatistics:!self.state.openStatistics});
   }
 
   dispatchCheckedLayer = (layerId:string)=>{
@@ -72,9 +84,10 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,sta
     self.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers));
   }
 
-  removeAttributes = (newLayersContents:{id:string,attributes:any[]}[])=>{
+  removeAttributes = (newLayersContents:{id:string,attributes:any[]}[],numberOfAttribute:{[key:string]:number,})=>{
     const self = this.props.parent;
     self.props.dispatch(appActions.widgetStatePropChange("value","layerContents",newLayersContents));
+    self.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",numberOfAttribute))
   }
 
   render(){
@@ -82,17 +95,25 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,sta
     return (
       <Box sx={{ width: '100%',height:600 }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
-          <LayerContents 
-            component_type = {this.state.component_type}
-            numberOfAttribute = {self.props.stateValue?.value?.numberOfAttribute}
-            parent = {this}
-          />
-          <AttributesContents 
-            attributes={this.state.selectedAttributes}
-            component_type = {this.state.component_type}
-            layerTitle = {this.state.layerTitle}
-            parent = {this}
-          />
+          {this.state.component_type === "LAYERS_CONTENTS" &&
+            <LayerContents 
+              component_type = {this.state.component_type}
+              numberOfAttribute = {self.props.stateValue?.value?.numberOfAttribute}
+              parent = {this}
+            />
+          }
+          {this.state.component_type === "ATTRIBUTE_CONTENTS" && 
+            <AttributesContents 
+              attributes={this.state.selectedAttributes}
+              component_type = {this.state.component_type}
+              layerTitle = {this.state.layerTitle}
+              parent = {this}
+            />
+          }
+          {
+            this.state.openStatistics && <StatisticsModal parent = {this} attributes={this.state.selectedAttributes}/>
+
+          }
         </Paper>
       </Box>
     )

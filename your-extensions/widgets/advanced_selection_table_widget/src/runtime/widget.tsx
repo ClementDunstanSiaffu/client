@@ -1,5 +1,6 @@
 import {React,jsx,AllWidgetProps,IMState, appActions} from 'jimu-core';
 import LayersTable from '../component/layer_table';
+import StatisticsModal from '../component/statistics';
 import {popupContentType} from '../interface/interface'
 import {getUri} from '../lib/build_uri'
 
@@ -7,11 +8,14 @@ type StateValueType = {
     stateValue:any
 }
 
+
 export default class AdvancedSelectionTable extends React.PureComponent<AllWidgetProps<any>&StateValueType,any>{
 
     static mapExtraStateProps(state:IMState){
         return {stateValue:state.widgetsState};
     }
+
+    state = {openStatistics:false};
 
     sketchGeometry = (geometryType:any)=>{
         this.props.dispatch(appActions.widgetStatePropChange("value","sketch",true));
@@ -31,7 +35,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         const uri = getUri(selectedAttributes,exportTYpe,this);
         this.props.dispatch(appActions.widgetStatePropChange("value","exportStatus",true));
         this.props.dispatch(appActions.widgetStatePropChange("value","uri",uri));
-        // window.open(uri,"blank")
     }
 
     render(): React.ReactNode {
@@ -39,13 +42,18 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         const layersContents = this.props.stateValue?.value?.layerContents;
         const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute;
         const checkedLayers = this.props.stateValue?.value?.checkedLayers;
-        return <LayersTable 
+        return(
+            <>
+                <LayersTable 
                     layers={layers} 
                     layersContents = {layersContents}
                     openPopUp = {this.openPopUp}
                     numberOfAttribute = {numberOfAttribute}
                     checkedLayers = {checkedLayers}
                     parent = {this}
-                />;
+                />
+            </>
+        )
+     
     }
 }
