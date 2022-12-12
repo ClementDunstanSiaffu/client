@@ -43,6 +43,47 @@ class Helper {
         return layerContentsObject;
     }
 
+    // getClickedLayerId = (results:any[]):string[]=>{
+    //     let clickedLayerIdArr = [];
+    //     if (results.length > 0){
+    //         clickedLayerIdArr = results.reduce((newArr,item):string[]=>{
+    //             let layerId = item?.graphic?.layer?.id;
+    //             if (layerId){
+    //                 newArr = [...newArr,layerId];
+    //             }
+    //             return newArr
+    //         },[])
+    //     }
+    //     return clickedLayerIdArr;
+    // }
+
+    // checkClickedLayerOnSelectedLayer = (clickedLayerId:string[],selectedLayers:selectedLayerType[])=>{
+    //     let status = false;
+    //     let index = -1;
+    //     for (let i=0;i < clickedLayerId.length;i++){
+    //         index = selectedLayers.findIndex((item)=>item.id === clickedLayerId[i]);
+    //         if (index != -1){
+    //             return true;
+    //         }
+    //     }
+    //     return status;
+    // }
+
+    getClickedLayerStatus = (results:any[],selectedLayer:selectedLayerType[]):boolean=>{
+        let status = false;
+        let index = -1;
+        if (results?.length > 0 && selectedLayer?.length > 0){
+            for (let i = 0;i < results.length;i++){
+                let layerId = results[i]?.graphic?.layer?.id;
+                index = selectedLayer.findIndex((item)=>item.id === layerId);
+                if (index != -1){
+                    return true;
+                }
+            }
+        }
+        return status;
+    }
+
   
 }
 
