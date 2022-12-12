@@ -52,15 +52,18 @@ export default class StatisticsModal extends React.PureComponent<PropsType,State
       let mean = null
       let standardDeviation = null;
       let median = null;
+      let maximum = null;
       if (this.statistics){
         mean = this.statistics?.arithmeticMean(field);
         standardDeviation = this.statistics?.standardDeviation(field);
         median = this.statistics?.median(field);
+        maximum = this.statistics?.maximum(field);
         this.setState({columns:{
           ...this.state.columns,
           "mean":mean,
           "standardDeviation":standardDeviation,
-          "median":median
+          "median":median,
+          "maximum":maximum
         }})
       }
     }
@@ -103,7 +106,7 @@ export default class StatisticsModal extends React.PureComponent<PropsType,State
                     {
                       Object.keys(this.state.columns).length > 0 ?
                         Object.keys(this.state.columns).map((item,k)=>{
-                          const value = !isNaN(this.state.columns[item]) ? this.state.columns[item]:0
+                          const value = !isNaN(this.state.columns[item]) && this.state.columns[item] ? this.state.columns[item]:0
                           return(
                             <div key = {`${k}`+item} className = "layer-content-container row-color-hover margin-top">
                               <div className='flex-auto cursor-style'>
