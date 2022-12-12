@@ -65,8 +65,6 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
             const selectedLayersContents = this.props.stateValue?.value?.layerContents;
             event.stopPropagation();
             view.hitTest(event).then((response)=>{
-                // let clickedLayerId = helper.getClickedLayerId(response?.results);
-                // let status = helper.checkClickedLayerOnSelectedLayer(clickedLayerId,selectedLayersContents);
                 let status = helper.getClickedLayerStatus(response?.results,selectedLayersContents);
                 if (status){
                     this.exportCsvAndJson()
