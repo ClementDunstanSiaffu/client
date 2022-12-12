@@ -1,7 +1,6 @@
 
 import {React,jsx} from 'jimu-core'
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import AdvancedSelectionTable from '../runtime/widget';
@@ -11,6 +10,8 @@ import DropDown from './common/dropdown';
 const Statistics = require('statistics.js');
 import Container from '../assets/css/style';
 import '../assets/css/style.scss'
+import { CloseOutlined } from 'jimu-icons/outlined/editor/close';
+import { Button } from 'jimu-ui';
 
 
 const style = {
@@ -18,10 +19,11 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width:400,
   bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
+  // boxShadow: 24,
+  // p: 4,
+
 };
 
 type StateValue = {
@@ -86,7 +88,6 @@ export default class StatisticsModal extends React.PureComponent<PropsType,State
       }
       this.setState({items:items,title:title});
       this.onSelectField(title);
-      
     }
 
     render(){
@@ -97,12 +98,36 @@ export default class StatisticsModal extends React.PureComponent<PropsType,State
                 onClose={this.handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                style = {{backgroundColor:"transparent"}}
               >
                 <Box sx={style}>
+                  <Container 
+                    height={60} 
+                    borderBottomColor="grey"
+                    borderBottomWidth={1}
+                    width = {"100%"}
+
+                  >
+                    <div className = "layer-content-container" style={{paddingLeft:20,paddingRight:20,height:60}}>
+                      <div className='flex-auto cursor-style'>Statistics</div>
+                      <div onClick={this.handleClose}>
+                        <CloseOutlined />
+                      </div> 
+                    </div> 
+                  </Container>
                   <EnhancedTableToolbar>
-                    <DropDown items={this.state.items} onClick = {this.onSelectField} title = {this.state.title}/>
+                    <div className='layer-content-container'>
+                      <div style = {{marginRight:20}}>Fields :</div>
+                      <DropDown items={this.state.items} onClick = {this.onSelectField} title = {this.state.title}/>
+                    </div>
                   </EnhancedTableToolbar>
-                  <Container height={200} width = {"100%"} overflow = "auto"  className='centerize-contents padding-contents20'>
+                  <Container 
+                    height={150} 
+                    width = {"100%"} 
+                    overflow = "auto" 
+                    className='centerize-contents padding-contents20'
+                    style={{paddingLeft:20,paddingRight:20}}
+                  >
                     {
                       Object.keys(this.state.columns).length > 0 ?
                         Object.keys(this.state.columns).map((item,k)=>{
@@ -120,6 +145,11 @@ export default class StatisticsModal extends React.PureComponent<PropsType,State
                         }):null
                     }
                   </Container>
+                  <div style = {{display:"flex",justifyContent:"flex-end",paddingBottom:20,paddingRight:20}}>
+                    <Button style={{width:100,height:50,borderColor:"lightgrey",borderWidth:1}} onClick = {this.handleClose}>
+                      Ok
+                    </Button>
+                  </div>
                 </Box>
               </Modal>
             </div>

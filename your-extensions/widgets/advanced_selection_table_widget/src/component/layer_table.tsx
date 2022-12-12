@@ -95,13 +95,13 @@ export default class  LayersTable extends React.PureComponent<TablePropsType,sta
     return (
       <Box sx={{ width: '100%',height:600 }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
-          {this.state.component_type === "LAYERS_CONTENTS" &&
+          
             <LayerContents 
               component_type = {this.state.component_type}
               numberOfAttribute = {self.props.stateValue?.value?.numberOfAttribute}
               parent = {this}
             />
-          }
+          
           {this.state.component_type === "ATTRIBUTE_CONTENTS" && 
             <AttributesContents 
               attributes={this.state.selectedAttributes}

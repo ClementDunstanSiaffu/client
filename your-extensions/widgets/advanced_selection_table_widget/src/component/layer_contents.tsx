@@ -131,8 +131,11 @@ export default class  LayerContents extends React.PureComponent<layerContentType
 
 
   render(){
-
+    console.log(this.state.selected,"check selected")
     const self = this.props.parent;
+    if (this.props.component_type === "LAYERS_CONTENTS"){
+
+    
     return (
       <>
         {/* <EnhancedTableToolbar numSelected={this.state.selected.length} sketchGeometry = {self.props.parent.sketchGeometry}/> */}
@@ -199,6 +202,8 @@ export default class  LayerContents extends React.PureComponent<layerContentType
                 />
             </>
         )
+    }
+    return null
     
   }
 }

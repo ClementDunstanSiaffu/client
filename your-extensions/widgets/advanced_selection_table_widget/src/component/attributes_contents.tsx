@@ -42,6 +42,7 @@ export default class AttributesContents extends React.PureComponent<attributeCon
     }
 
     render(): React.ReactNode {
+        if (this.props.component_type === "ATTRIBUTE_CONTENTS"){
             return(
                 <>
                     <Container  width="100%" style = {{paddingLeft:20}}>
@@ -86,6 +87,8 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                         </Container>
                     </Container>
                 </>
-            )        
+            ) 
+        }
+        return null;       
     }
 }

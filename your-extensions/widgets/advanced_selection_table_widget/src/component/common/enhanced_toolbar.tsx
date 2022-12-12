@@ -3,9 +3,7 @@ import {React,jsx} from 'jimu-core';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
-
-
-
+import '../../assets/css/style.scss'
 
 interface EnhancedTableToolbarProps {
     numSelected?: number,
@@ -28,10 +26,10 @@ export default class  EnhancedTableToolbar extends React.PureComponent<EnhancedT
                         alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
                     }),
                 }}
+                className = "layer-content-container"
             >
               <Typography component="div">
                 {this.props.children}
-                {/* <SelectGeometry sketchGeometry = {this.props.sketchGeometry}/> */}
             </Typography>
             </Toolbar>
         );
