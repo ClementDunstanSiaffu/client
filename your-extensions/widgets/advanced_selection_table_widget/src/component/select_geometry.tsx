@@ -1,10 +1,11 @@
 
-import {React,jsx} from 'jimu-core'
+import {React,jsx,appActions} from 'jimu-core'
 import 'bootstrap/dist/css/bootstrap.css';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import '../assets/css/style.scss'
 import * as images from '../assets/images/';
 import DropDown from './common/dropdown';
+import { AdvancedSelectionTableContext } from '../context/context';
 
 
 const selectionsGeometries = [
@@ -37,11 +38,15 @@ const selectionsGeometries = [
 
 export default class SelectGeometry extends React.PureComponent<any,any>{
 
+    static contextType?: React.Context<any> = AdvancedSelectionTableContext;
+
     onSelectGeometry = (geometryType:any)=>{
-        this.props?.sketchGeometry(geometryType)
+        const advancedSelectionTable = this.context?.parent;
+        advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","sketch",true));
+        advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","geometryType",geometryType));
+        
     }
     
-
     render(): React.ReactNode {
         const widthToEM = `${180*0.0625}em`;
         return <DropDown 
@@ -55,25 +60,3 @@ export default class SelectGeometry extends React.PureComponent<any,any>{
     }
   
   }
-
-
-//   <UncontrolledDropdown>
-//                 <DropdownToggle 
-//                     caret 
-//                     style={{backgroundColor:"green",width:180,color:"white"}} 
-//                     color = "green"
-//                     outline = {false}
-//                 >
-//                     Select geometry
-//                 </DropdownToggle>
-//                 <DropdownMenu>
-//                     {
-//                         selectionsGeometries.map((selectionGeometry,k)=>(
-//                             <DropdownItem key={k} onClick = {()=>this.onSelectGeometry(selectionGeometry.value)}>
-//                                 <img src={selectionGeometry.icon} className = 'icon-style'/>   <span className='ttribute-title'>{selectionGeometry.name}</span>
-//                             </DropdownItem>
-//                         ))
-//                     }
-//                 </DropdownMenu>
-//             </UncontrolledDropdown>
-//         );

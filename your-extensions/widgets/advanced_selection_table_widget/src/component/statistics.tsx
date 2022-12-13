@@ -1,18 +1,15 @@
 
 import {React,jsx} from 'jimu-core'
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import AdvancedSelectionTable from '../runtime/widget';
 import EnhancedTableToolbar from './common/enhanced_toolbar';
-import LayersTable from './layer_table';
 import DropDown from './common/dropdown';
 const Statistics = require('statistics.js');
 import Container from '../assets/css/style';
 import '../assets/css/style.scss'
 import { CloseOutlined } from 'jimu-icons/outlined/editor/close';
 import { Button } from 'jimu-ui';
-
+import { AdvancedSelectionTableContext } from '../context/context';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -21,9 +18,6 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width:400,
   bgcolor: 'background.paper',
-  // boxShadow: 24,
-  // p: 4,
-
 };
 
 type StateValue = {
@@ -32,21 +26,17 @@ type StateValue = {
   columns:{}
 }
 
-type PropsType = {
-    parent:LayersTable,
-    attributes:any[]
-}
 
+export default class StatisticsModal extends React.PureComponent<any,StateValue> {
 
-
-export default class StatisticsModal extends React.PureComponent<PropsType,StateValue> {
+    static contextType?: React.Context<any> = AdvancedSelectionTableContext;
 
     state = {items:[],title:" ",columns:{}};
     statistics = null;
 
     handleClose = () => {
-        const self = this.props.parent;
-        self.setState({openStatistics:false})
+        const advancedSelectionTable = this.context?.parent
+        advancedSelectionTable?.setState({openStatistics:false})
     }
 
     onSelectField = (field:string)=>{
@@ -73,8 +63,9 @@ export default class StatisticsModal extends React.PureComponent<PropsType,State
     componentDidMount(): void {
       let items = [];
       let title = " ";
-      const attributes = this.props.attributes;
-      if (attributes.length > 0){ 
+      const attributes = this.context?.selectedAttributes;
+      console.log(attributes,"check attributes")
+      if (attributes?.length > 0){ 
         let columns = {};
         items = Object.keys(attributes[0]).reduce((newArr,item)=>{
           newArr.push({label:item,value:item}); 
@@ -91,47 +82,45 @@ export default class StatisticsModal extends React.PureComponent<PropsType,State
     }
 
     render(){
+      const open = this.context?.openStatistics;
       return (
-            <div>
-              <Modal
-                open={true}
-                onClose={this.handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                style = {{backgroundColor:"transparent"}}
+        <div>
+          <Modal
+            open={true}
+            onClose={this.handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            style = {{backgroundColor:"transparent"}}
+          >
+            <Box sx={style}>
+              <Container 
+                height={60} 
+                borderBottomColor="grey"
+                borderBottomWidth={1}
+                width = {"100%"}
               >
-                <Box sx={style}>
-                  <Container 
-                    height={60} 
-                    borderBottomColor="grey"
-                    borderBottomWidth={1}
-                    width = {"100%"}
-
-                  >
-                    <div className = "layer-content-container" style={{paddingLeft:20,paddingRight:20,height:60}}>
-                      <div className='flex-auto cursor-style'>Statistics</div>
-                      <div onClick={this.handleClose}>
-                        <CloseOutlined />
-                      </div> 
-                    </div> 
-                  </Container>
-                  <EnhancedTableToolbar>
-                    <div className='layer-content-container'>
-                      <div style = {{marginRight:20}}>Fields :</div>
-                      <DropDown items={this.state.items} onClick = {this.onSelectField} title = {this.state.title}/>
-                    </div>
-                  </EnhancedTableToolbar>
-                  <Container 
-                    height={150} 
-                    width = {"100%"} 
-                    overflow = "auto" 
-                    className='centerize-contents padding-contents20'
-                    style={{paddingLeft:20,paddingRight:20}}
-                  >
-                    {
-                      Object.keys(this.state.columns).length > 0 ?
-                        Object.keys(this.state.columns).map((item,k)=>{
-                          const value = !isNaN(this.state.columns[item]) && this.state.columns[item] ? this.state.columns[item]:0
+                <div className = "layer-content-container" style={{paddingLeft:20,paddingRight:20,height:60}}>
+                  <div className='flex-auto cursor-style'>Statistics</div>
+                  <div onClick={this.handleClose}><CloseOutlined /></div> 
+                </div> 
+              </Container>
+              <EnhancedTableToolbar>
+                <div className='layer-content-container'>
+                  <div style = {{marginRight:20}}>Fields :</div>
+                  <DropDown items={this.state.items} onClick = {this.onSelectField} title = {this.state.title}/>
+                </div>
+              </EnhancedTableToolbar>
+                <Container 
+                  height={150} 
+                  width = {"100%"} 
+                  overflow = "auto" 
+                  className='centerize-contents padding-contents20'
+                  style={{paddingLeft:20,paddingRight:20}}
+                >
+                  {
+                    Object.keys(this.state.columns).length > 0 ?
+                      Object.keys(this.state.columns).map((item,k)=>{
+                        const value = !isNaN(this.state.columns[item]) && this.state.columns[item] ? this.state.columns[item]:0
                           return(
                             <div key = {`${k}`+item} className = "layer-content-container row-color-hover margin-top">
                               <div className='flex-auto cursor-style'>
@@ -143,8 +132,8 @@ export default class StatisticsModal extends React.PureComponent<PropsType,State
                             </div>
                           )
                         }):null
-                    }
-                  </Container>
+                  }
+                </Container>
                   <div style = {{display:"flex",justifyContent:"flex-end",paddingBottom:20,paddingRight:20}}>
                     <Button style={{width:100,height:50,borderColor:"lightgrey",borderWidth:1}} onClick = {this.handleClose}>
                       Ok

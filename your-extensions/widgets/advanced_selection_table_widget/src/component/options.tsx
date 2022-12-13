@@ -1,20 +1,13 @@
-import * as React from 'react';
+import {React,appActions} from 'jimu-core'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import LayerContents from './layer_contents';
 import Container from '../assets/css/style';
 import '../assets/css/style.scss';
 import CloseIcon from '@mui/icons-material/Close';
 import * as images from '../assets/images/'
 import helper from '../helper/helper';
-
-type PropsType = {
-    parent:LayerContents,
-    anchorEl:EventTarget & HTMLButtonElement,
-    layerId:string,
-    layerContents:{id:string,attributes:any[]}[],
-    isSelected:boolean
-}
+import { AdvancedSelectionTableContext } from '../context/context';
+import {getUri} from '../lib/build_uri';
 
 const options = [
     {
@@ -52,43 +45,61 @@ const options = [
         value:"delete",
         icon:images.deleteIcon
     },
-    
-    
 ]
 
-export default class  Options extends React.PureComponent<PropsType,any> {
+export default class  Options extends React.PureComponent<any,any> {
+
+    static contextType?: React.Context<any> = AdvancedSelectionTableContext;
 
     onClickOption = (value:string)=>{
-        const self = this.props.parent;
-        const layerId = this.props.layerId;
-        const returnedAttributes = helper.getLayerAttributes(layerId,this.props.layerContents);
-        if (this.props.isSelected && returnedAttributes.length > 0){
+        const layerId = this.context?.layerId;
+        const advancedSelectionTable = this.context?.parent;
+        const layerContents = advancedSelectionTable?.props?.stateValue?.value?.layerContents;
+        const returnedAttributes = helper.getLayerAttributes(layerId,layerContents);
+        const isItemSelected = this.context?.isItemSelected;
+        if (isItemSelected && returnedAttributes?.length > 0){
+            advancedSelectionTable?.setState({selectedAttributes:returnedAttributes});
             if (value === "zoomIn"){
-                self.props.parent.zoomIn(); 
+                advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","zoomIn",true))
             }else if (value === "csv"){
-                self.props.parent.changeToCsv(returnedAttributes,"csv");
+                this.exportFile(returnedAttributes,"csv");
             }else if (value === "json"){
-                self.props.parent.changeToCsv(returnedAttributes,"json");
+                this.exportFile(returnedAttributes,"json");
             }else if (value === "statistics"){
-                self.props.parent.controlStatisticModal(layerId);
+                this.controlStatisticModal(layerId);
             }
         }
-     
     }
 
+    exportFile = (selectedAttributes:any[],exportType:string)=>{
+        const advancedSelectionTable = this.context?.parent;
+        const uri = getUri(selectedAttributes,exportType,advancedSelectionTable);
+        advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","exportStatus",true));
+        advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","uri",uri));
+    }
+
+    controlStatisticModal = (layerId:string)=>{
+        const advancedSelectionTable = this.context?.parent;
+        const layersContents = advancedSelectionTable?.props?.stateValue?.value?.layerContents;
+        const returnedAttributes = helper.getLayerAttributes(layerId,layersContents)
+        advancedSelectionTable?.setState({selectedAttributes:returnedAttributes,openStatistics:!advancedSelectionTable?.state?.openStatistics});
+    }
+
+    handleCloseMoreHorizonIcon = () => {
+        const advancedSelectionTable = this.context?.parent;
+        advancedSelectionTable?.setState({anchorEl:null})
+    };
+
     render(){
-        const open = Boolean(this.props.anchorEl);
-        const self = this.props.parent;
+        const open = Boolean(this.context?.anchorEl);
         return (
             <div>
                 <Menu
                     id="basic-menu"
-                    anchorEl={this.props.anchorEl}
+                    anchorEl={this.context?.anchorEl}
                     open={open}
-                    onClose={self.handleCloseMoreHorizonIcon}
-                    MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                    }}
+                    onClose={this.handleCloseMoreHorizonIcon}
+                    MenuListProps={{'aria-labelledby': 'basic-button'}}
                 >
                     <Container 
                         width={"90%"} 
@@ -98,14 +109,14 @@ export default class  Options extends React.PureComponent<PropsType,any> {
                         className = 'centerize-contents display-row-contents'
                     >
                         <div className='flex-auto text-style-400'>Select Action</div>
-                        <div className='display-flex-end close-button' onClick={self.handleCloseMoreHorizonIcon}>
+                        <div className='display-flex-end close-button' onClick={this.handleCloseMoreHorizonIcon}>
                             <CloseIcon style={{color:"grey"}}/>
                         </div>
                     </Container>
                     {
                         options.map((option,k)=>{
                             return( 
-                                <MenuItem onClick={self.handleCloseMoreHorizonIcon}>
+                                <MenuItem onClick={this.handleCloseMoreHorizonIcon}>
                                     <Container 
                                         width={"100%"} 
                                         className = 'centerize-contents display-row-contents padding-contents10' 

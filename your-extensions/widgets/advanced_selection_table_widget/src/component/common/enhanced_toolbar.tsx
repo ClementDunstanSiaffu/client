@@ -7,7 +7,6 @@ import '../../assets/css/style.scss'
 
 interface EnhancedTableToolbarProps {
     numSelected?: number,
-    // sketchGeometry:(geometryType:any)=>void,
     children:any
 }
 

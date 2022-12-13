@@ -1,32 +1,23 @@
 
-import {React,jsx} from 'jimu-core';
+import {React,jsx,appActions} from 'jimu-core';
 import Container from '../assets/css/style';
 import '../assets/css/style.scss';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import LayersTable from './layer_table';
-import PopupTemplate from 'esri/PopupTemplate'
-import {popupContentType} from '../interface/interface'
 import helper from '../helper/helper';
+import { AdvancedSelectionTableContext } from '../context/context';
 
+export default class AttributesContents extends React.PureComponent<any,any>{
 
-type attributeContentsType = {
-    attributes:any[],
-    layerTitle:string,
-    component_type:string,
-    parent:LayersTable,
-
-}
-
-export default class AttributesContents extends React.PureComponent<attributeContentsType,any>{
+    static contextType?: React.Context<any> = AdvancedSelectionTableContext;
 
     backToTableContents = ()=>{
-        const self = this.props.parent;
-        self?.setState({ component_type:"LAYERS_CONTENTS",selectedAttributes:[]})
+        const advancedSelectionTable = this.context?.parent;
+        advancedSelectionTable.setState({ component_type:"LAYERS_CONTENTS",selectedAttributes:[]})
     }
 
     openPopup = (attribute:any)=>{
-        const self = this.props.parent;
-        const title = this.props.layerTitle;
+        const advancedSelectionTable = this.context?.parent;
+        const title = this.context?.layerTitle;
         let contents = " ";
         let openDivTag = "<div>"
         const attributKeysArray = helper.getAttributeKeyArray(attribute);
@@ -37,12 +28,14 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                 </div>`
         })
         contents = openDivTag + "</div>"
-        const popupContents = {title:title,contents:contents}
-        self?.props.openPopUp(popupContents)
+        const popupContents = {title:title,contents:contents};
+        advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","popup",true));
+        advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","popupContents",popupContents));
     }
 
     render(): React.ReactNode {
-        if (this.props.component_type === "ATTRIBUTE_CONTENTS"){
+        const attributes = this.context?.selectedAttributes;
+        if (this.context?.component_type === "ATTRIBUTE_CONTENTS"){
             return(
                 <>
                     <Container  width="100%" style = {{paddingLeft:20}}>
@@ -51,12 +44,12 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                                 <ArrowBackIcon />
                             </div>
                             <div className='layer-title'>
-                                {this.props.layerTitle}
+                                {this.context?.layerTitle}
                             </div>
                         </div>
                         <Container style = {{marginTop:20}}  height={450} width = {"100%"} overflow = "auto">
                             {
-                                this.props.attributes.map((attribute,k)=>{
+                                attributes?.map((attribute:any,k:number)=>{
                                     let attributeName = k;
                                     if (attribute && Object.keys(attribute).length > 0){
                                         attributeName = attribute[Object.keys(attribute)[0]];
@@ -78,7 +71,7 @@ export default class AttributesContents extends React.PureComponent<attributeCon
                                                 </Container>
                                             </div>
                                             <div className='flex-auto'>
-                                                {this.props.layerTitle}:{attributeName}
+                                                {this.context?.layerTitle}:{attributeName}
                                             </div>
                                       </div>
                                     )
