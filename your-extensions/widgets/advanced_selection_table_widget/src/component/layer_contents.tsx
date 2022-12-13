@@ -38,6 +38,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
   dispatchCheckedLayer = (layerId:string)=>{
     const advancedSelectionTable = this.context?.parent;
     const currentCheckedLayers = this.context?.checkedLayers;
+    // const currentCheckedLayers = advancedSelectionTable?.props?.stateValue?.value?.checkedLayers;
     let index = -1;
     let newCheckedLayers = []
     if (currentCheckedLayers?.length > 0){
@@ -59,9 +60,9 @@ export default class  LayerContents extends React.PureComponent<any,any>{
   }
 
   removeAttributes = (id:string)=>{
-    const advancedSelectionTable = this.context.parent;
+    const advancedSelectionTable = this.context?.parent;
     const numberOfAttribute = this.context?.numberOfAttribute
-    const currentLayerContents = this.context.layersContents??[];
+    const currentLayerContents = this.context?.layersContents??[];
     const copiedLayerContents = [...currentLayerContents];
     const newNumberOfAttribute = {...numberOfAttribute}
     const newLayerContents = copiedLayerContents.reduce((newArray,item:{id:string,attributes:any[]})=>{
@@ -91,8 +92,8 @@ export default class  LayerContents extends React.PureComponent<any,any>{
 
   onClickLayerName = (id:string,layerName:string)=>{
     const advancedSelectionTable = this.context?.parent;
-    const layersContents = advancedSelectionTable?.props?.stateValue?.value?.layerContents;
-    console.log(layersContents,"check layer contents")
+    const layersContents = this.context?.layerContents;
+    // const layersContents = advancedSelectionTable?.props?.stateValue?.value?.layerContents;
     const returnedAttributes = helper.getLayerAttributes(id,layersContents);
     if (returnedAttributes?.length > 0){
       advancedSelectionTable?.setState({
@@ -106,7 +107,8 @@ export default class  LayerContents extends React.PureComponent<any,any>{
   render(){
     const advancedSelectionTable = this.context?.parent
     const layers = this.context?.layers;
-    const numberOfAttribute = advancedSelectionTable?.props?.stateValue?.value?.numberOfAttribute;
+    const numberOfAttribute = this.context.numberOfAttribute;
+    // const numberOfAttribute = advancedSelectionTable?.props?.stateValue?.value?.numberOfAttribute;
     const component_type = this.context?.component_type;
     const selected = this.context?.selected;
 

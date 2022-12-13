@@ -37,9 +37,10 @@ class Helper {
 
     getNumberOfAttributes = (layersContents:{id:string,attributes:any[]}[])=>{
         let layerContentsObject = {};
-         for (let i=0;i < layersContents.length;i++){
+        for (let i=0;i < layersContents.length;i++){
              layerContentsObject = {...layerContentsObject,[layersContents[i]?.id]:layersContents[i]?.attributes?.length??0}
-         }
+        }
+        console.log(layersContents,layerContentsObject,"checkingnngngn")
         return layerContentsObject;
     }
 
@@ -53,6 +54,18 @@ class Helper {
                 if (index != -1){
                     return true;
                 }
+            }
+        }
+        return status;
+    }
+
+    checkIfLayerWasAdded = (layerId:string,mapLayersItems:any[])=>{
+        let index = -1;
+        let status = false;
+        if (mapLayersItems?.length > 0){
+            index = mapLayersItems.findIndex((item)=>item?.id === layerId);
+            if (index !== -1){
+                status = true;
             }
         }
         return status;

@@ -10,6 +10,7 @@ export const getUri = ((
     data:any, 
     exportType = "json",
     self:AdvancedSelectionTable,
+    status="export",
     uFEFFValue=uFEFF , 
     headers?:any[], 
     separatorValue = separator, 
@@ -17,7 +18,7 @@ export const getUri = ((
 ) => {
     let currentUrl = getJsonUri(data,self)
     if (exportType === "csv"){
-        currentUrl = getCsvUri(data,self)
+        currentUrl = getCsvUri(data,self,status)
     }
     return currentUrl;
 });

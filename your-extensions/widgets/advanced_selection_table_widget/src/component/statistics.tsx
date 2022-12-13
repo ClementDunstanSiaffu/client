@@ -1,24 +1,96 @@
 
 import {React,jsx} from 'jimu-core'
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
 import EnhancedTableToolbar from './common/enhanced_toolbar';
 import DropDown from './common/dropdown';
 const Statistics = require('statistics.js');
 import Container from '../assets/css/style';
 import '../assets/css/style.scss'
-import { CloseOutlined } from 'jimu-icons/outlined/editor/close';
 import { Button } from 'jimu-ui';
 import { AdvancedSelectionTableContext } from '../context/context';
+import ModalComponent from './common/modal';
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width:400,
-  bgcolor: 'background.paper',
-};
+class ModalBody extends React.PureComponent<any,any>{
+
+  static contextType?: React.Context<any> = AdvancedSelectionTableContext;
+
+  statistics = null;
+
+  state = {items:[],title:" ",columns:{}};
+
+  onSelectField = (field:string)=>{
+    this.setState({title:field});
+    let mean = null
+    let standardDeviation = null;
+    let median = null;
+    let maximum = null;
+    if (this.statistics){
+      mean = this.statistics?.arithmeticMean(field);
+      standardDeviation = this.statistics?.standardDeviation(field);
+      median = this.statistics?.median(field);
+      maximum = this.statistics?.maximum(field);
+      this.setState({columns:{
+        ...this.state.columns,
+        "mean":mean,
+        "standardDeviation":standardDeviation,
+        "median":median,
+        "maximum":maximum
+      }})
+    }
+  }
+
+  componentDidMount(): void {
+    let items = [];
+    let title = " ";
+    const attributes = this.context?.selectedAttributes;
+    if (attributes?.length > 0){ 
+      let columns = {};
+      items = Object.keys(attributes[0]).reduce((newArr,item)=>{
+        newArr.push({label:item,value:item}); 
+        columns = {...columns,[item]:"metric"}
+        return newArr;
+      },[])
+      this.statistics = new Statistics(attributes,columns);
+    }
+    if (items.length > 0){
+      title = items[0]?.label
+    }
+    this.setState({items:items,title:title});
+    this.onSelectField(title);
+  }
+
+  render(): React.ReactNode {
+      return(
+        <>
+          <EnhancedTableToolbar>
+            <div className='layer-content-container'>
+              <div style = {{marginRight:20}}>Fields :</div>
+              <DropDown items={this.state.items} onClick = {this.onSelectField} title = {this.state.title}/>
+            </div>
+          </EnhancedTableToolbar>
+          <Container 
+            height={150} 
+            width = {"100%"} 
+            overflow = "auto" 
+            className='centerize-contents padding-contents20'
+            style={{paddingLeft:20,paddingRight:20}}
+          >
+            {
+              Object.keys(this.state.columns).length > 0 ?
+                Object.keys(this.state.columns).map((item,k)=>{
+                  const value = !isNaN(this.state.columns[item]) && this.state.columns[item] ? this.state.columns[item]:0
+                    return(
+                      <div key = {`${k}`+item} className = "layer-content-container row-color-hover margin-top">
+                        <div className='flex-auto cursor-style'>{item}</div>
+                        <div>{value?.toFixed(4)}</div>
+                      </div>
+                    )
+                  }):null
+                }
+            </Container>
+        </>
+      )
+  }
+}
 
 type StateValue = {
   items:{label:string,value:string}[],
@@ -26,122 +98,28 @@ type StateValue = {
   columns:{}
 }
 
-
 export default class StatisticsModal extends React.PureComponent<any,StateValue> {
 
-    static contextType?: React.Context<any> = AdvancedSelectionTableContext;
+  static contextType?: React.Context<any> = AdvancedSelectionTableContext;
 
-    state = {items:[],title:" ",columns:{}};
-    statistics = null;
+  handleClose = () => {
+    const advancedSelectionTable = this.context?.parent
+    advancedSelectionTable?.setState({openStatistics:false})
+  }
 
-    handleClose = () => {
-        const advancedSelectionTable = this.context?.parent
-        advancedSelectionTable?.setState({openStatistics:false})
-    }
-
-    onSelectField = (field:string)=>{
-      this.setState({title:field});
-      let mean = null
-      let standardDeviation = null;
-      let median = null;
-      let maximum = null;
-      if (this.statistics){
-        mean = this.statistics?.arithmeticMean(field);
-        standardDeviation = this.statistics?.standardDeviation(field);
-        median = this.statistics?.median(field);
-        maximum = this.statistics?.maximum(field);
-        this.setState({columns:{
-          ...this.state.columns,
-          "mean":mean,
-          "standardDeviation":standardDeviation,
-          "median":median,
-          "maximum":maximum
-        }})
-      }
-    }
-
-    componentDidMount(): void {
-      let items = [];
-      let title = " ";
-      const attributes = this.context?.selectedAttributes;
-      console.log(attributes,"check attributes")
-      if (attributes?.length > 0){ 
-        let columns = {};
-        items = Object.keys(attributes[0]).reduce((newArr,item)=>{
-          newArr.push({label:item,value:item}); 
-          columns = {...columns,[item]:"metric"}
-          return newArr;
-        },[])
-        this.statistics = new Statistics(attributes,columns);
-      }
-      if (items.length > 0){
-        title = items[0]?.label
-      }
-      this.setState({items:items,title:title});
-      this.onSelectField(title);
-    }
-
-    render(){
-      const open = this.context?.openStatistics;
-      return (
-        <div>
-          <Modal
-            open={true}
-            onClose={this.handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            style = {{backgroundColor:"transparent"}}
-          >
-            <Box sx={style}>
-              <Container 
-                height={60} 
-                borderBottomColor="grey"
-                borderBottomWidth={1}
-                width = {"100%"}
-              >
-                <div className = "layer-content-container" style={{paddingLeft:20,paddingRight:20,height:60}}>
-                  <div className='flex-auto cursor-style'>Statistics</div>
-                  <div onClick={this.handleClose}><CloseOutlined /></div> 
-                </div> 
-              </Container>
-              <EnhancedTableToolbar>
-                <div className='layer-content-container'>
-                  <div style = {{marginRight:20}}>Fields :</div>
-                  <DropDown items={this.state.items} onClick = {this.onSelectField} title = {this.state.title}/>
-                </div>
-              </EnhancedTableToolbar>
-                <Container 
-                  height={150} 
-                  width = {"100%"} 
-                  overflow = "auto" 
-                  className='centerize-contents padding-contents20'
-                  style={{paddingLeft:20,paddingRight:20}}
-                >
-                  {
-                    Object.keys(this.state.columns).length > 0 ?
-                      Object.keys(this.state.columns).map((item,k)=>{
-                        const value = !isNaN(this.state.columns[item]) && this.state.columns[item] ? this.state.columns[item]:0
-                          return(
-                            <div key = {`${k}`+item} className = "layer-content-container row-color-hover margin-top">
-                              <div className='flex-auto cursor-style'>
-                                {item}
-                              </div>
-                              <div>
-                                {value?.toFixed(4)}
-                              </div>
-                            </div>
-                          )
-                        }):null
-                  }
-                </Container>
-                  <div style = {{display:"flex",justifyContent:"flex-end",paddingBottom:20,paddingRight:20}}>
-                    <Button style={{width:100,height:50,borderColor:"lightgrey",borderWidth:1}} onClick = {this.handleClose}>
-                      Ok
-                    </Button>
-                  </div>
-                </Box>
-              </Modal>
-            </div>
-        )
-    }
+  render(){
+    const openStatistics = this.context?.openStatistics;
+    return (
+      <ModalComponent 
+        isOpen = {openStatistics}
+        toggle = {this.handleClose}
+        modalTitle = "Statistics"  
+        modalBody={<ModalBody/>}   
+      >
+        <Button style={{width:100,height:50,borderColor:"lightgrey",borderWidth:1}} onClick = {this.handleClose}>
+          Ok
+        </Button>
+      </ModalComponent> 
+    )
+  }
 }

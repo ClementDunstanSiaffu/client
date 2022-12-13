@@ -4,6 +4,7 @@ import { JimuMapViewComponent,JimuMapView} from 'jimu-arcgis';
 import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import helper from '../helper/helper'
+import CSVLayer from 'esri/layers/CSVLayer';
 
 
 type stateValueType = {
@@ -78,6 +79,7 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
         if (this.state.activeView){
             this.state.activeView?.selectFeaturesByGraphic(geometry,"contains").then((results)=>{
+                console.log(results,"check results")
                 const selectedLayersContents = helper.getSelectedContentsLayer(results,checkedLayers);
                 this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents));
                 const numberOfAttributes = helper.getNumberOfAttributes(selectedLayersContents);
@@ -176,6 +178,41 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         }
     }
 
+    addCreatedLayer = ()=>{
+        if (this.state.activeView?.view){
+            const csvFile = this.props.stateValue.value.csvFile;
+            const layerTitle = this.props.stateValue.value?.createdLayerTitle
+            const blob = new Blob([csvFile],{type:"plain/text"});
+            let url = URL.createObjectURL(blob);
+            const layer = new CSVLayer({url: url,title:layerTitle,id:layerTitle})
+            try{
+                this.state.activeView?.view?.map.add(layer);
+            }catch(err){
+                
+            }
+            const items = this.state.activeView?.view?.map?.layers?.items;
+            let status = helper.checkIfLayerWasAdded(layerTitle,items);
+            if (status){
+                this.appendAddedLayer(layerTitle);
+            }
+        }
+    }
+
+    appendAddedLayer = (layerTitle:string)=>{
+        let object = {
+            layerName:layerTitle,
+            layerId:layerTitle,
+            keyName:layerTitle,
+            id:layerTitle
+        };
+        const layers = this.props.stateValue?.value?.layers??[]
+        const currentLayers = [...layers,object];
+        this.props.dispatch(appActions.widgetStatePropChange("value","layers",currentLayers));
+        this.props.dispatch(appActions.widgetStatePropChange("value","exportType",null));
+        this.props.dispatch(appActions.widgetStatePropChange("value","csvFile",null));
+        this.props.dispatch(appActions.widgetStatePropChange("value","createdLayerTitle",null));
+    }
+
     componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any): void {
         if (this.props?.stateValue?.value?.sketch && this.props.stateValue?.value?.geometryType){
             this.startSketching();
@@ -185,6 +222,13 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         }
         if (this.props.stateValue?.value?.zoomIn){
             this.onClickZoomIn();
+        }
+        if (
+                this.props.stateValue?.value?.csvFile && 
+                this.props.stateValue?.value?.exportType === "csv" && 
+                this.props.stateValue?.value?.createdLayerTitle 
+            ){
+                this.addCreatedLayer()
         }
     }
 
