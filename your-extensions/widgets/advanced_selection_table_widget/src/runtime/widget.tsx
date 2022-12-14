@@ -1,4 +1,4 @@
-import {React,jsx,AllWidgetProps,IMState, appActions} from 'jimu-core';
+import {React,jsx,AllWidgetProps,IMState, appActions,WidgetManager} from 'jimu-core';
 import CreateLayer from '../component/create_layer';
 import LayersTable from '../component/layer_table';
 import Options from '../component/options';
@@ -9,6 +9,7 @@ import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import helper from '../helper/helper'
 import CSVLayer from 'esri/layers/CSVLayer';
+
 
 type StateValueType = {stateValue:any}
 
@@ -62,6 +63,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         },[])
         newLayersArray.reverse();
         this.setState({layers:newLayersArray});
+        this.props.dispatch(appActions.widgetStatePropChange("value","layers",newLayersArray))
         AdvancedSelectionTable.activeView = activeView;
         // this.setState({activeView:activeView,layers:newLayersArray});
         let view = activeView?.view;
@@ -100,7 +102,8 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
             activeView?.selectFeaturesByGraphic(geometry,"contains").then((results)=>{
                 const selectedLayersContents = helper.getSelectedContentsLayer(results,checkedLayers);
                 const numberOfAttributes = helper.getNumberOfAttributes(selectedLayersContents);
-                this.setState({layerContents:selectedLayersContents,numberOfAttribute:numberOfAttributes})
+                this.setState({layerContents:selectedLayersContents,numberOfAttribute:numberOfAttributes});
+                this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents));
             })
             .catch((err)=>{})
 
@@ -228,7 +231,10 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         this.setState({layers:currentLayers,exportType:null,csvFile:null,createdLayerTitle:null})
     }
 
+   
     render(): React.ReactNode {
+        const wm = WidgetManager.getInstance();
+        console.log(this.props.stateValue?.value?.attributeWidgetId,"check all widgets");
         return(
             <>
                 {

@@ -1,4 +1,4 @@
-import {React,appActions} from 'jimu-core'
+import {React,appActions,WidgetManager} from 'jimu-core'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Container from '../assets/css/style';
@@ -8,6 +8,7 @@ import * as images from '../assets/images/'
 import helper from '../helper/helper';
 import { AdvancedSelectionTableContext } from '../context/context';
 import {getUri} from '../lib/build_uri';
+
 
 const options = [
     {
@@ -70,6 +71,8 @@ export default class  Options extends React.PureComponent<any,any> {
             }else if (value === "layer"){
                 advancedSelectionTable?.setState({opencreateLayer:true});
                 const uri = getUri(returnedAttributes,"csv",advancedSelectionTable,"addLayer");
+            }else if (value === "attributetable"){
+                this.showAttributeTable();
             }
         }
     }
@@ -91,6 +94,19 @@ export default class  Options extends React.PureComponent<any,any> {
         const advancedSelectionTable = this.context?.parent;
         advancedSelectionTable?.setState({anchorEl:null})
     };
+
+    showAttributeTable = ()=>{
+        helper.openTableAttribute()
+        // const valueArialExpanded = document.querySelector(".sidebar-controller");
+        // const forRemovingClass = document.querySelector(".app-root-emotion-cache-ltr-1iklx1g");
+        // const forAddingStyle = document.querySelector(".flex-shrink-0");
+        // forRemovingClass.classList.remove("app-root-emotion-cache-ltr-1iklx1g");
+        // forRemovingClass.classList.add("app-root-emotion-cache-ltr-oen2ei");
+        // if (forAddingStyle?.style){
+        //     forAddingStyle.style = "z-index: 0; flex-basis: 0px; overflow: auto;"
+        // }
+        // valueArialExpanded.ariaExpanded = "true"
+    }
 
     render(){
         const open = Boolean(this.context?.anchorEl);
