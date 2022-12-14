@@ -1,5 +1,3 @@
-
-import { appActions } from "jimu-core";
 import AdvancedSelectionTable from "../../runtime/widget";
 
 export const getJsonUri = (obj:any,self:AdvancedSelectionTable) =>{
@@ -9,8 +7,7 @@ export const getJsonUri = (obj:any,self:AdvancedSelectionTable) =>{
         const data = encode( str );
         const blob = new Blob( [ data ], {type: 'application/json'});
         url = URL.createObjectURL( blob );
-        self.props.dispatch(appActions.widgetStatePropChange("value","blobValue",blob));
-        self.props.dispatch(appActions.widgetStatePropChange("value","exportType","json"));
+        self?.setState({blobValue:blob,exportType:"json"})
     }
     return url;
 }

@@ -31,8 +31,10 @@ export default class CreateLayer extends React.PureComponent<any,any>{
     createLayer = ()=>{
         const layerTitle = this.context?.layerName;
         const advancedSelectionTable = this.context?.parent;
-        advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","createdLayerTitle",layerTitle));
-        this.onClose();
+        advancedSelectionTable.setState({createdLayerTitle:layerTitle},()=>{
+            advancedSelectionTable.addCreatedLayer();
+        })
+        // this.onClose();
     }
 
     render(): React.ReactNode {

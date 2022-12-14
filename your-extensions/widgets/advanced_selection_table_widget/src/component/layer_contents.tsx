@@ -55,7 +55,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     }else{
       newCheckedLayers.push(layerId);
     }
-    advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers));
+    advancedSelectionTable?.setState({checkedLayers:newCheckedLayers});
   }
 
   removeAttributes = (id:string)=>{
@@ -74,8 +74,8 @@ export default class  LayerContents extends React.PureComponent<any,any>{
       }
       return newArray;
     },[])
-    advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","layerContents",newLayerContents));
-    advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",newNumberOfAttribute))
+    advancedSelectionTable?.setState({layerContents:newLayerContents,numberOfAttribute:newNumberOfAttribute})
+
   }
 
 

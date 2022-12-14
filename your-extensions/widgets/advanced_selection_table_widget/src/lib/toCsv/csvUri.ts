@@ -121,8 +121,7 @@ export const getCsvUri = ((
     const blob = new Blob([uFEFFValue ? '\uFEFF' : '', csv], { type });
     const dataURI = `data:${type};charset=utf-8,${uFEFFValue ? '\uFEFF' : ''}${csv}`;
     const URL = window.URL || window.webkitURL;
-    self?.props?.dispatch(appActions.widgetStatePropChange("value","exportType","csv"));
-    self?.props?.dispatch(appActions.widgetStatePropChange("value","csvFile",csv));
+    self?.setState({exportType:"csv",csvFile:csv})
     return (typeof URL.createObjectURL === 'undefined')
       ? dataURI
       : URL.createObjectURL(blob);

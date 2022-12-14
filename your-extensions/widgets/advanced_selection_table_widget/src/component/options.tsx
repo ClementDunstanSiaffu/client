@@ -60,7 +60,7 @@ export default class  Options extends React.PureComponent<any,any> {
         if (isItemSelected && returnedAttributes?.length > 0){
             advancedSelectionTable?.setState({selectedAttributes:returnedAttributes});
             if (value === "zoomIn"){
-                advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","zoomIn",true))
+                advancedSelectionTable?.onClickZoomIn()
             }else if (value === "csv"){
                 this.exportFile(returnedAttributes,"csv");
             }else if (value === "json"){
@@ -77,8 +77,7 @@ export default class  Options extends React.PureComponent<any,any> {
     exportFile = (selectedAttributes:any[],exportType:string)=>{
         const advancedSelectionTable = this.context?.parent;
         const uri = getUri(selectedAttributes,exportType,advancedSelectionTable);
-        advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","exportStatus",true));
-        advancedSelectionTable?.props?.dispatch(appActions.widgetStatePropChange("value","uri",uri));
+        advancedSelectionTable?.setState({exportStatus:true,uri:uri})
     }
 
     controlStatisticModal = (layerId:string)=>{

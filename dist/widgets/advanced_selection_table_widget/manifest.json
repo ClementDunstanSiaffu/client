@@ -8,10 +8,7 @@
   "description": "This is the starter widget",
   "copyright": "",
   "license": "",
-  "properties": {
-    "hasSettingPage": false,
-    "hasConfig": false
-  },
+  "properties": {},
   "translatedLocales": [
     "en"
   ],
