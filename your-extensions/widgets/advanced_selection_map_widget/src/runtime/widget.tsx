@@ -67,7 +67,6 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
             event.stopPropagation();
             view.hitTest(event).then((response)=>{
                 let status = helper.getClickedLayerStatus(response?.results,selectedLayersContents);
-                console.log(status,"check status")
                 if (status){
                     this.exportCsvAndJson()
                 }
@@ -79,7 +78,6 @@ export default class MapViewWidget extends React.PureComponent<AllWidgetProps<an
         const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
         if (this.state.activeView){
             this.state.activeView?.selectFeaturesByGraphic(geometry,"contains").then((results)=>{
-                console.log(results,"check results")
                 const selectedLayersContents = helper.getSelectedContentsLayer(results,checkedLayers);
                 this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents));
                 const numberOfAttributes = helper.getNumberOfAttributes(selectedLayersContents);
