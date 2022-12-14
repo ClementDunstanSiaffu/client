@@ -233,8 +233,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
 
    
     render(): React.ReactNode {
-        const wm = WidgetManager.getInstance();
-        console.log(this.props.stateValue?.value?.attributeWidgetId,"check all widgets");
         return(
             <>
                 {

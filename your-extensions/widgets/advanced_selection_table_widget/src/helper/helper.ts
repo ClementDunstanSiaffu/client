@@ -67,7 +67,6 @@ class Helper {
         for (let i=0;i < layersContents.length;i++){
              layerContentsObject = {...layerContentsObject,[layersContents[i]?.id]:layersContents[i]?.attributes?.length??0}
         }
-        console.log(layersContents,layerContentsObject,"checkingnngngn")
         return layerContentsObject;
     }
 

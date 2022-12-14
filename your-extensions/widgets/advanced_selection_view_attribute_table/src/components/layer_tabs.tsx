@@ -46,7 +46,6 @@ export default class LayerTabs extends React.PureComponent<layerTabsPropsType,la
     }
 
     render(): React.ReactNode {
-        console.log(this.props.layers,"check layers availables")
         return(
             <div style={{width:"100%"}}>
                 {
