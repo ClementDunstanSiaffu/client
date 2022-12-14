@@ -77,11 +77,11 @@ class ModalBody extends React.PureComponent<any,any>{
             {
               Object.keys(this.state.columns).length > 0 ?
                 Object.keys(this.state.columns).map((item,k)=>{
-                  const value = !isNaN(this.state.columns[item]) && this.state.columns[item] ? this.state.columns[item]:0
+                  const value = !isNaN(this.state.columns[item]) && this.state.columns[item] ? this.state.columns[item]:0.00000;
                     return(
                       <div key = {`${k}`+item} className = "layer-content-container row-color-hover margin-top">
                         <div className='flex-auto cursor-style'>{item}</div>
-                        <div>{value?.toFixed(4)}</div>
+                        <div>{value}</div>
                       </div>
                     )
                   }):null

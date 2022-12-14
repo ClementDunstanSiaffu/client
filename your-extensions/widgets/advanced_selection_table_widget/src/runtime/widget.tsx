@@ -12,10 +12,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     static mapExtraStateProps(state:IMState){return {stateValue:state.widgetsState}}
 
     state = {
-        // layers:this.props.stateValue?.value?.layers,
-        // layersContents:this.props.stateValue?.value?.layerContents,
-        // numberOfAttribute:this.props.stateValue?.value?.numberOfAttribute,
-        // checkedLayers:this.props.stateValue?.value?.checkedLayers,
         openStatistics:false,
         selectedAttributes:[],
         isItemSelected:false,

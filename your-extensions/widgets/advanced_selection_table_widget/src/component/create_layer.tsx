@@ -3,7 +3,6 @@ import {React,jsx, appActions} from 'jimu-core';
 import { TextInput,Button } from 'jimu-ui';
 import ModalComponent from './common/modal';
 import { AdvancedSelectionTableContext } from '../context/context';
-import CSVLayer from 'esri/layers/CSVLayer';
 
 class CreateLayerInput extends React.PureComponent<any,any>{
 

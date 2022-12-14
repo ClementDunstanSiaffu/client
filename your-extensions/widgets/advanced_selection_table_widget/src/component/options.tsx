@@ -55,7 +55,6 @@ export default class  Options extends React.PureComponent<any,any> {
         const layerId = this.context?.layerId;
         const advancedSelectionTable = this.context?.parent;
         const layerContents = this.context?.layerContents;
-        // const layerContents = advancedSelectionTable?.props?.stateValue?.value?.layerContents;
         const returnedAttributes = helper.getLayerAttributes(layerId,layerContents);
         const isItemSelected = this.context?.isItemSelected;
         if (isItemSelected && returnedAttributes?.length > 0){
@@ -85,7 +84,6 @@ export default class  Options extends React.PureComponent<any,any> {
     controlStatisticModal = (layerId:string)=>{
         const advancedSelectionTable = this.context?.parent;
         const layersContents = this.context?.layerContents;
-        // const layersContents = advancedSelectionTable?.props?.stateValue?.value?.layerContents;
         const returnedAttributes = helper.getLayerAttributes(layerId,layersContents)
         advancedSelectionTable?.setState({selectedAttributes:returnedAttributes,openStatistics:!advancedSelectionTable?.state?.openStatistics});
     }
