@@ -11,12 +11,13 @@ type layerTabsPropsType = {
 type layerTabsStateType = {
     selectedAttributes:any[],
     value:string,
-    layers:any[] 
+    layers:any[],
+    layerContentStatus:boolean; 
 }
 
 export default class LayerTabs extends React.PureComponent<layerTabsPropsType,layerTabsStateType>{
 
-    state = {selectedAttributes:[],value:" ",layers:[]};
+    state = {selectedAttributes:[],value:" ",layers:[],layerContentStatus:false};
 
     _onChange = (layerId:string)=>{
         let selectedAttributes = [];
@@ -28,7 +29,20 @@ export default class LayerTabs extends React.PureComponent<layerTabsPropsType,la
     }
 
     componentDidMount = ()=>{
-        this.setState({layers:this.props.layers});
+        this.setState({layers:this.props.layers},()=>{
+            const layers = this.props.layers;
+            const firstLayerId = layers?.length > 0 ? layers[0]?.layerId:" "
+            this._onChange(firstLayerId);
+
+        });
+    }
+
+    componentDidUpdate(prevProps: Readonly<layerTabsPropsType>, prevState: Readonly<layerTabsStateType>, snapshot?: any): void {
+        if (!this.state.layerContentStatus && this.props.layerContents?.length > 0){
+            const layers = this.state.layers;
+            const firstLayerId = layers?.length > 0 ? layers[0]?.layerId:" "
+            this.setState({layerContentStatus:false},()=>this._onChange(firstLayerId))
+        }
     }
 
     _onClose = (layerId:string)=>{
@@ -47,11 +61,10 @@ export default class LayerTabs extends React.PureComponent<layerTabsPropsType,la
 
     render(): React.ReactNode {
         return(
-            <div style={{width:"100%"}}>
+            <div style={{width:"100%",height:600,overflow:"auto"}}>
                 {
                     this.state.layers?.length > 0 ?
                         <Tabs
-                            defaultValue="tab-1"
                             onChange={this._onChange}
                             onClose={this._onClose}
                             type="underline"
