@@ -42,9 +42,7 @@ export default class SelectGeometry extends React.PureComponent<any,any>{
 
     onSelectGeometry = (geometryType:any)=>{
         const advancedSelectionTable = this.context?.parent;
-        advancedSelectionTable?.setState({geometryType:geometryType},()=>{
-            advancedSelectionTable?.startSketching();
-        })
+        advancedSelectionTable?.startSketching(geometryType);
     }
     
     render(): React.ReactNode {

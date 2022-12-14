@@ -8,8 +8,6 @@ import AttributesContents from './attributes_contents'
 import { AdvancedSelectionTableContext } from '../context/context';
 
 export default class  LayersTable extends React.PureComponent<any,any>{
-
-  static contextType?: React.Context<any> = AdvancedSelectionTableContext;
   
   render(){
     return (
