@@ -5,7 +5,6 @@ import Paper from '@mui/material/Paper';
 import '../assets/css/style.scss'
 import LayerContents from './layer_contents';
 import AttributesContents from './attributes_contents'
-import { AdvancedSelectionTableContext } from '../context/context';
 
 export default class  LayersTable extends React.PureComponent<any,any>{
   

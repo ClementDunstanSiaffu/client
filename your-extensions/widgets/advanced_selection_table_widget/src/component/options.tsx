@@ -1,4 +1,4 @@
-import {React,appActions,WidgetManager} from 'jimu-core'
+import {React,appActions,WidgetManager,jsx} from 'jimu-core'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Container from '../assets/css/style';
@@ -95,18 +95,7 @@ export default class  Options extends React.PureComponent<any,any> {
         advancedSelectionTable?.setState({anchorEl:null})
     };
 
-    showAttributeTable = ()=>{
-        helper.openTableAttribute()
-        // const valueArialExpanded = document.querySelector(".sidebar-controller");
-        // const forRemovingClass = document.querySelector(".app-root-emotion-cache-ltr-1iklx1g");
-        // const forAddingStyle = document.querySelector(".flex-shrink-0");
-        // forRemovingClass.classList.remove("app-root-emotion-cache-ltr-1iklx1g");
-        // forRemovingClass.classList.add("app-root-emotion-cache-ltr-oen2ei");
-        // if (forAddingStyle?.style){
-        //     forAddingStyle.style = "z-index: 0; flex-basis: 0px; overflow: auto;"
-        // }
-        // valueArialExpanded.ariaExpanded = "true"
-    }
+    showAttributeTable = ()=>{helper.openTableAttribute()}
 
     render(){
         const open = Boolean(this.context?.anchorEl);

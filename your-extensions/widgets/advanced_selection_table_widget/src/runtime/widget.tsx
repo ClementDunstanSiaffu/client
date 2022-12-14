@@ -65,7 +65,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         this.setState({layers:newLayersArray});
         this.props.dispatch(appActions.widgetStatePropChange("value","layers",newLayersArray))
         AdvancedSelectionTable.activeView = activeView;
-        // this.setState({activeView:activeView,layers:newLayersArray});
         let view = activeView?.view;
         const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
         this.sketch = sketchViewlModel;

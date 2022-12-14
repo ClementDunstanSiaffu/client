@@ -112,32 +112,6 @@ class Helper {
             elementForStyle.style = "z-index: 0; flex-basis: 0px; overflow: auto;"
         }
     }
-
-    // sideBarController = ()=>{
-    //     const classnameWhenSideBarClosed = ".app-root-emotion-cache-ltr-1iklx1g";
-    //     const classnameWhenSideBarOpened = ".app-root-emotion-cache-ltr-oen2ei";
-    //     const addedClassNameWhenClosed = "app-root-emotion-cache-ltr-oen2ei";
-    //     const addedClassNameWhenOpened = "app-root-emotion-cache-ltr-1iklx1g"
-    //     const ariaExpandedElement = document.querySelector(".sidebar-controller");
-    //     const elementForStyle = document.querySelector(".flex-shrink-0");
-    //     console.log("initial called",ariaExpandedElement.ariaExpanded)
-    //     if(ariaExpandedElement.ariaExpanded === "true"){
-    //         const element = document.querySelector(classnameWhenSideBarOpened);
-    //         element.classList.remove(addedClassNameWhenClosed);
-    //         element.classList.add(addedClassNameWhenOpened)
-    //         ariaExpandedElement.ariaExpanded = "false"
-    //     }else{
-    //         const element = document.querySelector(classnameWhenSideBarClosed);
-    //         element?.classList.remove(addedClassNameWhenOpened);
-    //         element?.classList.add(addedClassNameWhenClosed)
-    //         ariaExpandedElement.ariaExpanded = "true";
-    //         if (elementForStyle.style){
-    //             elementForStyle.style = "z-index: 0; flex-basis: 0px; overflow: auto;"
-    //         }
-    //     }
-    // }
-
-
 }
 
 
