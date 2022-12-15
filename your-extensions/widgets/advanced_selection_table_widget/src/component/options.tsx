@@ -8,7 +8,7 @@ import * as images from '../assets/images/'
 import helper from '../helper/helper';
 import { AdvancedSelectionTableContext } from '../context/context';
 import {getUri} from '../lib/build_uri';
-
+import AdvancedSelectionTable from '../runtime/widget';
 
 const options = [
     {
@@ -73,6 +73,9 @@ export default class  Options extends React.PureComponent<any,any> {
                 const uri = getUri(returnedAttributes,"csv",advancedSelectionTable,"addLayer");
             }else if (value === "attributetable"){
                 this.showAttributeTable();
+            }else if (value === "delete"){
+                AdvancedSelectionTable.deleteStatus = true;
+                // advancedSelectionTable?.deleteItem(layerId);
             }
         }
     }

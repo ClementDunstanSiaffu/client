@@ -19,6 +19,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
 
     static mapExtraStateProps(state:IMState){return {stateValue:state.widgetsState}};
     static activeView = null;
+    static deleteStatus = false;
 
     state = {
         popup:false,
@@ -43,7 +44,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         blobValue:null,
         csvFile:" ",
         createdLayerTitle:" ",
-        selectedGraphic:null
+        selectedGraphic:null,
     }
 
     sketch = null;
@@ -90,15 +91,26 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 if (status){
                     this.exportCsvAndJson()
                 }
+                // if (AdvancedSelectionTable.deleteStatus){
+                //     activeView.clearSelectedFeatures();
+                //     AdvancedSelectionTable.deleteStatus = false;
+                // }
+                const returnedLayer = activeView.view.map.findLayerById(response?.results[0]?.layer?.id);
+                view.whenLayerView(returnedLayer).then((layerView)=>{
+                    const getHighloght = layerView.get("highlight");
+                    getHighloght?.remove();
+                    console.log(getHighloght,response?.results,returnedLayer,"check response")
+
+                })
             })
         })
     }
 
-    selectFeatureLayer = (geometry:any)=>{
+    selectFeatureLayer = (selectedGraphics:any)=>{
         const checkedLayers = this.state.checkedLayers;
         const activeView = AdvancedSelectionTable.activeView;
         if (activeView){
-            activeView?.selectFeaturesByGraphic(geometry,"contains").then((results)=>{
+            activeView?.selectFeaturesByGraphic(selectedGraphics,"contains").then((results)=>{
                 const selectedLayersContents = helper.getSelectedContentsLayer(results,checkedLayers);
                 const numberOfAttributes = helper.getNumberOfAttributes(selectedLayersContents);
                 this.setState({layerContents:selectedLayersContents,numberOfAttribute:numberOfAttributes});
@@ -228,6 +240,27 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         const layers = this.state.layers
         const currentLayers = [...layers,object];
         this.setState({layers:currentLayers,exportType:null,csvFile:null,createdLayerTitle:null})
+    }
+
+    deleteItem = (id:String)=>{
+        const view = AdvancedSelectionTable.activeView?.view;
+        const layers = view?.map?.layers;
+        const items = layers?.items;
+        let currentLayer = null;
+        if (items?.length > 0){
+            const index = items.findIndex((item)=>item?.id === id);
+            if (typeof index === "number" && index !== -1){
+                currentLayer = layers.getItemAt(index)
+            }
+            if (currentLayer){
+                view?.whenLayerView(currentLayer).then((layerView)=>{
+
+                    console.log(layerView?.highlight,"check layer view")
+                    // layerView?.re
+                })
+            }
+            
+        }
     }
 
    
