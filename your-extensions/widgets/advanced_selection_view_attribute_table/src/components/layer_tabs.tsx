@@ -2,6 +2,7 @@
 import {React,jsx} from 'jimu-core';
 import {Tab,Tabs} from 'jimu-ui';
 import AttributeTable from './attributes_table';
+import '../assets/css/style.scss'
 
 type layerTabsPropsType = {
     layers:any[],
@@ -31,7 +32,7 @@ export default class LayerTabs extends React.PureComponent<layerTabsPropsType,la
     componentDidMount = ()=>{
         this.setState({layers:this.props.layers},()=>{
             const layers = this.props.layers;
-            const firstLayerId = layers?.length > 0 ? layers[0]?.layerId:" "
+            const firstLayerId = layers?.length > 0 ? layers[0]?.id:" "
             this._onChange(firstLayerId);
 
         });
@@ -40,8 +41,8 @@ export default class LayerTabs extends React.PureComponent<layerTabsPropsType,la
     componentDidUpdate(prevProps: Readonly<layerTabsPropsType>, prevState: Readonly<layerTabsStateType>, snapshot?: any): void {
         if (!this.state.layerContentStatus && this.props.layerContents?.length > 0){
             const layers = this.state.layers;
-            const firstLayerId = layers?.length > 0 ? layers[0]?.layerId:" "
-            this.setState({layerContentStatus:false},()=>this._onChange(firstLayerId))
+            const firstLayerId = layers?.length > 0 ? layers[0]?.id:" "
+            this.setState({layerContentStatus:true,value:firstLayerId},()=>this._onChange(firstLayerId))
         }
     }
 
@@ -61,20 +62,27 @@ export default class LayerTabs extends React.PureComponent<layerTabsPropsType,la
 
     render(): React.ReactNode {
         return(
-            <div style={{width:"100%",height:600,overflow:"auto"}}>
+            <div style={{width:"100%",height:600,overflow:"hidden"}}>
                 {
                     this.state.layers?.length > 0 ?
                         <Tabs
+                            defaultValue={this.state.value}
                             onChange={this._onChange}
                             onClose={this._onClose}
                             type="underline"
-                            value={this.state.value}
+                            scrollable = {true}
+                            className = "tab-container"
                         >
                             {
-                                this.props.layers.map((item,k)=>{
+                                this.state.layers.map((item,k)=>{
                                     return (
-                                        <Tab id={item?.layerId??k} title={item?.layerName??k} key = {k}>
-                                            <AttributeTable selectedAttributes = {this.state.selectedAttributes} />
+                                        <Tab 
+                                            id={item?.id??k} 
+                                            title={item?.layerName??k} 
+                                            key = {k} 
+                                            style = {{height:60,color:'white',alignItems:"center",display:"flex"}}
+                                        >
+                                            {/* <AttributeTable selectedAttributes = {this.state.selectedAttributes} /> */}
                                         </Tab>
                                     )
                                 })
@@ -82,6 +90,9 @@ export default class LayerTabs extends React.PureComponent<layerTabsPropsType,la
                         </Tabs>:
                     null
                 }
+                <div style = {{width:"100%",height:600,overflow:"auto"}}>
+                    <AttributeTable selectedAttributes = {this.state.selectedAttributes} />
+                </div>
             </div>    
         )
     }

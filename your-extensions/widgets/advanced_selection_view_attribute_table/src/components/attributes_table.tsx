@@ -1,7 +1,8 @@
 
 import {React,jsx} from 'jimu-core';
 import 'bootstrap/dist/css/bootstrap.css';
-import {Table,Button} from  'reactstrap'
+import {Table,Button} from  'reactstrap';
+import '../assets/css/style.scss'
 
 type attributeTablePropsType = {
     selectedAttributes:any[]
@@ -22,7 +23,7 @@ export default class AttributeTable extends React.PureComponent<attributeTablePr
         const headers = this.getHeaders()??[];
         return(
             <Table hover>
-            <thead>
+            <thead className='tab-container'>
               <tr>
                 {
                     headers.length > 0 ?
