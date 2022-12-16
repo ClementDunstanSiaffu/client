@@ -93,14 +93,26 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 if (AdvancedSelectionTable.deleteStatus){
                     if (response?.results?.length > 0){
                         response?.results.map((item)=>{
+                            let currentNUmberOfAttributes = {};
                             if (Object.keys(this.state.numberOfAttribute).length > 0){
-                                const currentNUmberOfAttributes = {...this.state.numberOfAttribute};
+                                currentNUmberOfAttributes = {...this.state.numberOfAttribute};
                                 delete currentNUmberOfAttributes[item?.layer?.id];
-                                this.setState({numberOfAttribute:currentNUmberOfAttributes},()=>{
-                                    item.layer.visible = false;
-                                    AdvancedSelectionTable.deleteStatus = false;
-                                })
+                        
                             }
+                            const layerContents = this.state.layerContents??[];
+                            let newLayerContents = [];
+                            if (layerContents.length > 0){
+                                newLayerContents = layerContents.reduce((newArray,layerContent)=>{
+                                    if (layerContent?.id !== item.layer.id){
+                                        newArray.push(layerContent);
+                                    }
+                                    return newArray;
+                                },[])
+                            }
+                            this.setState({numberOfAttribute:currentNUmberOfAttributes,layerContents:newLayerContents},()=>{
+                                item.layer.visible = false;
+                                AdvancedSelectionTable.deleteStatus = false;
+                            })
                         })
                     }
                 }
