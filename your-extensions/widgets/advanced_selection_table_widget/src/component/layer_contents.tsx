@@ -78,7 +78,6 @@ export default class  LayerContents extends React.PureComponent<any,any>{
 
   }
 
-
   isSelected = (name: string) => {
     const selected = this.context?.selected;
     return selected.indexOf(name) !== -1;

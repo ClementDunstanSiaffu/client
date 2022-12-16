@@ -1,4 +1,3 @@
-import AdvancedSelectionTable from "../runtime/widget"
 
 type layerContentsObjectType = {
     id:string,
@@ -114,46 +113,6 @@ class Helper {
         }
     }
 
-    getMapToClear = (results:any[])=>{
-        const allActiveViews = AdvancedSelectionTable.allActiveViews??[];
-        const mapArray = [];
-        if (allActiveViews?.length > 0 && results?.length > 0){
-            for (let i =0;i < results.length;i++){
-                const currentId = results[i]?.layer?.id;
-                const currentView = allActiveViews.find((item)=>item?.id === currentId)?.views;
-                if (currentView){
-                    mapArray.push(currentView);
-                }
-            }
-        }
-        return mapArray;
-    }
-
-    deleteHighlighted = (maps:any[])=>{
-        if (maps?.length > 0){
-            for (let i = 0;i < maps.length;i++){
-                const items = maps[i]?.view?.allLayerViews?.items??[];
-                if (items?.length > 0){
-                    for (let j=0;j < items.length;j++){
-                        if (items[i]?._highlightIds?.size > 0){
-                            const map = items[i]?._highlightIds;
-                            for (const key of map?.keys()){
-                                console.log(key,"check key")
-                                map?.delete(key)
-                            }
-                        }
-                    }
-                }
-                
-            }
-        }
-    }
 }
-
-
-
-
-
-
 
 export default new Helper();

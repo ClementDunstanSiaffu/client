@@ -9,7 +9,6 @@ import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import helper from '../helper/helper'
 import CSVLayer from 'esri/layers/CSVLayer';
-import Color from 'esri/Color'
 
 type StateValueType = {stateValue:any}
 
@@ -20,8 +19,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     static mapExtraStateProps(state:IMState){return {stateValue:state.widgetsState}};
     static activeView = null;
     static deleteStatus = false;
-    static allActiveViews = null;
-    static viewToClear = null;
 
     state = {
         popup:false,
@@ -54,7 +51,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     layer = null;
     
     getMapLayers = (activeView:JimuMapView)=>{
-        let layerViews = [];
         const newLayersArray = Object.keys(activeView?.jimuLayerViews)?.reduce((newLayerArray,item)=>{
             let object = {
                 layerName:activeView?.jimuLayerViews[item]?.layer?.title??item,
@@ -62,11 +58,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 keyName:item,
                 id:activeView?.jimuLayerViews[item]?.layer?.id,
             };
-            let layerViewsObject = {
-                id:activeView?.jimuLayerViews[item]?.layer?.id,
-                layer:activeView?.jimuLayerViews[item]?.layer
-            }
-            layerViews.push(layerViewsObject);
             newLayerArray.push(object);
             return newLayerArray;
         },[])
@@ -74,14 +65,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         this.setState({layers:newLayersArray});
         this.props.dispatch(appActions.widgetStatePropChange("value","layers",newLayersArray))
         AdvancedSelectionTable.activeView = activeView;
-        AdvancedSelectionTable.allActiveViews = layerViews;
         let view = activeView?.view;
-        activeView.view.highlightOptions = 
-            {
-                color: new Color("yellow"),
-                haloOpacity: 0.9,
-                fillOpacity: 0.2
-            }
         const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
         this.sketch = sketchViewlModel;
         let zoomOut = {
@@ -107,52 +91,20 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                     this.exportCsvAndJson()
                 }
                 if (AdvancedSelectionTable.deleteStatus){
-                    const mapArray = helper.getMapToClear(response?.results);
-                    helper.deleteHighlighted(mapArray);
-                    // mapArray[0]?.view?.graphics?.clear();
-                    // console.log(mapArray[0]?.view?.allLayerViews?.items,"check map to clear");
-                    // mapArray[0]?.view?.allLayerViews?.items[2]?._highlightIds?.delete(67)
-                    // AdvancedSelectionTable.deleteStatus = false;
+                    if (response?.results?.length > 0){
+                        response?.results.map((item)=>{
+                            if (Object.keys(this.state.numberOfAttribute).length > 0){
+                                const currentNUmberOfAttributes = {...this.state.numberOfAttribute};
+                                delete currentNUmberOfAttributes[item?.layer?.id];
+                                this.setState({numberOfAttribute:currentNUmberOfAttributes},()=>{
+                                    item.layer.visible = false;
+                                    AdvancedSelectionTable.deleteStatus = false;
+                                })
+                            }
+                        })
+                    }
                 }
-                // const jimuLayerViews = activeView.view.highlightOptions
-                if (response?.results?.length > 0){
-                    response?.results.map((item)=>{
-                        // if (this.state.layers?.length > 0){
-                        //     let currentLayer = null;
-                        //     this.state.layers?.find((layer)=>{
-                        //         if(layer.layerName === item?.layer?.title){
-                        //             currentLayer =  item?.layer;
-                        //         }
-                        //     });
-                        //     console.log(currentLayer,"check current layer");
-                        //     if (currentLayer){
-                        //         activeView.view.whenLayerView(currentLayer).then((layerView)=>{
-                        //             layerView.visible = false;
-                        //             console.log(layerView,"check layer view")
-                        //         })
-                        //     }
-                      
-                        // }
-
-                        // const allLayers = AdvancedSelectionTable.allActiveViews??[];
-                        // if (allLayers?.length > 0){
-                        //     const currentLayer = allLayers.find((layer)=>layer.id === item?.layer?.id)?.layer;
-                        //     if (currentLayer){
-                        //         currentLayer.visible = false;
-                        //     }
-                            
-                        // }
-
-                        // console.log(this.state.layers,item?.layer,"check both")
-                        if (Object.keys(this.state.numberOfAttribute).length > 0){
-                            const currentNUmberOfAttributes = {...this.state.numberOfAttribute};
-                            delete currentNUmberOfAttributes[item?.layer?.id];
-                            this.setState({numberOfAttribute:currentNUmberOfAttributes},()=>{
-                                item.layer.visible = false;
-                            })
-                        }
-                    })
-                }
+       
             })
         })
         
@@ -293,12 +245,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         const currentLayers = [...layers,object];
         this.setState({layers:currentLayers,exportType:null,csvFile:null,createdLayerTitle:null})
     }
-
-    // getAllViews = (views:{[viewid:string]:JimuMapView})=>{
-    //     AdvancedSelectionTable.allActiveViews = views;
-    //     console.log(this.state.layers,"check all views")
-    // }
-
    
     render(): React.ReactNode {
         return(
