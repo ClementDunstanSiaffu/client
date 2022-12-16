@@ -9,7 +9,7 @@ import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import helper from '../helper/helper'
 import CSVLayer from 'esri/layers/CSVLayer';
-
+import Color from 'esri/Color'
 
 type StateValueType = {stateValue:any}
 
@@ -64,7 +64,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
             };
             let layerViewsObject = {
                 id:activeView?.jimuLayerViews[item]?.layer?.id,
-                views:activeView?.jimuLayerViews[item]?.view
+                layer:activeView?.jimuLayerViews[item]?.layer
             }
             layerViews.push(layerViewsObject);
             newLayerArray.push(object);
@@ -76,6 +76,12 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         AdvancedSelectionTable.activeView = activeView;
         AdvancedSelectionTable.allActiveViews = layerViews;
         let view = activeView?.view;
+        activeView.view.highlightOptions = 
+            {
+                color: new Color("yellow"),
+                haloOpacity: 0.9,
+                fillOpacity: 0.2
+            }
         const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
         this.sketch = sketchViewlModel;
         let zoomOut = {
@@ -107,6 +113,45 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                     // console.log(mapArray[0]?.view?.allLayerViews?.items,"check map to clear");
                     // mapArray[0]?.view?.allLayerViews?.items[2]?._highlightIds?.delete(67)
                     // AdvancedSelectionTable.deleteStatus = false;
+                }
+                // const jimuLayerViews = activeView.view.highlightOptions
+                if (response?.results?.length > 0){
+                    response?.results.map((item)=>{
+                        // if (this.state.layers?.length > 0){
+                        //     let currentLayer = null;
+                        //     this.state.layers?.find((layer)=>{
+                        //         if(layer.layerName === item?.layer?.title){
+                        //             currentLayer =  item?.layer;
+                        //         }
+                        //     });
+                        //     console.log(currentLayer,"check current layer");
+                        //     if (currentLayer){
+                        //         activeView.view.whenLayerView(currentLayer).then((layerView)=>{
+                        //             layerView.visible = false;
+                        //             console.log(layerView,"check layer view")
+                        //         })
+                        //     }
+                      
+                        // }
+
+                        // const allLayers = AdvancedSelectionTable.allActiveViews??[];
+                        // if (allLayers?.length > 0){
+                        //     const currentLayer = allLayers.find((layer)=>layer.id === item?.layer?.id)?.layer;
+                        //     if (currentLayer){
+                        //         currentLayer.visible = false;
+                        //     }
+                            
+                        // }
+
+                        // console.log(this.state.layers,item?.layer,"check both")
+                        if (Object.keys(this.state.numberOfAttribute).length > 0){
+                            const currentNUmberOfAttributes = {...this.state.numberOfAttribute};
+                            delete currentNUmberOfAttributes[item?.layer?.id];
+                            this.setState({numberOfAttribute:currentNUmberOfAttributes},()=>{
+                                item.layer.visible = false;
+                            })
+                        }
+                    })
                 }
             })
         })

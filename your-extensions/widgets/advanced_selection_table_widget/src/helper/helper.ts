@@ -138,7 +138,7 @@ class Helper {
                         if (items[i]?._highlightIds?.size > 0){
                             const map = items[i]?._highlightIds;
                             for (const key of map?.keys()){
-                                // console.log(key,"check key")
+                                console.log(key,"check key")
                                 map?.delete(key)
                             }
                         }
