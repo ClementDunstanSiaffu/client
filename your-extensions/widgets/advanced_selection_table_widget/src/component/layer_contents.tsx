@@ -102,7 +102,6 @@ export default class  LayerContents extends React.PureComponent<any,any>{
   }
 
   render(){
-    const advancedSelectionTable = this.context?.parent
     const layers = this.context?.layers;
     const numberOfAttribute = this.context.numberOfAttribute;
     const component_type = this.context?.component_type;

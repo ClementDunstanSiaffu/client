@@ -259,6 +259,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
    
     render(): React.ReactNode {
+        const open = Boolean(this.state.anchorEl);
         return(
             <>
                 {
@@ -266,13 +267,12 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                     <JimuMapViewComponent 
                         useMapWidgetId={this.props.useMapWidgetIds[0]}
                         onActiveViewChange = {this.getMapLayers}
-                        onViewsCreate = {this.getAllViews}
                     />
                 }
                 <AdvancedSelectionTableContext.Provider value = {{...this.state,"parent":this}}>
                     <LayersTable />
                     {this.state.openStatistics && <StatisticsModal />}
-                    <Options />
+                    {open && <Options />}
                     <CreateLayer />
                 </AdvancedSelectionTableContext.Provider>
             </>
