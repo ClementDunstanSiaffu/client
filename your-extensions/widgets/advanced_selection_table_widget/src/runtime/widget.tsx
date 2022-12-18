@@ -20,6 +20,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     static activeView = null;
     static deleteStatus = false;
     static jimuLayerViews = null;
+    static initialZoomValue = 0;
 
     state = {
         popup:false,
@@ -34,7 +35,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         layerTitle:" ",
         component_type:"LAYERS_CONTENTS",
         anchorEl:null,
-        selected:[],
+        // selected:[],
         opencreateLayer:false,
         layerName:" ",
         csvBlob:null,
@@ -121,7 +122,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
             })
         })
         AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
-        
+        AdvancedSelectionTable.initialZoomValue = activeView.view.zoom
     }
 
     selectFeatureLayer = (geometry:any)=>{
@@ -270,10 +271,11 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         this.setState({exportStatus:false,uri:null,exportType:" ",blobValue:null})
     }
 
-    zoomOut() {
+    zoomOut(zoomValue?:number) {
         const activeView = AdvancedSelectionTable.activeView;
         const view = activeView?.view;
-        view?.goTo({center: view?.center,zoom: view?.zoom - 2});
+        const currentZoomValue = zoomValue??view?.zoom - 2;
+        view?.goTo({center: view?.center,zoom: currentZoomValue});
       }
 
     openPopup = (popupcontents:{title:string,contents:any})=>{
@@ -348,7 +350,10 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         const activeView = AdvancedSelectionTable.activeView;
         closeButtonElement.addEventListener("click",()=>{
             if (activeView){
-                activeView.clearSelectedFeatures()
+                activeView.clearSelectedFeatures();
+                const zoomVal = AdvancedSelectionTable.initialZoomValue
+                this.zoomOut(zoomVal);
+                this.setState({checkedLayers:[],numberOfAttribute:{},layerContents:[],selectedAttributes:[]});
             }
         })
     }

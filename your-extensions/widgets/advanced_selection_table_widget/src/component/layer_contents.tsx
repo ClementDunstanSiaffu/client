@@ -15,12 +15,13 @@ export default class  LayerContents extends React.PureComponent<any,any>{
   static contextType?: React.Context<any> = AdvancedSelectionTableContext;
 
   handleClick = (event: React.MouseEvent<unknown>, name: string,id:string) => {
-    const selected = this.context?.selected;
+    const selected = this.context?.checkedLayers;
     const advancedSelectionTable = this.context?.parent;
-    const selectedIndex = selected?.indexOf(name);
+    const selectedIndex = selected?.indexOf(id);
     let newSelected: readonly string[] = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected??[],name);
+      console.log("pushing")
+      newSelected = newSelected.concat(selected??[],id);
     }else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected?.slice(1));
     } else if (selectedIndex === selected?.length - 1) {
@@ -31,8 +32,8 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     if (selectedIndex !== -1){
       this.removeAttributes(id);
     }
-    this.dispatchCheckedLayer(id)
-    advancedSelectionTable?.setState({selected:newSelected});
+    // this.dispatchCheckedLayer(id)
+    advancedSelectionTable?.setState({checkedLayers:newSelected});
   };
 
   dispatchCheckedLayer = (layerId:string)=>{
@@ -78,9 +79,9 @@ export default class  LayerContents extends React.PureComponent<any,any>{
 
   }
 
-  isSelected = (name: string) => {
-    const selected = this.context?.selected;
-    return selected.indexOf(name) !== -1;
+  isSelected = (id: string) => {
+    const selected = this.context?.checkedLayers;
+    return selected.indexOf(id) !== -1;
   }
 
   handleClickMoreHorizonIcon = (event: React.MouseEvent<HTMLButtonElement>,layerId:string,isItemSelected:boolean) => {
@@ -105,7 +106,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     const layers = this.context?.layers;
     const numberOfAttribute = this.context.numberOfAttribute;
     const component_type = this.context?.component_type;
-    const selected = this.context?.selected;
+    const selected = this.context?.checkedLayers;
 
     if (component_type === "LAYERS_CONTENTS"){
       return (
@@ -127,7 +128,8 @@ export default class  LayerContents extends React.PureComponent<any,any>{
           <Container height={450} width = {"100%"} overflow = "auto"  className='centerize-contents padding-contents20'>
             {
               layers?.map((layer:layerObject,k)=>{
-                const isItemSelected = this.isSelected(layer.layerName);
+                const isItemSelected = this.isSelected(layer.id);
+                console.log(isItemSelected,"item selected")
                 return(
                   <div key = {`${k}`+layer?.layerName} className = "layer-content-container row-color-hover">
                     <div className='check-box-container'>
