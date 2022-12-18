@@ -77,6 +77,11 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     }
   }
 
+  onClickRefresh = ()=>{
+    const advancedSelectionTable = this.context?.parent;
+    advancedSelectionTable?.onClickRefresh();
+  }
+
   render(){
     const layers = this.context?.layers;
     const numberOfAttribute = this.context.numberOfAttribute;
@@ -86,7 +91,11 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     if (component_type === "LAYERS_CONTENTS"){
       return (
         <>
-          <EnhancedTableToolbar numSelected={selected?.length}>
+          <EnhancedTableToolbar 
+            numSelected={selected?.length} 
+            showRefreshButton = {true} 
+            onClickRefresh = {this.onClickRefresh}
+          >
             <SelectGeometry />
           </EnhancedTableToolbar>
           <Container 

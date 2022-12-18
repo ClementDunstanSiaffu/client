@@ -259,16 +259,32 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         this.setState({layers:currentLayers,exportType:null,csvFile:null,createdLayerTitle:null})
     }
 
+    restoreMap = ()=>{
+        const activeView = AdvancedSelectionTable.activeView;
+        if (activeView){
+            activeView.clearSelectedFeatures();
+            const zoomVal = AdvancedSelectionTable.initialZoomValue
+            this.zoomOut(zoomVal);
+            this.setState({checkedLayers:[],numberOfAttribute:{},layerContents:[],selectedAttributes:[]});
+        }
+    }
+
+    onClickRefresh = ()=>{
+        this.restoreMap();
+        location.reload();
+    }
+
     componentDidMount(): void {
         const closeButtonElement = document.querySelector(".action-close");
-        const activeView = AdvancedSelectionTable.activeView;
+        // const activeView = AdvancedSelectionTable.activeView;
         closeButtonElement.addEventListener("click",()=>{
-            if (activeView){
-                activeView.clearSelectedFeatures();
-                const zoomVal = AdvancedSelectionTable.initialZoomValue
-                this.zoomOut(zoomVal);
-                this.setState({checkedLayers:[],numberOfAttribute:{},layerContents:[],selectedAttributes:[]});
-            }
+            this.restoreMap()
+            // if (activeView){
+            //     activeView.clearSelectedFeatures();
+            //     const zoomVal = AdvancedSelectionTable.initialZoomValue
+            //     this.zoomOut(zoomVal);
+            //     this.setState({checkedLayers:[],numberOfAttribute:{},layerContents:[],selectedAttributes:[]});
+            // }
         })
     }
    
