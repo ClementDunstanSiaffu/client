@@ -20,7 +20,6 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     const selectedIndex = selected?.indexOf(id);
     let newSelected: readonly string[] = [];
     if (selectedIndex === -1) {
-      console.log("pushing")
       newSelected = newSelected.concat(selected??[],id);
     }else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected?.slice(1));
@@ -32,32 +31,8 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     if (selectedIndex !== -1){
       this.removeAttributes(id);
     }
-    // this.dispatchCheckedLayer(id)
     advancedSelectionTable?.setState({checkedLayers:newSelected});
   };
-
-  dispatchCheckedLayer = (layerId:string)=>{
-    const advancedSelectionTable = this.context?.parent;
-    const currentCheckedLayers = this.context?.checkedLayers;
-    let index = -1;
-    let newCheckedLayers = []
-    if (currentCheckedLayers?.length > 0){
-      index = currentCheckedLayers.indexOf(layerId);
-      if (index !== -1){
-        newCheckedLayers = currentCheckedLayers.reduce((newArray,id:string)=>{
-          if (id !== layerId){
-            newArray.push(id);
-          }
-          return newArray;
-        },[])
-      }else{
-        newCheckedLayers = [...currentCheckedLayers,layerId]
-      }
-    }else{
-      newCheckedLayers.push(layerId);
-    }
-    advancedSelectionTable?.setState({checkedLayers:newCheckedLayers});
-  }
 
   removeAttributes = (id:string)=>{
     const advancedSelectionTable = this.context?.parent;

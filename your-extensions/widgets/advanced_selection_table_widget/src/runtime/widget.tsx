@@ -35,7 +35,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         layerTitle:" ",
         component_type:"LAYERS_CONTENTS",
         anchorEl:null,
-        // selected:[],
         opencreateLayer:false,
         layerName:" ",
         csvBlob:null,
@@ -49,8 +48,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
 
     sketch = null;
-    // mapLayer = null;
-    // layer = null;
     
     getMapLayers = (activeView:JimuMapView)=>{
         const newLayersArray = Object.keys(activeView?.jimuLayerViews)?.reduce((newLayerArray,item)=>{
@@ -137,7 +134,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents));
             })
             .catch((err)=>{})
-
         }
     }
 
@@ -154,7 +150,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 activeView.view.map.add(sketchLayer);
                 this.sketch.on("create", async(event) => {
                     if (event?.state === "complete"){
-                        console.log(event,"check events")
                         this.selectFeatureLayer(event?.graphic);
                         this.setState({selectedGraphic:event?.graphic});
                         this.sketch?.update([event?.graphic],{
@@ -166,87 +161,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 });
                 this.sketch.on("update",(event)=>{
                     this.sketch?.delete();
-                })
-                // const currentLyaer = activeView.view.map.layers.getItemAt(0);
-                // activeView.view.whenLayerView(currentLyaer).then((layerView)=>{
-                //     const queryLayer = currentLyaer?.createQuery({geometry: activeView.view.extent,});
-                //     currentLyaer?.queryFeatures(queryLayer).then((results)=>{
-                //         console.log(results,"check results")
-                //     })
-                //     // console.log(queryLayer,"query layer")
-                //     if (layerView.highlight){
-                //         // layerView.highlight
-                //     }
-                 
-                //     // console.log(layerView?.highlight,currentLyaer,"check both")
-                // })
-            }
-        }
-    }
-
-    startSketching_2 = (currentGeometry="rectangle")=>{
-        let allHighlightLayers = [];
-        let mode = "hybrid";
-        const activeView = AdvancedSelectionTable.activeView;
-        let limitedGeometryArray = ["rectangle","circle"];
-        if (limitedGeometryArray.includes(currentGeometry)){
-            mode = "freehand";
-        }
-        if (this.sketch){
-            this.sketch.create(currentGeometry,{mode:mode});
-            if (activeView){
-                activeView.view.map.add(sketchLayer);
-                this.sketch.on("create", async(event) => {
-                    if (event?.state === "complete"){
-                        // this.selectFeatureLayer(event?.graphic);
-                        this.setState({selectedGraphic:event?.graphic});
-                        this.sketch?.update([event?.graphic],{
-                            enableScaling:false,
-                            preserveAspectRatio: true,
-                            toggleToolOnClick:false,
-                        })
-                    }
-                });
-                this.sketch.on("update",(event)=>{
-                    this.sketch?.delete();
-                })
-                Object.keys(AdvancedSelectionTable.jimuLayerViews).map((layerKey)=>{
-                    AdvancedSelectionTable.jimuLayerViews[layerKey]?.highLightHandle?.remove();
-                })
-                console.log(AdvancedSelectionTable.jimuLayerViews,"check jimulayer view")
-                // const allMapLayers = AdvancedSelectionTable.allMapLayers?.items;
-                // const checkedLayers = this.state.checkedLayers;
-                // allHighlightLayers = allMapLayers.reduce((activeLayers,item)=>{
-                //     for (let i = 0;i < checkedLayers.length;i++){
-                //         if (item?.id === checkedLayers[i]){
-                //             const index = item?.layerId;
-                //             if (typeof index === "number" && index !== -1 ){
-                //                 const currentLayerView = activeView.view.map.layers.getItemAt(index);
-                //                 activeLayers.push(currentLayerView)
-                //             }
-                            
-                //         }
-                //     }
-                //     return activeLayers;
-                // },[]);
-                // console.log(activeView,"check all highlightLayers")
-                // if (allHighlightLayers.length > 0){
-                //     for (let j = 0;j < allHighlightLayers.length;j++){
-                //         activeView.view.whenLayerView(())
-                //     }
-                // }
-                const currentLyaer = activeView.view.map.layers.getItemAt(0);
-                activeView.view.whenLayerView(currentLyaer).then((layerView)=>{
-                    const queryLayer = currentLyaer?.createQuery({geometry: activeView.view.extent,});
-                    currentLyaer?.queryFeatures(queryLayer).then((results)=>{
-                        // console.log(results,"check results")
-                    })
-                    // console.log(queryLayer,"query layer")
-                    if (layerView.highlight){
-                        // layerView.highlight
-                    }
-                 
-                    // console.log(layerView?.highlight,currentLyaer,"check both")
                 })
             }
         }
