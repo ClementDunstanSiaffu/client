@@ -342,6 +342,16 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         const currentLayers = [...layers,object];
         this.setState({layers:currentLayers,exportType:null,csvFile:null,createdLayerTitle:null})
     }
+
+    componentDidMount(): void {
+        const closeButtonElement = document.querySelector(".action-close");
+        const activeView = AdvancedSelectionTable.activeView;
+        closeButtonElement.addEventListener("click",()=>{
+            if (activeView){
+                activeView.clearSelectedFeatures()
+            }
+        })
+    }
    
     render(): React.ReactNode {
         const open = Boolean(this.state.anchorEl);
