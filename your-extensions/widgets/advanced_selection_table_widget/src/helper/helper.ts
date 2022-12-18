@@ -1,3 +1,4 @@
+import AdvancedSelectionTable from "../runtime/widget"
 
 type layerContentsObjectType = {
     id:string,
@@ -68,6 +69,18 @@ class Helper {
              layerContentsObject = {...layerContentsObject,[layersContents[i]?.id]:layersContents[i]?.attributes?.length??0}
         }
         return layerContentsObject;
+    }
+
+    highlightOnlyCheckedLayer = (checkedLayersArr:string[])=>{
+        const jimuLayerViews = AdvancedSelectionTable.jimuLayerViews??[];
+        const keys = Object.keys(jimuLayerViews);
+        if (keys.length > 0){
+            keys.forEach((key)=>{
+                if (!checkedLayersArr.includes(jimuLayerViews[key]?.layer?.id)){
+                    jimuLayerViews[key]?.highLightHandle?.remove(key)
+                }
+            })
+        }
     }
 
     getClickedLayerStatus = (results:any[],selectedLayer:selectedLayerType[]):boolean=>{
