@@ -5,10 +5,12 @@ import '../assets/css/style.scss';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import helper from '../helper/helper';
 import { AdvancedSelectionTableContext } from '../context/context';
+import AdvancedSelectionTable from '../runtime/widget';
 
 export default class AttributesContents extends React.PureComponent<any,any>{
 
     static contextType?: React.Context<any> = AdvancedSelectionTableContext;
+    highlightSelect = null;
 
     backToTableContents = ()=>{
         const advancedSelectionTable = this.context?.parent;
@@ -32,6 +34,40 @@ export default class AttributesContents extends React.PureComponent<any,any>{
         advancedSelectionTable?.setState({popup:true},()=>{
             advancedSelectionTable?.openPopup(popupContents);
         });
+        this.highlightItem(attribute)
+    }
+
+    highlightItem = (attributes)=>{
+        const id = this.context?.layerId;
+        const layerView = helper.getJimuLayerView(id);
+        const activeView = AdvancedSelectionTable.activeView;
+        const firstItem = Object.keys(attributes)
+        // layerView?.highLightHandle(firstItem[0])
+        console.log(  layerView)
+
+
+        // layerView.highlightFeatureLayer = firstItem[0];
+        // console.log(layerView?.highlightFeatureLayer,layerView?.view?._highlightIds?.highlight,"check layerView")
+        // layerView?.view?._highlightIds?.highlight(firstItem[0])
+        // const layerId = helper.getLayerId(id);
+        // const activeView = AdvancedSelectionTable.activeView;
+        // if (typeof(layerId) === "number" && !isNaN(layerId) && layerId !== -1){
+        //     if (activeView){
+        //         const view = activeView.view;
+        //         const layer = view?.map?.layers.getItemAt(layerId);
+        //         console.log(layer,"check the layer")
+        //         view.whenLayerView(layer).then((layerView)=>{
+        //             if (this.highlightSelect){
+        //                 this.highlightSelect.remove();
+        //             }
+        //             const firstItem = Object.keys(attributes)
+        //             console.log(layerView?.highlight,layerId,"check highlight")
+        //             // this.highlightSelect = layerView.highlight(firstItem);
+        //         })
+                
+        //     }
+           
+        // }
     }
 
     render(): React.ReactNode {

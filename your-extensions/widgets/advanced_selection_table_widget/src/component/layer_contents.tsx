@@ -70,6 +70,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     const returnedAttributes = helper.getLayerAttributes(id,layersContents);
     if (returnedAttributes?.length > 0){
       advancedSelectionTable?.setState({
+        layerId:id,
         layerTitle:layerName,
         selectedAttributes:returnedAttributes,
         component_type:"ATTRIBUTE_CONTENTS"
@@ -113,7 +114,6 @@ export default class  LayerContents extends React.PureComponent<any,any>{
             {
               layers?.map((layer:layerObject,k)=>{
                 const isItemSelected = this.isSelected(layer.id);
-                console.log(isItemSelected,"item selected")
                 return(
                   <div key = {`${k}`+layer?.layerName} className = "layer-content-container row-color-hover">
                     <div className='check-box-container'>

@@ -83,6 +83,39 @@ class Helper {
         }
     }
 
+    getJimuLayerView = (id)=>{
+        const jimuLayerViews = AdvancedSelectionTable.jimuLayerViews??[];
+        // console.log(jimuLayerViews,"check all views")
+        const keys = Object.keys(jimuLayerViews);
+        let jimuLayerView = null
+        if (keys.length > 0){
+            for (let k = 0;k < keys.length;k++){
+                const currentKey = keys[k];
+                if (jimuLayerViews[currentKey]?.layer?.id === id){
+                    jimuLayerView = jimuLayerViews[currentKey];
+                    return jimuLayerView
+                }
+            }
+        }
+        return jimuLayerView;
+    }
+
+    getLayerId = (id:string)=>{
+        const jimuLayerViews = AdvancedSelectionTable.jimuLayerViews??[];
+        const keys = Object.keys(jimuLayerViews);
+        let layerId = -1;
+        if (keys.length > 0){
+            for (let k = 0;k < keys.length;k++){
+                const currentKey = keys[k];
+                if (jimuLayerViews[currentKey]?.layer?.id === id){
+                    layerId = jimuLayerViews[currentKey]?.layer?.layerId;
+                    return layerId; 
+                }
+            }
+        }
+        return layerId;
+    }
+
     getClickedLayerStatus = (results:any[],selectedLayer:selectedLayerType[]):boolean=>{
         let status = false;
         let index = -1;

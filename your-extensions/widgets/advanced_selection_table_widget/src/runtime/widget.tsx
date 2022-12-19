@@ -271,20 +271,13 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
 
     onClickRefresh = ()=>{
         this.restoreMap();
-        location.reload();
+        // location.reload();
     }
 
     componentDidMount(): void {
         const closeButtonElement = document.querySelector(".action-close");
-        // const activeView = AdvancedSelectionTable.activeView;
         closeButtonElement.addEventListener("click",()=>{
             this.restoreMap()
-            // if (activeView){
-            //     activeView.clearSelectedFeatures();
-            //     const zoomVal = AdvancedSelectionTable.initialZoomValue
-            //     this.zoomOut(zoomVal);
-            //     this.setState({checkedLayers:[],numberOfAttribute:{},layerContents:[],selectedAttributes:[]});
-            // }
         })
     }
    
