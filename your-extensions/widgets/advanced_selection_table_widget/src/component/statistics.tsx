@@ -23,14 +23,12 @@ class ModalBody extends React.PureComponent<any,any>{
     this.setState({title:field});
     let average = null
     let minimum = null;
-    let median = null;
     let maximum = null;
     let numberOfItems = null;
     let sumOfValues = null;
     if (this.statistics){
       average = this.statistics?.arithmeticMean(field);
       minimum = this.statistics?.minimum(field);
-      median = this.statistics?.median(field);
       maximum = this.statistics?.maximum(field);
       numberOfItems = helper.getNumberOfItemsInField(field,attributes); 
       sumOfValues = helper.getSumOfValues(field,attributes)
