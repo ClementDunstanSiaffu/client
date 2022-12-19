@@ -84,39 +84,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         view.on("click",(event)=>{
             const selectedLayersContents = this.state.layerContents;
             event.stopPropagation();
-            view.hitTest(event).then((response)=>{
-                let status = helper.getClickedLayerStatus(response?.results,selectedLayersContents);
-                if (status){
-                    this.exportCsvAndJson()
-                }
-                if (AdvancedSelectionTable.deleteStatus){
-                    if (response?.results?.length > 0){
-                        response?.results.map((item)=>{
-                            let currentNUmberOfAttributes = {};
-                            if (Object.keys(this.state.numberOfAttribute).length > 0){
-                                currentNUmberOfAttributes = {...this.state.numberOfAttribute};
-                                delete currentNUmberOfAttributes[item?.layer?.id];
-                        
-                            }
-                            const layerContents = this.state.layerContents??[];
-                            let newLayerContents = [];
-                            if (layerContents.length > 0){
-                                newLayerContents = layerContents.reduce((newArray,layerContent)=>{
-                                    if (layerContent?.id !== item.layer.id){
-                                        newArray.push(layerContent);
-                                    }
-                                    return newArray;
-                                },[])
-                            }
-                            this.setState({numberOfAttribute:currentNUmberOfAttributes,layerContents:newLayerContents},()=>{
-                                item.layer.visible = false;
-                                AdvancedSelectionTable.deleteStatus = false;
-                            })
-                        })
-                    }
-                }
-       
-            })
+            view.hitTest(event).then((response)=>{})
         })
         AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
         AdvancedSelectionTable.initialZoomValue = activeView.view.zoom
@@ -164,25 +132,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 })
             }
         }
-    }
-
-    exportCsvAndJson = ()=>{
-        // const exportStatus = this.state.exportStatus;
-        // const uri = this.state.uri;
-        // const exportType = this.state.exportType;
-        // const blobValue = this.state.blobValue;
-        // if (exportStatus && uri){
-        //     if(exportType === "csv"){
-        //         window.open(uri,"blank");
-        //     }else{
-        //         if (window.saveAs && blobValue){
-        //             window.saveAs(blobValue,"feature.json")
-        //         }else{
-        //             window.open(uri,"blank");
-        //         }
-        //     }
-        // }
-        // this.setState({exportStatus:false,uri:null,exportType:" ",blobValue:null})
     }
 
     zoomOut(zoomValue?:number) {
