@@ -28,7 +28,7 @@ export default class AttributesContents extends React.PureComponent<any,any>{
                 </div>`
         })
         contents = openDivTag + "</div>"
-        const popupContents = {title:title,contents:contents};
+        const popupContents = {title:title,contents:contents,location:attribute?.location};
         advancedSelectionTable?.setState({popup:true},()=>{
             advancedSelectionTable?.openPopup(popupContents);
         });

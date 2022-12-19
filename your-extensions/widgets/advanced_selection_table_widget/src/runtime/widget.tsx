@@ -141,13 +141,19 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         view?.goTo({center: view?.center,zoom: currentZoomValue});
       }
 
-    openPopup = (popupcontents:{title:string,contents:any})=>{
+    openPopup = (popupcontents:{title:string,contents:any,location?:number[]})=>{
         const activeView = AdvancedSelectionTable.activeView;
+        const location = popupcontents.location;
+        let currentLocation = activeView?.view?.center;
+        if (location){
+            currentLocation = {latitude:location[0],longitude:location[1]}
+        }
         if (activeView?.view?.popup){
             const popup = activeView.view.popup;
-            popup.visible = true;
             popup.title = popupcontents.title;
             popup.content = popupcontents.contents;
+            popup.location = currentLocation;
+            popup.visible = true;
             try{
                 popup.open();
             }

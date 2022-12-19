@@ -55,8 +55,15 @@ class Helper {
 
     getAttributes = (items:any[]):any[]=>{
         const attributesArray = items.reduce((newArray,item)=>{
+            console.log(item,"check item")
             if (item?.attributes){
-                newArray.push(item.attributes)
+                if (item.geometry){
+                    const geometry = item.geometry;
+                    newArray.push({...item.attributes,location:[geometry?.latitude??0,geometry?.longitude??0]});
+                }else{
+                    newArray.push(item.attributes);
+                }
+               
             }
             return newArray;
         },[])
