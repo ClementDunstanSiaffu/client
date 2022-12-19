@@ -8,9 +8,7 @@ export const getJsonUri = (obj:any,self:AdvancedSelectionTable) =>{
         const data = encode( str );
         blob = new Blob( [ data ], {type: 'application/json'});
         url = URL.createObjectURL( blob );
-        // self?.setState({blobValue:blob,exportType:"json"})
     }
-    // return url;
     return blob;
 }
 

@@ -21,6 +21,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     static deleteStatus = false;
     static jimuLayerViews = null;
     static initialZoomValue = 0;
+    static selectedGraphic = null
 
     state = {
         popup:false,
@@ -37,14 +38,8 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         anchorEl:null,
         opencreateLayer:false,
         layerName:" ",
-        csvBlob:null,
-        exportStatus:false,
-        uri:null,
-        exportType:" ",
-        blobValue:null,
         csvFile:" ",
         createdLayerTitle:" ",
-        selectedGraphic:null
     }
 
     sketch = null;
@@ -119,7 +114,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 this.sketch.on("create", async(event) => {
                     if (event?.state === "complete"){
                         this.selectFeatureLayer(event?.graphic);
-                        this.setState({selectedGraphic:event?.graphic});
+                        AdvancedSelectionTable.selectedGraphic = event?.graphic;
                         this.sketch?.update([event?.graphic],{
                             enableScaling:false,
                             preserveAspectRatio: true,
@@ -150,10 +145,10 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         }
         if (activeView?.view?.popup){
             const popup = activeView.view.popup;
+            popup.visible = true;
             popup.title = popupcontents.title;
             popup.content = popupcontents.contents;
             popup.location = currentLocation;
-            popup.visible = true;
             try{
                 popup.open();
             }
@@ -171,7 +166,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     onClickZoomIn = ()=>{
         const activeView = AdvancedSelectionTable.activeView;
         const view = activeView?.view;
-        const geometry = this.state.selectedGraphic?.geometry;
+        const geometry = AdvancedSelectionTable.selectedGraphic?.geometry;
         const extent = geometry?.extent;
         if (view && extent){
             view.goTo(extent);
@@ -180,10 +175,9 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
 
     addCreatedLayer = ()=>{
         const csvFile = this.state.csvFile;
-        const exportType = this.state.exportType;
         const activeView = AdvancedSelectionTable.activeView;
         const view = activeView?.view;
-        if (csvFile && view && exportType === "csv"){
+        if (csvFile && view){
             const layerTitle = this.state.createdLayerTitle
             const blob = new Blob([csvFile],{type:"plain/text"});
             let url = URL.createObjectURL(blob);
@@ -211,7 +205,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         };
         const layers = this.state.layers
         const currentLayers = [...layers,object];
-        this.setState({layers:currentLayers,exportType:null,csvFile:null,createdLayerTitle:null})
+        this.setState({layers:currentLayers,csvFile:null,createdLayerTitle:null})
     }
 
     restoreMap = ()=>{

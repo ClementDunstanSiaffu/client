@@ -37,9 +37,9 @@ export default class  LayerContents extends React.PureComponent<any,any>{
   removeAttributes = (id:string)=>{
     const advancedSelectionTable = this.context?.parent;
     const numberOfAttribute = this.context?.numberOfAttribute
-    const currentLayerContents = this.context?.layersContents??[];
+    const currentLayerContents = this.context?.layerContents??[];
     const copiedLayerContents = [...currentLayerContents];
-    const newNumberOfAttribute = {...numberOfAttribute}
+    const newNumberOfAttribute = {...numberOfAttribute};
     const newLayerContents = copiedLayerContents.reduce((newArray,item:{id:string,attributes:any[]})=>{
       if (item?.id !== id){
         newArray.push(item);
@@ -50,8 +50,8 @@ export default class  LayerContents extends React.PureComponent<any,any>{
       }
       return newArray;
     },[])
-    advancedSelectionTable?.setState({layerContents:newLayerContents,numberOfAttribute:newNumberOfAttribute})
-
+    advancedSelectionTable?.setState({layerContents:newLayerContents,numberOfAttribute:newNumberOfAttribute});
+    helper.unhighlightLayer(id);
   }
 
   isSelected = (id: string) => {
