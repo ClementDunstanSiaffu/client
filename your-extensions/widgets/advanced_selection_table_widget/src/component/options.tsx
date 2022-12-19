@@ -83,7 +83,16 @@ export default class  Options extends React.PureComponent<any,any> {
     exportFile = (selectedAttributes:any[],exportType:string)=>{
         const advancedSelectionTable = this.context?.parent;
         const uri = getUri(selectedAttributes,exportType,advancedSelectionTable);
-        advancedSelectionTable?.setState({exportStatus:true,uri:uri})
+        if(exportType === "csv"){
+            window.open(uri,"blank");
+        }else{
+            if (window.saveAs && uri){
+                window.saveAs(uri,"feature.json")
+            }else{
+                window.open(uri,"blank");
+            }
+        }
+        // advancedSelectionTable?.setState({exportStatus:true,uri:uri})
     }
 
     controlStatisticModal = (layerId:string)=>{

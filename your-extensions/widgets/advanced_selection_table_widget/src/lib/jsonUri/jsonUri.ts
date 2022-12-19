@@ -2,14 +2,16 @@ import AdvancedSelectionTable from "../../runtime/widget";
 
 export const getJsonUri = (obj:any,self:AdvancedSelectionTable) =>{
     let url = " ";
+    let blob = null;
     if (obj instanceof Object || obj instanceof Array){
         const str = JSON.stringify(obj);
         const data = encode( str );
-        const blob = new Blob( [ data ], {type: 'application/json'});
+        blob = new Blob( [ data ], {type: 'application/json'});
         url = URL.createObjectURL( blob );
-        self?.setState({blobValue:blob,exportType:"json"})
+        // self?.setState({blobValue:blob,exportType:"json"})
     }
-    return url;
+    // return url;
+    return blob;
 }
 
 

@@ -167,22 +167,22 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
 
     exportCsvAndJson = ()=>{
-        const exportStatus = this.state.exportStatus;
-        const uri = this.state.uri;
-        const exportType = this.state.exportType;
-        const blobValue = this.state.blobValue;
-        if (exportStatus && uri){
-            if(exportType === "csv"){
-                window.open(uri,"blank");
-            }else{
-                if (window.saveAs && blobValue){
-                    window.saveAs(blobValue,"feature.json")
-                }else{
-                    window.open(uri,"blank");
-                }
-            }
-        }
-        this.setState({exportStatus:false,uri:null,exportType:" ",blobValue:null})
+        // const exportStatus = this.state.exportStatus;
+        // const uri = this.state.uri;
+        // const exportType = this.state.exportType;
+        // const blobValue = this.state.blobValue;
+        // if (exportStatus && uri){
+        //     if(exportType === "csv"){
+        //         window.open(uri,"blank");
+        //     }else{
+        //         if (window.saveAs && blobValue){
+        //             window.saveAs(blobValue,"feature.json")
+        //         }else{
+        //             window.open(uri,"blank");
+        //         }
+        //     }
+        // }
+        // this.setState({exportStatus:false,uri:null,exportType:" ",blobValue:null})
     }
 
     zoomOut(zoomValue?:number) {
