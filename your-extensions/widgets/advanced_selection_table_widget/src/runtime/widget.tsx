@@ -221,6 +221,9 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
             const zoomVal = AdvancedSelectionTable.initialZoomValue
             this.zoomOut(zoomVal);
             this.setState({checkedLayers:[],numberOfAttribute:{},layerContents:[],selectedAttributes:[]});
+            if (activeView?.view?.popup){
+                activeView.view.popup.visible = false;
+            }
         }
     }
 
