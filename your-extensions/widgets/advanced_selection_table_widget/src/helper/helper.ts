@@ -126,6 +126,31 @@ class Helper {
         }
     }
 
+    getNumberOfItemsInField = (field:string,selectedAttributes:any[])=>{
+        let numberOfItems = 0;
+        if (selectedAttributes?.length > 0){
+            let valueArr = [];
+            for (let i=0;i< selectedAttributes.length;i++){
+                valueArr.push(selectedAttributes[i][field]);
+            }
+            numberOfItems = valueArr.length;
+        }
+        return numberOfItems;
+    }
+
+    getSumOfValues = (field:string,selectedAttributes:any[])=>{
+        let numberToAdd = 0;
+        if (selectedAttributes?.length > 0){
+            for (let i =0;i < selectedAttributes.length;i++){
+                const val = selectedAttributes[i][field];
+                if (typeof val === "number" && !isNaN(val)){
+                    numberToAdd += val;
+                }
+            }
+        }
+        return numberToAdd;
+    }
+
 }
 
 export default new Helper();

@@ -271,7 +271,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
 
     onClickRefresh = ()=>{
         this.restoreMap();
-        location.reload();
+        // location.reload();
     }
 
     componentDidMount(): void {
