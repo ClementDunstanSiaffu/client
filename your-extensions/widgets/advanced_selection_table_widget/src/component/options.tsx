@@ -9,7 +9,7 @@ import helper from '../helper/helper';
 import { AdvancedSelectionTableContext } from '../context/context';
 import {getUri} from '../lib/build_uri';
 import AdvancedSelectionTable from '../runtime/widget';
-
+import layerObject from '../interface/interface'
 
 const options = [
     {
@@ -75,7 +75,7 @@ export default class  Options extends React.PureComponent<any,any> {
             }else if (value === "attributetable"){
                 this.showAttributeTable();
             }else if (value === "delete"){
-                AdvancedSelectionTable.deleteStatus = true;
+                this.deleteLayer(layerId,layerContents)
             }
         }
     }
@@ -92,7 +92,28 @@ export default class  Options extends React.PureComponent<any,any> {
                 window.open(uri,"blank");
             }
         }
-        // advancedSelectionTable?.setState({exportStatus:true,uri:uri})
+    }
+
+    deleteLayer = (id:string,layerContents:layerObject[])=>{
+        const advancedSelectionTable = this.context?.parent;
+        let currentNUmberOfAttributes = {};
+        let numberOfAttribute = this.context?.numberOfAttribute
+        if (Object.keys(numberOfAttribute).length > 0){
+            currentNUmberOfAttributes = {...numberOfAttribute};
+            delete currentNUmberOfAttributes[id];
+    
+        }
+        let newLayerContents = [];
+        if (layerContents.length > 0){
+            newLayerContents = layerContents.reduce((newArray,layerContent)=>{
+                if (layerContent?.id !== id){
+                    newArray.push(layerContent);
+                }
+                return newArray;
+            },[])
+        }
+        helper.unhighlightLayer(id);
+        advancedSelectionTable?.setState({numberOfAttribute:currentNUmberOfAttributes,layerContents:newLayerContents})
     }
 
     controlStatisticModal = (layerId:string)=>{
