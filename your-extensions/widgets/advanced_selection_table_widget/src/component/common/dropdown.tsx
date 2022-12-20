@@ -30,7 +30,7 @@ export default class DropDown extends React.PureComponent<DropDownType,any>{
     static defaultProps:DropDownType = {
         dropdownToogleStyle : {
             backgroundColor:"transparent",
-            width:`${180*0.0625}em`,
+            // width:`${180*0.0625}em`,
             color:"black",
             borderColor:"grey",
             borderWidth:`${1*0.0625}em`,

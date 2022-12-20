@@ -219,6 +219,10 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 activeView.view.popup.visible = false;
             }
         }
+        if (this.sketch){
+            this.sketch?.cancel();
+        }
+     
     }
 
     onClickRefresh = ()=>{
