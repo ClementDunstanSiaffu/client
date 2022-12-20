@@ -50,13 +50,15 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
     getMapLayers = (activeView:JimuMapView)=>{
         const newLayersArray = Object.keys(activeView?.jimuLayerViews)?.reduce((newLayerArray,item)=>{
-            let object = {
-                layerName:activeView?.jimuLayerViews[item]?.layer?.title??item,
-                layerId:activeView?.jimuLayerViews[item]?.jimuLayerId??" ",
-                keyName:item,
-                id:activeView?.jimuLayerViews[item]?.layer?.id,
-            };
-            newLayerArray.push(object);
+            if (activeView?.jimuLayerViews[item]?.view){
+                let object = {
+                    layerName:activeView?.jimuLayerViews[item]?.layer?.title??item,
+                    layerId:activeView?.jimuLayerViews[item]?.jimuLayerId??" ",
+                    keyName:item,
+                    id:activeView?.jimuLayerViews[item]?.layer?.id,
+                };
+                newLayerArray.push(object);
+            }
             return newLayerArray;
         },[])
         newLayersArray.reverse();

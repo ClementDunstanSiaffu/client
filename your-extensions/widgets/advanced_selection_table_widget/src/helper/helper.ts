@@ -181,7 +181,7 @@ class Helper {
         if (keys.length > 0){
             keys.forEach((key)=>{
                 if (id === jimuLayerViews[key]?.layer?.id){
-                    if(jimuLayerViews[key].layer.hasOwnProperty("visible")){
+                    if(jimuLayerViews[key].layer?.hasOwnProperty("visible")){
                         if(selected){
                             jimuLayerViews[key].layer.visible = true;
                         }else{
@@ -189,12 +189,13 @@ class Helper {
                         }
                     }
                     if (jimuLayerViews[key].hasOwnProperty("view")){
-                        if (selected){
-                            jimuLayerViews[key].view.visible = true;
-                        }else{
-                            jimuLayerViews[key].view.visible = false;
+                        if (jimuLayerViews[key].view?.hasOwnProperty("visible")){
+                            if (selected){
+                                jimuLayerViews[key].view.visible = true;
+                            }else{
+                                jimuLayerViews[key].view.visible = false;
+                            }
                         }
-                     
                     }
                 }
             })
