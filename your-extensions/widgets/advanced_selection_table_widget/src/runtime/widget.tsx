@@ -9,7 +9,7 @@ import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import helper from '../helper/helper'
 import CSVLayer from 'esri/layers/CSVLayer';
-import defaultMessages from "../../../advanced_selection_table_widget/src/runtime/translations/default";
+import defaultMessages from "../../../advanced_selection_table_widget/src/runtime/translations/it";
 
 type StateValueType = {stateValue:any}
 
@@ -46,6 +46,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     sketch = null;
 
     nls = (id: string) => {
+        console.log(this.props.intl,"check intl")
         return this.props.intl ? this.props.intl.formatMessage({ id: id, defaultMessage: defaultMessages[id] }) : id
     }
     getMapLayers = (activeView:JimuMapView)=>{

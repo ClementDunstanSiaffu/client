@@ -8,46 +8,46 @@ import * as images from '../assets/images'
 import helper from '../helper/helper';
 import { AdvancedSelectionTableContext } from '../context/context';
 import {getUri} from '../lib/build_uri';
-import AdvancedSelectionTable from '../runtime/widget';
-import layerObject from '../interface/interface'
+import layerObject from '../interface/interface';
 
-const options = [
-    {
-        name:"Zoom A",
-        value:"zoomIn",
-        icon:images.zoomIn
-    },
-    {
-        name:"Export in file csv",
-        value:"csv",
-        icon:images.exportFile
-    },
-    {
-        name:"Export to feature collection",
-        value:"json",
-        icon:images.exportFile
-    },
-    {
-        name:"Statistics",
-        value:"statistics",
-        icon:images.statistics
-    },
-    {
-        name:" Create Layer",
-        value:"layer",
-        icon:images.createLayer
-    },
-    {
-        name:"View in attribute table",
-        value:"attributetable",
-        icon:images.table
-    },
-    {
-        name:"Delete",
-        value:"delete",
-        icon:images.deleteIcon
-    },
-]
+
+// const options = [
+//     {
+//         name:"Zoom A",
+//         value:"zoomIn",
+//         icon:images.zoomIn
+//     },
+//     {
+//         name:"Export in file csv",
+//         value:"csv",
+//         icon:images.exportFile
+//     },
+//     {
+//         name:"Export to feature collection",
+//         value:"json",
+//         icon:images.exportFile
+//     },
+//     {
+//         name:"Statistics",
+//         value:"statistics",
+//         icon:images.statistics
+//     },
+//     {
+//         name:" Create Layer",
+//         value:"layer",
+//         icon:images.createLayer
+//     },
+//     {
+//         name:"View in attribute table",
+//         value:"attributetable",
+//         icon:images.table
+//     },
+//     {
+//         name:"Delete",
+//         value:"delete",
+//         icon:images.deleteIcon
+//     },
+// ]
 
 export default class  Options extends React.PureComponent<any,any> {
 
@@ -130,8 +130,59 @@ export default class  Options extends React.PureComponent<any,any> {
 
     showAttributeTable = ()=>{helper.openTableAttribute()}
 
+    nls = (id: string) => {
+        const advancedSelectionTable = this.context?.parent;
+        return advancedSelectionTable?.nls(id)
+    }
+
     render(){
         const open = Boolean(this.context?.anchorEl);
+
+        const options = [
+            {
+                // name:"Zoom A",
+                name:this.nls("_zoomA"),
+                value:"zoomIn",
+                icon:images.zoomIn
+            },
+            {
+                // name:"Export in file csv",
+                name:this.nls("_exportCSV"),
+                value:"csv",
+                icon:images.exportFile
+            },
+            {
+                // name:"Export to feature collection",
+                name:this.nls("_exportJSON"),
+                value:"json",
+                icon:images.exportFile
+            },
+            {
+                // name:"Statistics",
+                name:this.nls("_statistic"),
+                value:"statistics",
+                icon:images.statistics
+            },
+            {
+                // name:" Create Layer",
+                name:this.nls("_createLayer"),
+                value:"layer",
+                icon:images.createLayer
+            },
+            {
+                // name:"View in attribute table",
+                name:this.nls("_attributeTable"),
+                value:"attributetable",
+                icon:images.table
+            },
+            {
+                // name:"Delete",
+                name:this.nls("_delete"),
+                value:"delete",
+                icon:images.deleteIcon
+            },
+        ]
+
         return (
             <div>
                 <Menu

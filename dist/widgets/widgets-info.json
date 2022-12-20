@@ -6457,7 +6457,8 @@
       "license": "",
       "properties": {},
       "translatedLocales": [
-        "en"
+        "en",
+        "it"
       ],
       "defaultSize": {
         "width": 800,
@@ -6465,7 +6466,7 @@
       }
     },
     "i18nLabel": {
-      "en": "Selezione avanzata"
+      "en": "Advanced selection"
     },
     "i18nDescription": {
       "en": null

@@ -84,11 +84,17 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     advancedSelectionTable?.onClickRefresh();
   }
 
+  nls = (id: string) => {
+    const advancedSelectionTable = this.context?.parent;
+    return advancedSelectionTable?.nls(id)
+  }
+
   render(){
     const layers = this.context?.layers;
     const numberOfAttribute = this.context.numberOfAttribute;
     const component_type = this.context?.component_type;
     const selected = this.context?.checkedLayers;
+    const refresh = this.nls("_refresh")
 
     if (component_type === "LAYERS_CONTENTS"){
       return (
@@ -97,6 +103,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
             numSelected={selected?.length} 
             showRefreshButton = {true} 
             onClickRefresh = {this.onClickRefresh}
+            refreshButtonText = {refresh}
           >
             <SelectGeometry />
           </EnhancedTableToolbar>
@@ -109,7 +116,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
           >
           </Container>
           <Container width = "96%" className='centerize-contents display-row-contents'>
-            <Container><div>Layers</div></Container>
+            <Container><div>{this.nls("_layers")}</div></Container>
           </Container>
           <Container height={450} width = {"100%"} overflow = "auto"  className='centerize-contents padding-contents20'>
             {

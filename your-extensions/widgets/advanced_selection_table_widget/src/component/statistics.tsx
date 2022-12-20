@@ -10,6 +10,7 @@ import { AdvancedSelectionTableContext } from '../context/context';
 import ModalComponent from './common/modal';
 import helper from '../helper/helper';
 
+
 class ModalBody extends React.PureComponent<any,any>{
 
   static contextType?: React.Context<any> = AdvancedSelectionTableContext;
@@ -17,6 +18,11 @@ class ModalBody extends React.PureComponent<any,any>{
   statistics = null;
 
   state = {items:[],title:" ",columns:{}};
+
+  nls = (id: string) => {
+    const advancedSelectionTable = this.context?.parent;
+    return advancedSelectionTable?.nls(id);
+  }
 
   onSelectField = (field:string)=>{
     const attributes = this.context?.selectedAttributes;
@@ -31,14 +37,19 @@ class ModalBody extends React.PureComponent<any,any>{
       minimum = this.statistics?.minimum(field);
       maximum = this.statistics?.maximum(field);
       numberOfItems = helper.getNumberOfItemsInField(field,attributes); 
-      sumOfValues = helper.getSumOfValues(field,attributes)
+      sumOfValues = helper.getSumOfValues(field,attributes);
+      const countItemKey = this.nls("_countOfItems")??"Count of items";
+      const sumOfValuesKey = this.nls("_sumOfValues")??"Sum of Values";
+      const minimumKey = this.nls("_minimum")??"Minimum";
+      const maximumKey = this.nls("_maximum")??"Maximum";
+      const averageKey = this.nls("_average")??"Average";
       this.setState({columns:{
         ...this.state.columns,
-        "Count of items":numberOfItems,
-        "Sum of Values":sumOfValues,
-        "Minimum":minimum,
-        "Maximum":maximum,
-        "Average":average,
+        [countItemKey]:numberOfItems,
+        [sumOfValuesKey]:sumOfValues,
+        [minimumKey]:minimum,
+        [maximumKey]:maximum,
+        [averageKey]:average,
       }})
     }
   }
@@ -64,11 +75,12 @@ class ModalBody extends React.PureComponent<any,any>{
   }
 
   render(): React.ReactNode {
+    const fieldsKey = this.nls("_fields");
       return(
         <>
           <EnhancedTableToolbar>
             <div className='layer-content-container'>
-              <div style = {{marginRight:20}}>Fields :</div>
+              <div style = {{marginRight:20}}>{fieldsKey} :</div>
               <DropDown items={this.state.items} onClick = {this.onSelectField} title = {this.state.title}/>
             </div>
           </EnhancedTableToolbar>
@@ -112,17 +124,24 @@ export default class StatisticsModal extends React.PureComponent<any,StateValue>
     advancedSelectionTable?.setState({openStatistics:false})
   }
 
+  nls = (id: string) => {
+    const advancedSelectionTable = this.context?.parent;
+    return advancedSelectionTable?.nls(id)
+  }
+
   render(){
     const openStatistics = this.context?.openStatistics;
+    const statissticField = this.nls("_statistic");
+    const okField = this.nls("_ok");
     return (
       <ModalComponent 
         isOpen = {openStatistics}
         toggle = {this.handleClose}
-        modalTitle = "Statistics"  
+        modalTitle = {statissticField}  
         modalBody={<ModalBody/>}   
       >
         <Button style={{width:100,height:50,borderColor:"lightgrey",borderWidth:1}} onClick = {this.handleClose}>
-          Ok
+          {okField}
         </Button>
       </ModalComponent> 
     )

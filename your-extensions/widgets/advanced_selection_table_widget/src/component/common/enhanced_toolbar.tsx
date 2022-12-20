@@ -10,7 +10,8 @@ interface EnhancedTableToolbarProps {
   numSelected?: number
   children: any
   showRefreshButton?: boolean
-  onClickRefresh?: (val?: any) => void
+  onClickRefresh?: (val?: any) => void,
+  refreshButtonText?:string
 }
 
 const refreshButtonStyle = {
@@ -19,9 +20,12 @@ const refreshButtonStyle = {
 }
 
 export default class EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProps, any> {
+
   static defaultProps = {
     showRefreshButton: false,
-    onClickRefresh: () => {}
+    onClickRefresh: () => {},
+    refreshButtonText:" "
+    
   }
 
   render (): React.ReactNode {
@@ -50,7 +54,7 @@ export default class EnhancedTableToolbar extends React.PureComponent<EnhancedTa
                             onClick={this.props.onClickRefresh}
                             style = {refreshButtonStyle}
                         >
-                            Refresh
+                            {this.props.refreshButtonText}
                         </Button>
                     </div>}
             </Toolbar>

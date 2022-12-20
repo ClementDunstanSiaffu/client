@@ -34,6 +34,11 @@ export default class CreateLayer extends React.PureComponent<any, any> {
     })
   }
 
+  nls = (id: string) => {
+    const advancedSelectionTable = this.context?.parent;
+    return advancedSelectionTable?.nls(id)
+  }
+
   render (): React.ReactNode {
     const opencreateLayer = this.context?.opencreateLayer
     return (
@@ -44,11 +49,11 @@ export default class CreateLayer extends React.PureComponent<any, any> {
                 toggle = {this.onClose}
             >
                 <Button onClick={this.createLayer}>
-                    OK
+                    {this.nls("_ok")}
                 </Button>
                 {' '}
                 <Button onClick={this.onClose} type="primary">
-                    Cancel
+                    {this.nls("_cancel")}
                 </Button>
             </ModalComponent>
     )
