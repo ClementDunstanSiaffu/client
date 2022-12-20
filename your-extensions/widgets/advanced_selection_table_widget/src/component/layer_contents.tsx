@@ -14,13 +14,14 @@ export default class  LayerContents extends React.PureComponent<any,any>{
 
   static contextType?: React.Context<any> = AdvancedSelectionTableContext;
 
-  handleClick = (event: React.MouseEvent<unknown>, name: string,id:string) => {
+  handleClick = (event: React.MouseEvent<unknown>,id:string) => {
     const selected = this.context?.checkedLayers;
     const advancedSelectionTable = this.context?.parent;
     const selectedIndex = selected?.indexOf(id);
     let newSelected: readonly string[] = [];
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected??[],id);
+      helper.activateLayerOnTheMap(id,true)
     }else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected?.slice(1));
     } else if (selectedIndex === selected?.length - 1) {
@@ -29,6 +30,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
       newSelected = newSelected.concat(selected?.slice(0, selectedIndex),selected?.slice(selectedIndex + 1));
     }
     if (selectedIndex !== -1){
+      helper.activateLayerOnTheMap(id,false)
       this.removeAttributes(id);
     }
     advancedSelectionTable?.setState({checkedLayers:newSelected});
@@ -119,7 +121,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
                       <Checkbox 
                         color="primary" 
                         checked={isItemSelected} 
-                        onClick = {(e)=>this.handleClick(e,layer.layerName,layer.id)}
+                        onClick = {(e)=>this.handleClick(e,layer.id)}
                       />
                     </div>
                     <div 

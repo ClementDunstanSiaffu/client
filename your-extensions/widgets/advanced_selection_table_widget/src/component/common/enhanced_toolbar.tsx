@@ -1,53 +1,52 @@
 
-import {React,jsx} from 'jimu-core';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { alpha } from '@mui/material/styles';
+import { React, jsx } from 'jimu-core'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import { alpha } from '@mui/material/styles'
 import '../../assets/css/style.scss'
-import { Button } from 'jimu-ui';
+import { Button } from 'jimu-ui'
 
 interface EnhancedTableToolbarProps {
-    numSelected?: number,
-    children:any,
-    showRefreshButton?:boolean,
-    onClickRefresh?:(val?:any)=>void
+  numSelected?: number
+  children: any
+  showRefreshButton?: boolean
+  onClickRefresh?: (val?: any) => void
 }
 
 const refreshButtonStyle = {
-    backgroundColor:"green",
-    color:"white",
+  backgroundColor: 'green',
+  color: 'white'
 }
 
-export default class  EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProps,any>{
+export default class EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProps, any> {
+  static defaultProps = {
+    showRefreshButton: false,
+    onClickRefresh: () => {}
+  }
 
-    static defaultProps = {
-        showRefreshButton:false,
-        onClickRefresh:()=>{}
-    }
+  render (): React.ReactNode {
+    const { numSelected } = this.props
 
-    render(): React.ReactNode {
-        const { numSelected } = this.props;
-        
-        return (
+    return (
             <Toolbar
                 sx={{
-                    pl: { sm: 2 },
-                    pr: { xs: 1, sm: 1 },
-                    ...(numSelected > 0 && {
+                  pl: { sm: 2 },
+                  pr: { xs: 1, sm: 1 },
+                  ...(numSelected > 0 && {
                     bgcolor: (theme) =>
-                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-                    }),
+                      alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity)
+                  })
                 }}
                 className = "layer-content-container"
             >
               <Typography component="div">
                 {this.props.children}
                 </Typography>
-                {this.props.showRefreshButton && 
-                    <div 
-                        style={{display:"flex",justifyContent:"flex-end",flex:"auto"}}
+                {this.props.showRefreshButton &&
+                    <div
+                        style={{ display: 'flex', justifyContent: 'flex-end', flex: 'auto' }}
                     >
-                        <Button 
+                        <Button
                             onClick={this.props.onClickRefresh}
                             style = {refreshButtonStyle}
                         >
@@ -55,7 +54,6 @@ export default class  EnhancedTableToolbar extends React.PureComponent<EnhancedT
                         </Button>
                     </div>}
             </Toolbar>
-        );
-    }
-  
+    )
+  }
 }

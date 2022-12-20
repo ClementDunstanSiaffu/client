@@ -175,6 +175,32 @@ class Helper {
         return numberToAdd;
     }
 
+    activateLayerOnTheMap = (id:string,selected:boolean)=>{
+        const jimuLayerViews = AdvancedSelectionTable.jimuLayerViews??[];
+        const keys = Object.keys(jimuLayerViews);
+        if (keys.length > 0){
+            keys.forEach((key)=>{
+                if (id === jimuLayerViews[key]?.layer?.id){
+                    if(jimuLayerViews[key].layer.hasOwnProperty("visible")){
+                        if(selected){
+                            jimuLayerViews[key].layer.visible = true;
+                        }else{
+                            jimuLayerViews[key].layer.visible = false;
+                        }
+                    }
+                    if (jimuLayerViews[key].hasOwnProperty("view")){
+                        if (selected){
+                            jimuLayerViews[key].view.visible = true;
+                        }else{
+                            jimuLayerViews[key].view.visible = false;
+                        }
+                     
+                    }
+                }
+            })
+        } 
+    }
+
 }
 
 export default new Helper();

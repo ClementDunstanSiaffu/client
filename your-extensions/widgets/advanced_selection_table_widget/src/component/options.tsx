@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Container from '../assets/css/style';
 import '../assets/css/style.scss';
 import CloseIcon from '@mui/icons-material/Close';
-import * as images from '../assets/images/'
+import * as images from '../assets/images'
 import helper from '../helper/helper';
 import { AdvancedSelectionTableContext } from '../context/context';
 import {getUri} from '../lib/build_uri';

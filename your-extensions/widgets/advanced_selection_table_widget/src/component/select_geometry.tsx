@@ -3,7 +3,7 @@ import {React,jsx,appActions} from 'jimu-core'
 import 'bootstrap/dist/css/bootstrap.css';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import '../assets/css/style.scss'
-import * as images from '../assets/images/';
+import * as images from '../assets/images';
 import DropDown from './common/dropdown';
 import { AdvancedSelectionTableContext } from '../context/context';
 

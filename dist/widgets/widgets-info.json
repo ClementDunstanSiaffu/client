@@ -6464,8 +6464,12 @@
         "height": 500
       }
     },
-    "i18nLabel": {},
-    "i18nDescription": {},
+    "i18nLabel": {
+      "en": "Selezione avanzata"
+    },
+    "i18nDescription": {
+      "en": null
+    },
     "uri": "widgets/advanced_selection_table_widget/",
     "icon": "widgets/advanced_selection_table_widget/icon.png",
     "order": 700,

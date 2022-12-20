@@ -2,7 +2,7 @@
 import {React,jsx} from 'jimu-core'
 import EnhancedTableToolbar from './common/enhanced_toolbar';
 import DropDown from './common/dropdown';
-const Statistics = require('statistics.js');
+import Statistics from './statistics.js';
 import Container from '../assets/css/style';
 import '../assets/css/style.scss'
 import { Button } from 'jimu-ui';

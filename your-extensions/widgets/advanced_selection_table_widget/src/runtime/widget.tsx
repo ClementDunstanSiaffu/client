@@ -9,6 +9,7 @@ import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import helper from '../helper/helper'
 import CSVLayer from 'esri/layers/CSVLayer';
+import defaultMessages from "../../../advanced_selection_table_widget/src/runtime/translations/default";
 
 type StateValueType = {stateValue:any}
 
@@ -43,7 +44,10 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
 
     sketch = null;
-    
+
+    nls = (id: string) => {
+        return this.props.intl ? this.props.intl.formatMessage({ id: id, defaultMessage: defaultMessages[id] }) : id
+    }
     getMapLayers = (activeView:JimuMapView)=>{
         const newLayersArray = Object.keys(activeView?.jimuLayerViews)?.reduce((newLayerArray,item)=>{
             let object = {
@@ -82,7 +86,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
             view.hitTest(event).then((response)=>{})
         })
         AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
-        AdvancedSelectionTable.initialZoomValue = activeView.view.zoom
+        AdvancedSelectionTable.initialZoomValue = activeView.view.zoom;
     }
 
     selectFeatureLayer = (geometry:any)=>{
@@ -238,6 +242,8 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
    
     render(): React.ReactNode {
         const open = Boolean(this.state.anchorEl);
+        const messaggio = this.nls("_widgetLabel")
+        // alert(messaggio)
         return(
             <>
                 {
