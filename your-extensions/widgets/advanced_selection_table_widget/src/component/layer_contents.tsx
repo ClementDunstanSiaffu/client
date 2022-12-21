@@ -1,20 +1,22 @@
-import {React,jsx,appActions} from 'jimu-core';
-import Checkbox from '@mui/material/Checkbox';
+import {React,jsx} from 'jimu-core';
+// import Checkbox from '@mui/material/Checkbox';
 import SelectGeometry from './select_geometry';
 import '../assets/css/style.scss'
 import Container from '../assets/css/style'
 import helper from '../helper/helper'
 import layerObject from '../interface/interface'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import Button from '@mui/material/Button';
+// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+// import Button from '@mui/material/Button';
+import { Button,Checkbox} from 'jimu-ui';
 import EnhancedTableToolbar from './common/enhanced_toolbar';
 import { AdvancedSelectionTableContext } from '../context/context';
+import { MoreHorizontalOutlined } from 'jimu-icons/outlined/application/more-horizontal'
 
 export default class  LayerContents extends React.PureComponent<any,any>{
 
   static contextType?: React.Context<any> = AdvancedSelectionTableContext;
 
-  handleClick = (event: React.MouseEvent<unknown>,id:string) => {
+  handleClick = (id:string) => {
     const selected = this.context?.checkedLayers;
     const advancedSelectionTable = this.context?.parent;
     const selectedIndex = selected?.indexOf(id);
@@ -63,7 +65,13 @@ export default class  LayerContents extends React.PureComponent<any,any>{
 
   handleClickMoreHorizonIcon = (event: React.MouseEvent<HTMLButtonElement>,layerId:string,isItemSelected:boolean) => {
     const advancedSelectionTable = this.context?.parent;
-    advancedSelectionTable?.setState({anchorEl:event.currentTarget,layerId:layerId,isItemSelected:isItemSelected})
+    const currentLayerId = this.context?.layerId;
+    const currentAnchorEl = this.context?.anchorEl && currentLayerId === layerId ? null:event.currentTarget
+    advancedSelectionTable?.setState({
+      anchorEl:currentAnchorEl,
+      layerId:layerId,
+      isItemSelected:isItemSelected,
+    })
   };
 
   onClickLayerName = (id:string,layerName:string)=>{
@@ -123,13 +131,18 @@ export default class  LayerContents extends React.PureComponent<any,any>{
               layers?.map((layer:layerObject,k)=>{
                 const isItemSelected = this.isSelected(layer.id);
                 return(
-                  <div key = {`${k}`+layer?.layerName} className = "layer-content-container row-color-hover">
+                  <div key = {`${k}`+layer?.layerName} className = "layer-content-container row-color-hover margin-top-10">
                     <div className='check-box-container'>
-                      <Checkbox 
+                    <Checkbox
+                      aria-label="Checkbox"
+                      checked = {isItemSelected}
+                      onChange={(e)=>this.handleClick(layer.id)}
+                    />
+                      {/* <Checkbox 
                         color="primary" 
                         checked={isItemSelected} 
                         onClick = {(e)=>this.handleClick(e,layer.id)}
-                      />
+                      /> */}
                     </div>
                     <div 
                       className='flex-auto 
@@ -150,8 +163,9 @@ export default class  LayerContents extends React.PureComponent<any,any>{
                       aria-expanded={open ? 'true' : undefined}
                       className='morehorizicon-container' 
                       onClick={(e)=>this.handleClickMoreHorizonIcon(e,layer.id,isItemSelected)}
+                      color = "transparent"
                     >
-                      <MoreHorizIcon style={{color:"grey"}}/>
+                      <MoreHorizontalOutlined style={{color:"grey"}} color = "grey"/>
                     </Button>
                   </div>
                 )

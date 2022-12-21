@@ -1,7 +1,8 @@
 import {React,jsx,AllWidgetProps,IMState, appActions,WidgetManager} from 'jimu-core';
 import CreateLayer from '../component/create_layer';
 import LayersTable from '../component/layer_table';
-import Options from '../component/options';
+// import Options from '../component/options';
+import Options from '../component/copied_options';
 import StatisticsModal from '../component/statistics';
 import { AdvancedSelectionTableContext } from '../context/context';
 import { JimuMapViewComponent,JimuMapView} from 'jimu-arcgis';
@@ -46,7 +47,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     sketch = null;
 
     nls = (id: string) => {
-        console.log(this.props.intl,"check intl")
         return this.props.intl ? this.props.intl.formatMessage({ id: id, defaultMessage: defaultMessages[id] }) : id
     }
     getMapLayers = (activeView:JimuMapView)=>{
@@ -236,16 +236,24 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         this.restoreMap();
     }
 
+    // getResizableContainer = ()=>{
+    //     const resizableDialogContainer = document.querySelector(".jimu-draggable");
+    //     if (resizableDialogContainer.style){
+    //         resizableDialogContainer.style = "z-index:11";
+    //     }
+    // }
+
     componentDidMount(): void {
         const closeButtonElement = document.querySelector(".action-close");
         closeButtonElement.addEventListener("click",()=>{
             this.restoreMap()
         })
+        // this.getResizableContainer()
     }
    
     render(): React.ReactNode {
         const open = Boolean(this.state.anchorEl);
-        const messaggio = this.nls("_widgetLabel")
+        const messaggio = this.nls("_widgetLabel");
         // alert(messaggio)
         return(
             <>

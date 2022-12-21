@@ -14,12 +14,10 @@ export default class  LayersTable extends React.PureComponent<any,any>{
   render(){
     const component_type = this.context?.component_type
     return (
-      <Box sx={{ width: '100%',height:600 }}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
+        <div  style  = {{width:"100%"}}>
           {component_type === "LAYERS_CONTENTS" && <LayerContents />}
           {component_type === "ATTRIBUTE_CONTENTS" && <AttributesContents />}
-        </Paper>
-      </Box>
+        </div>
     )
   }
 }

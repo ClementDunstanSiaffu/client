@@ -32,20 +32,21 @@ export default class EnhancedTableToolbar extends React.PureComponent<EnhancedTa
     const { numSelected } = this.props
 
     return (
-            <Toolbar
-                sx={{
-                  pl: { sm: 2 },
-                  pr: { xs: 1, sm: 1 },
-                  ...(numSelected > 0 && {
-                    bgcolor: (theme) =>
-                      alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity)
-                  })
-                }}
-                className = "layer-content-container"
-            >
-              <Typography component="div">
+            // <Toolbar
+            //     // sx={{
+            //     //   pl: { sm: 2 },
+            //     //   pr: { xs: 1, sm: 1 },
+            //     //   ...(numSelected > 0 && {
+            //     //     bgcolor: (theme) =>
+            //     //       alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity)
+            //     //   })
+            //     // }}
+            //     // className = "layer-content-container toolbar-root"
+            // >
+            <div  className = "layer-content-container toolbar-root">
+              <div className='topography-root'>
                 {this.props.children}
-                </Typography>
+              </div>
                 {this.props.showRefreshButton &&
                     <div
                         style={{ display: 'flex', justifyContent: 'flex-end', flex: 'auto' }}
@@ -57,7 +58,8 @@ export default class EnhancedTableToolbar extends React.PureComponent<EnhancedTa
                             {this.props.refreshButtonText}
                         </Button>
                     </div>}
-            </Toolbar>
+            </div>
+            {/* </Toolbar> */}
     )
   }
 }

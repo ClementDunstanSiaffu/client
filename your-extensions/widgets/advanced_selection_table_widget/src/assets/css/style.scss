@@ -6,15 +6,63 @@
     &.row-color-hover:hover{
         background-color: rgb(237, 231, 231);
         cursor: pointer;
+        
     }
     &.margin-top-10{
         margin-top: 10px;
+    }
+    @media (min-width: 600px){
+        &.toolbar-root {
+            padding-left: 16px;
+            padding-right: 8px;
+        }
+    }
+    @media (min-width: 0px){
+        &.toolbar-root {
+            padding-right: 8px;
+        }
+    }
+    
+    @media (min-width: 600px){
+        &.toolbar-root{
+            min-height: 64px;
+        }
+    }
+    
+    @media (min-width: 0px){
+        @media (orientation: landscape) {
+            &.toolbar-root{
+                min-height: 48px;
+            }
+        }
+    }
+    
+    @media (min-width: 600px){
+        &.toolbar-root {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+    &.toolbar-root {
+        position: relative;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-left: 16px;
+        padding-right: 16px;
+        min-height: 56px;
     }
     
 }
 
 .check-box-container{
     cursor: pointer;
+    margin-right: 10px;
 }
 
 .flex-auto{
@@ -48,6 +96,10 @@
     &.padding-contents10{
         padding-top:10px;
         padding-bottom:10px;
+    }
+    &.row-color-hover:hover{
+        background-color: rgb(237, 231, 231);
+        cursor: pointer;  
     }
 }
 
@@ -112,11 +164,12 @@
 }
 
 .morehorizicon-container{
-    margin-right:5px;
+    margin-right:10px;
     cursor: pointer;
     background-color: transparent;
     border: none;
     outline: none;
+    margin-left: 10px;
 }
 
 .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper  {
@@ -152,3 +205,77 @@
     background-color: green($color: #000000);
 
 }
+
+.layer-content-container{
+    .app-root-emotion-cache-ltr-1thuzoh:hover, .app-root-emotion-cache-ltr-1thuzoh[aria-expanded="true"] {
+        background-color:transparent;
+        text-decoration: none;
+        font-style: normal;
+        outline: none;
+    }
+    &.app-root-emotion-cache-ltr-1thuzoh:active{
+        background-color:transparent;
+        text-decoration: none;
+        font-style: normal;
+        outline: none;
+    }
+}
+
+.topography-root {
+    margin: 0;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+}
+
+
+// @media (min-width: 600px){
+//     .toolbar-root {
+//         padding-left: 16px;
+//         padding-right: 8px;
+//     }
+// }
+
+// @media (min-width: 0px){
+//     .toolbar-root {
+//         padding-right: 8px;
+//     }
+// }
+
+// @media (min-width: 600px){
+//     .toolbar-root{
+//         min-height: 64px;
+//     }
+// }
+
+// @media (min-width: 0px){
+//     @media (orientation: landscape) {
+//         .toolbar-root{
+//             min-height: 48px;
+//         }
+//     }
+// }
+
+// @media (min-width: 600px){
+//     .toolbar-root {
+//         padding-left: 24px;
+//         padding-right: 24px;
+//     }
+// }
+
+// .toolbar-root {
+//     position: relative;
+//     display: -webkit-box;
+//     display: -webkit-flex;
+//     display: -ms-flexbox;
+//     display: flex;
+//     -webkit-align-items: center;
+//     -webkit-box-align: center;
+//     -ms-flex-align: center;
+//     align-items: center;
+//     padding-left: 16px;
+//     padding-right: 16px;
+//     min-height: 56px;
+// }
