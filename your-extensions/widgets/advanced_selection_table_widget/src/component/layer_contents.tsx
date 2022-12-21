@@ -126,7 +126,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
           <Container width = "96%" className='centerize-contents display-row-contents'>
             <Container><div>{this.nls("layers")}</div></Container>
           </Container>
-          <Container height={450} width = {"100%"} overflow = "auto"  className='centerize-contents padding-contents20'>
+          <Container height={450} width = {"90%"} overflow = "auto"  className='centerize-contents padding-contents20'>
             {
               layers?.map((layer:layerObject,k)=>{
                 const isItemSelected = this.isSelected(layer.id);
