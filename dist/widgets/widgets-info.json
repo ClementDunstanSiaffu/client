@@ -6457,8 +6457,8 @@
       "license": "",
       "properties": {},
       "translatedLocales": [
-        "en",
-        "it"
+        "it",
+        "en"
       ],
       "defaultSize": {
         "width": 800,
@@ -6466,12 +6466,12 @@
       }
     },
     "i18nLabel": {
-      "en": "Advanced selection",
-      "it": "Selezione avanzata"
+      "it": "Selezione avanzata",
+      "en": "Advanced selection"
     },
     "i18nDescription": {
-      "en": null,
-      "it": null
+      "it": null,
+      "en": null
     },
     "uri": "widgets/advanced_selection_table_widget/",
     "icon": "widgets/advanced_selection_table_widget/icon.png",
