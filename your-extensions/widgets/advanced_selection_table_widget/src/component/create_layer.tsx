@@ -49,11 +49,11 @@ export default class CreateLayer extends React.PureComponent<any, any> {
                 toggle = {this.onClose}
             >
                 <Button onClick={this.createLayer}>
-                    {this.nls("_ok")}
+                    {this.nls("ok")}
                 </Button>
                 {' '}
                 <Button onClick={this.onClose} type="primary">
-                    {this.nls("_cancel")}
+                    {this.nls("cancel")}
                 </Button>
             </ModalComponent>
     )

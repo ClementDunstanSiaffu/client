@@ -38,11 +38,11 @@ class ModalBody extends React.PureComponent<any,any>{
       maximum = this.statistics?.maximum(field);
       numberOfItems = helper.getNumberOfItemsInField(field,attributes); 
       sumOfValues = helper.getSumOfValues(field,attributes);
-      const countItemKey = this.nls("_countOfItems")??"Count of items";
-      const sumOfValuesKey = this.nls("_sumOfValues")??"Sum of Values";
-      const minimumKey = this.nls("_minimum")??"Minimum";
-      const maximumKey = this.nls("_maximum")??"Maximum";
-      const averageKey = this.nls("_average")??"Average";
+      const countItemKey = this.nls("countOfItems")??"Count of items";
+      const sumOfValuesKey = this.nls("sumOfValues")??"Sum of Values";
+      const minimumKey = this.nls("minimum")??"Minimum";
+      const maximumKey = this.nls("maximum")??"Maximum";
+      const averageKey = this.nls("average")??"Average";
       this.setState({columns:{
         ...this.state.columns,
         [countItemKey]:numberOfItems,
@@ -75,12 +75,12 @@ class ModalBody extends React.PureComponent<any,any>{
   }
 
   render(): React.ReactNode {
-    const fieldsKey = this.nls("_fields");
+    const fieldsKey = this.nls("fields");
       return(
         <>
           <EnhancedTableToolbar>
             <div className='layer-content-container'>
-              <div style = {{marginRight:20}}>{fieldsKey} :</div>
+              <div style = {{marginRight:20}}>{fieldsKey}</div>
               <DropDown items={this.state.items} onClick = {this.onSelectField} title = {this.state.title}/>
             </div>
           </EnhancedTableToolbar>
@@ -131,8 +131,8 @@ export default class StatisticsModal extends React.PureComponent<any,StateValue>
 
   render(){
     const openStatistics = this.context?.openStatistics;
-    const statissticField = this.nls("_statistic");
-    const okField = this.nls("_ok");
+    const statissticField = this.nls("statistics");
+    const okField = this.nls("ok");
     return (
       <ModalComponent 
         isOpen = {openStatistics}

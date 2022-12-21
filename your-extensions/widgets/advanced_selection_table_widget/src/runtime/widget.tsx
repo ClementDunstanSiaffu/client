@@ -10,7 +10,7 @@ import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import helper from '../helper/helper'
 import CSVLayer from 'esri/layers/CSVLayer';
-import defaultMessages from "../../../advanced_selection_table_widget/src/runtime/translations/it";
+import defaultMessages from "../../../advanced_selection_table_widget/src/runtime/translations/default";
 
 type StateValueType = {stateValue:any}
 
@@ -253,7 +253,8 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
    
     render(): React.ReactNode {
         const open = Boolean(this.state.anchorEl);
-        const messaggio = this.nls("_widgetLabel");
+        const messaggio = this.nls("selectGeometry");
+        console.log(messaggio,"check message")
         // alert(messaggio)
         return(
             <>

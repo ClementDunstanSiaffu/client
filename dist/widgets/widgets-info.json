@@ -6466,10 +6466,12 @@
       }
     },
     "i18nLabel": {
-      "en": "Advanced selection"
+      "en": "Advanced selection",
+      "it": "Selezione avanzata"
     },
     "i18nDescription": {
-      "en": null
+      "en": null,
+      "it": null
     },
     "uri": "widgets/advanced_selection_table_widget/",
     "icon": "widgets/advanced_selection_table_widget/icon.png",

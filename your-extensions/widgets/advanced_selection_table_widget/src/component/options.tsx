@@ -141,43 +141,43 @@ export default class  Options extends React.PureComponent<any,any> {
         const options = [
             {
                 // name:"Zoom A",
-                name:this.nls("_zoomA"),
+                name:this.nls("zoomA"),
                 value:"zoomIn",
                 icon:images.zoomIn
             },
             {
                 // name:"Export in file csv",
-                name:this.nls("_exportCSV"),
+                name:this.nls("exportCsv"),
                 value:"csv",
                 icon:images.exportFile
             },
             {
                 // name:"Export to feature collection",
-                name:this.nls("_exportJSON"),
+                name:this.nls("exportJson"),
                 value:"json",
                 icon:images.exportFile
             },
             {
                 // name:"Statistics",
-                name:this.nls("_statistic"),
+                name:this.nls("statistics"),
                 value:"statistics",
                 icon:images.statistics
             },
             {
                 // name:" Create Layer",
-                name:this.nls("_createLayer"),
+                name:this.nls("createLayer"),
                 value:"layer",
                 icon:images.createLayer
             },
             {
                 // name:"View in attribute table",
-                name:this.nls("_attributeTable"),
+                name:this.nls("attributeTable"),
                 value:"attributetable",
                 icon:images.table
             },
             {
                 // name:"Delete",
-                name:this.nls("_delete"),
+                name:this.nls("delete"),
                 value:"delete",
                 icon:images.deleteIcon
             },

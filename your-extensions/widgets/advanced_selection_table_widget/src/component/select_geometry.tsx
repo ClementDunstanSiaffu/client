@@ -57,37 +57,37 @@ export default class SelectGeometry extends React.PureComponent<any,any>{
         const selectionsGeometries = [
             {
                 // label:"Selection by point",
-                label:this.nls("_selectByPoint"),
+                label:this.nls("selectByPoint"),
                 value:"point",
                 icon:images.points
             },
             {
                 // label:"Selection by line",
-                label:this.nls("_selectionByLine"),
+                label:this.nls("selectionByLine"),
                 value:"polyline",
                 icon:images.lines
             },
             {
                 // label:"Selection by polygon",
-                label:this.nls("_selectionByPolygon"),
+                label:this.nls("selectionByPolygon"),
                 value:"polygon",
                 icon:images.polygon
             },
             {
                 // label:"Selection by rectangular",
-                label:this.nls("_selectionByRectangular"),
+                label:this.nls("selectionByRectangular"),
                 value:"rectangle",
                 icon:images.rectangle
             },
             {
                 // label:"Selection by circle",
-                label:this.nls("_selectionByCircle"),
+                label:this.nls("selectionByCircle"),
                 value:"circle",
                 icon:images.circle
             },
         ]
 
-        const selectedGeometryTitle = this.nls("_selectGeometry")
+        const selectedGeometryTitle = this.nls("selectGeometry")
 
         return <DropDown 
                     items={selectionsGeometries}

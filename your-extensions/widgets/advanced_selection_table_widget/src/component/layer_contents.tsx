@@ -102,7 +102,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     const numberOfAttribute = this.context.numberOfAttribute;
     const component_type = this.context?.component_type;
     const selected = this.context?.checkedLayers;
-    const refresh = this.nls("_refresh")
+    const refresh = this.nls("refresh")
 
     if (component_type === "LAYERS_CONTENTS"){
       return (
@@ -124,7 +124,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
           >
           </Container>
           <Container width = "96%" className='centerize-contents display-row-contents'>
-            <Container><div>{this.nls("_layers")}</div></Container>
+            <Container><div>{this.nls("layers")}</div></Container>
           </Container>
           <Container height={450} width = {"100%"} overflow = "auto"  className='centerize-contents padding-contents20'>
             {
