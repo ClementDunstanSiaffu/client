@@ -1,40 +1,9 @@
 
-import {React,jsx,appActions} from 'jimu-core'
-import 'bootstrap/dist/css/bootstrap.css';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {React,jsx} from 'jimu-core'
 import '../assets/css/style.scss'
 import * as images from '../assets/images';
 import DropDown from './common/dropdown';
 import { AdvancedSelectionTableContext } from '../context/context';
-
-
-// const selectionsGeometries = [
-//     {
-//         label:"Selection by point",
-//         value:"point",
-//         icon:images.points
-//     },
-//     {
-//         label:"Selection by line",
-//         value:"polyline",
-//         icon:images.lines
-//     },
-//     {
-//         label:"Selection by polygon",
-//         value:"polygon",
-//         icon:images.polygon
-//     },
-//     {
-//         label:"Selection by rectangular",
-//         value:"rectangle",
-//         icon:images.rectangle
-//     },
-//     {
-//         label:"Selection by circle",
-//         value:"circle",
-//         icon:images.circle
-//     },
-// ]
 
 export default class SelectGeometry extends React.PureComponent<any,any>{
 
@@ -51,36 +20,29 @@ export default class SelectGeometry extends React.PureComponent<any,any>{
     }
     
     render(): React.ReactNode {
-        const widthToEM = `${180*0.0625}em`;
-
 
         const selectionsGeometries = [
             {
-                // label:"Selection by point",
                 label:this.nls("selectByPoint"),
                 value:"point",
                 icon:images.points
             },
             {
-                // label:"Selection by line",
                 label:this.nls("selectionByLine"),
                 value:"polyline",
                 icon:images.lines
             },
             {
-                // label:"Selection by polygon",
                 label:this.nls("selectionByPolygon"),
                 value:"polygon",
                 icon:images.polygon
             },
             {
-                // label:"Selection by rectangular",
                 label:this.nls("selectionByRectangular"),
                 value:"rectangle",
                 icon:images.rectangle
             },
             {
-                // label:"Selection by circle",
                 label:this.nls("selectionByCircle"),
                 value:"circle",
                 icon:images.circle

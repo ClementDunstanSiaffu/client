@@ -1,7 +1,5 @@
 
 import {React,jsx} from 'jimu-core';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import '../assets/css/style.scss'
 import LayerContents from './layer_contents';
 import AttributesContents from './attributes_contents';

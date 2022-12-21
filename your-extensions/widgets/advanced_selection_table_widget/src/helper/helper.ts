@@ -202,6 +202,26 @@ class Helper {
         } 
     }
 
+    deactivateAllLayer = ()=>{
+        const jimuLayerViews = AdvancedSelectionTable.jimuLayerViews??[];
+        const keys = Object.keys(jimuLayerViews);
+        if (keys.length > 0){
+            keys.forEach((key)=>{
+                    if(jimuLayerViews[key].layer?.hasOwnProperty("visible")){
+                        jimuLayerViews[key].layer.visible = false;
+                        
+                    }
+                    if (jimuLayerViews[key].hasOwnProperty("view")){
+                        if (jimuLayerViews[key].view?.hasOwnProperty("visible")){
+                            jimuLayerViews[key].view.visible = false;
+                            
+                        }
+                    }
+                
+            })
+        } 
+    }
+
 }
 
 export default new Helper();

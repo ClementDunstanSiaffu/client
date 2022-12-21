@@ -1,12 +1,9 @@
 import {React,jsx} from 'jimu-core';
-// import Checkbox from '@mui/material/Checkbox';
 import SelectGeometry from './select_geometry';
 import '../assets/css/style.scss'
 import Container from '../assets/css/style'
 import helper from '../helper/helper'
 import layerObject from '../interface/interface'
-// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-// import Button from '@mui/material/Button';
 import { Button,Checkbox} from 'jimu-ui';
 import EnhancedTableToolbar from './common/enhanced_toolbar';
 import { AdvancedSelectionTableContext } from '../context/context';
@@ -138,11 +135,6 @@ export default class  LayerContents extends React.PureComponent<any,any>{
                       checked = {isItemSelected}
                       onChange={(e)=>this.handleClick(layer.id)}
                     />
-                      {/* <Checkbox 
-                        color="primary" 
-                        checked={isItemSelected} 
-                        onClick = {(e)=>this.handleClick(e,layer.id)}
-                      /> */}
                     </div>
                     <div 
                       className='flex-auto 

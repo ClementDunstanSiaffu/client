@@ -23,5 +23,6 @@ define( {
     "refresh":"Refresh",
     "ok":"OK",
     "cancel":"Cancel",
-    "fields":"Fields"
+    "fields":"Fields",
+    "selectionAction":"Selection Action"
 });

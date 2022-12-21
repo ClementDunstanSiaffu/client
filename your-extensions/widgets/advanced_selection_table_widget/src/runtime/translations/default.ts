@@ -25,5 +25,6 @@ export default {
     refresh:"Aggiornare",
     ok:"OK",
     cancel:"Annullamento",
-    fields:"Campi"
+    fields:"Campi",
+    selectionAction:"Selezione Azione"
 }

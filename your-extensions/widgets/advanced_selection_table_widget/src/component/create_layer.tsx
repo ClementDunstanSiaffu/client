@@ -5,6 +5,7 @@ import ModalComponent from './common/modal'
 import { AdvancedSelectionTableContext } from '../context/context'
 
 class CreateLayerInput extends React.PureComponent<any, any> {
+  
   static contextType?: React.Context<any> = AdvancedSelectionTableContext
 
   getLayerName = (event: React.ChangeEvent<HTMLInputElement>) => {

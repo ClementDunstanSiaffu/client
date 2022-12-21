@@ -1,8 +1,5 @@
 
 import { React, jsx } from 'jimu-core'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import { alpha } from '@mui/material/styles'
 import '../../assets/css/style.scss'
 import { Button } from 'jimu-ui'
 
@@ -29,37 +26,16 @@ export default class EnhancedTableToolbar extends React.PureComponent<EnhancedTa
   }
 
   render (): React.ReactNode {
-    const { numSelected } = this.props
-
     return (
-            // <Toolbar
-            //     // sx={{
-            //     //   pl: { sm: 2 },
-            //     //   pr: { xs: 1, sm: 1 },
-            //     //   ...(numSelected > 0 && {
-            //     //     bgcolor: (theme) =>
-            //     //       alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity)
-            //     //   })
-            //     // }}
-            //     // className = "layer-content-container toolbar-root"
-            // >
-            <div  className = "layer-content-container toolbar-root">
-              <div className='topography-root'>
-                {this.props.children}
-              </div>
-                {this.props.showRefreshButton &&
-                    <div
-                        style={{ display: 'flex', justifyContent: 'flex-end', flex: 'auto' }}
-                    >
-                        <Button
-                            onClick={this.props.onClickRefresh}
-                            style = {refreshButtonStyle}
-                        >
-                            {this.props.refreshButtonText}
-                        </Button>
-                    </div>}
-            </div>
-            {/* </Toolbar> */}
+      <div  className = "layer-content-container toolbar-root">
+        <div className='topography-root'>{this.props.children}</div>
+        {this.props.showRefreshButton &&
+          <div style={{ display: 'flex', justifyContent: 'flex-end', flex: 'auto' }}>
+            <Button onClick={this.props.onClickRefresh} style = {refreshButtonStyle}>
+              {this.props.refreshButtonText}
+            </Button>
+          </div>}
+      </div>
     )
   }
 }

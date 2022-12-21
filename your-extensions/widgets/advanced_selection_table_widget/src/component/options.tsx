@@ -1,53 +1,14 @@
-import {React,appActions,WidgetManager,jsx} from 'jimu-core'
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+
+import {React,jsx} from 'jimu-core'
 import Container from '../assets/css/style';
 import '../assets/css/style.scss';
-import CloseIcon from '@mui/icons-material/Close';
+import { CloseOutlined } from 'jimu-icons/outlined/editor/close'
 import * as images from '../assets/images'
 import helper from '../helper/helper';
 import { AdvancedSelectionTableContext } from '../context/context';
 import {getUri} from '../lib/build_uri';
 import layerObject from '../interface/interface';
-
-
-// const options = [
-//     {
-//         name:"Zoom A",
-//         value:"zoomIn",
-//         icon:images.zoomIn
-//     },
-//     {
-//         name:"Export in file csv",
-//         value:"csv",
-//         icon:images.exportFile
-//     },
-//     {
-//         name:"Export to feature collection",
-//         value:"json",
-//         icon:images.exportFile
-//     },
-//     {
-//         name:"Statistics",
-//         value:"statistics",
-//         icon:images.statistics
-//     },
-//     {
-//         name:" Create Layer",
-//         value:"layer",
-//         icon:images.createLayer
-//     },
-//     {
-//         name:"View in attribute table",
-//         value:"attributetable",
-//         icon:images.table
-//     },
-//     {
-//         name:"Delete",
-//         value:"delete",
-//         icon:images.deleteIcon
-//     },
-// ]
+import { Popper } from 'jimu-ui'
 
 export default class  Options extends React.PureComponent<any,any> {
 
@@ -138,78 +99,66 @@ export default class  Options extends React.PureComponent<any,any> {
     render(){
         const open = Boolean(this.context?.anchorEl);
 
+
         const options = [
             {
-                // name:"Zoom A",
                 name:this.nls("zoomA"),
                 value:"zoomIn",
                 icon:images.zoomIn
             },
             {
-                // name:"Export in file csv",
                 name:this.nls("exportCsv"),
                 value:"csv",
                 icon:images.exportFile
             },
             {
-                // name:"Export to feature collection",
                 name:this.nls("exportJson"),
                 value:"json",
                 icon:images.exportFile
             },
             {
-                // name:"Statistics",
                 name:this.nls("statistics"),
                 value:"statistics",
                 icon:images.statistics
             },
             {
-                // name:" Create Layer",
                 name:this.nls("createLayer"),
                 value:"layer",
                 icon:images.createLayer
             },
             {
-                // name:"View in attribute table",
                 name:this.nls("attributeTable"),
                 value:"attributetable",
                 icon:images.table
             },
             {
-                // name:"Delete",
                 name:this.nls("delete"),
                 value:"delete",
                 icon:images.deleteIcon
             },
         ]
-
+        
         return (
-            <div>
-                <Menu
-                    id="basic-menu"
-                    anchorEl={this.context?.anchorEl}
-                    open={open}
-                    onClose={this.handleCloseMoreHorizonIcon}
-                    MenuListProps={{'aria-labelledby': 'basic-button'}}
+            <Popper open={open} reference={this.context?.anchorEl} zIndex = {100000}>
+                <Container 
+                    width={"90%"} 
+                    borderBottomWidth = {1} 
+                    borderBottomColor = "lightgrey"
+                    height={40}
+                    className = 'centerize-contents display-row-contents'
                 >
-                    <Container 
-                        width={"90%"} 
-                        borderBottomWidth = {1} 
-                        borderBottomColor = "lightgrey"
-                        height={40}
-                        className = 'centerize-contents display-row-contents'
-                    >
-                        <div className='flex-auto text-style-400'>Select Action</div>
-                        <div className='display-flex-end close-button' onClick={this.handleCloseMoreHorizonIcon}>
-                            <CloseIcon style={{color:"grey"}}/>
-                        </div>
-                    </Container>
+                    <div className='flex-auto text-style-400'>{this.nls("selectionAction")}</div>
+                    <div className='display-flex-end close-button' onClick={this.handleCloseMoreHorizonIcon}>
+                        <CloseOutlined style={{color:"grey"}} color = "grey"/>
+                    </div>
+                </Container>
+                <div style = {{paddingTop:20,paddingBottom:20}}>
                     {
                         options.map((option,k)=>{
                             return( 
-                                <MenuItem onClick={this.handleCloseMoreHorizonIcon}>
+                                <div onClick={this.handleCloseMoreHorizonIcon} className = 'centerize-contents row-color-hover'>
                                     <Container 
-                                        width={"100%"} 
+                                        width={"90%"} 
                                         className = 'centerize-contents display-row-contents padding-contents10' 
                                         backgroundColor='transparent'
                                         onClick={()=>this.onClickOption(option.value)}
@@ -219,12 +168,12 @@ export default class  Options extends React.PureComponent<any,any> {
                                         </div>
                                         <div className='menu-item-text-container'>{option.name}</div>
                                     </Container>
-                                </MenuItem>
+                                </div>
                             )
                         })
                     }
-                </Menu>
-            </div>
+                </div>
+            </Popper>
         );
     }
 }
