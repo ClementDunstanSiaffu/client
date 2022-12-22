@@ -1,50 +1,15 @@
 /** @jsx jsx */
 import { React, AllWidgetProps, jsx ,IMState} from 'jimu-core'
-
-import {JimuMapView, JimuMapViewComponent} from "jimu-arcgis";
+import {JimuMapView} from "jimu-arcgis";
 import FeatureTable from "esri/widgets/FeatureTable";
 import '../style.css';
-import {Tabs, Tab, Dropdown, DropdownButton, DropdownMenu, DropdownItem, Button, ButtonGroup} from "jimu-ui";
-import {WidgetFilterOutlined} from "jimu-icons/outlined/brand/widget-filter";
-import {CloseOutlined} from 'jimu-icons/outlined/editor/close'
-import {ColorsOutlined} from 'jimu-icons/outlined/application/colors'
-import {ExportOutlined} from 'jimu-icons/outlined/editor/export'
-import { ClearSelectionOutlined } from 'jimu-icons/outlined/gis/clear-selection'
-import { ClearOutlined } from 'jimu-icons/outlined/editor/clear'
-import { BrushOutlined } from 'jimu-icons/outlined/editor/brush'
-import { ColorPicker } from 'jimu-ui/basic/color-picker'
-
+import {Tabs, Tab} from "jimu-ui";
 import Query from "esri/rest/support/Query";
-import esriRequest from "esri/request";
 import Polygon from "esri/geometry/Polygon";
-import Graphic from "esri/Graphic";
-
-class Download{
-    static downloadFile(content,filename){
-        const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement("a");
-        if (link.download !== undefined) { // feature detection
-            // Browsers that support HTML5 download attribute
-            var url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            link.setAttribute("download", filename);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    }
-
-    static CSV(object,filename = "download.csv") {
-        const array = [Object.keys(object[0])].concat(object)
-        Download.downloadFile(array.map(it => {
-            return Object.values(it).toString()
-        }).join('\n'),filename);
-    }
-}
+import helper from '../helper/helper';
+import ButtonGroupComponent from '../components/button_groups';
 
 type spatialRelationshipType = "intersects" | "contains" | "crosses" | "disjoint" | "envelope-intersects" | "index-intersects" | "overlaps" | "touches" | "within" | "relation"
-
 
 type stateValueType = {
     stateValue:{
@@ -57,41 +22,33 @@ type stateValueType = {
     }
 }
 
-
-
 export default class Widget extends React.PureComponent<AllWidgetProps<any>&stateValueType, any> {
 
     static mapExtraStateProps(state:IMState){return {stateValue:state.widgetsState}};
-
-    filterTimeReceiveData = new Date().getTime();
-    defaultValue = "";
     tabs = [];
-    saveFeatures = [];
     arrayTable = [];
-
     uniqueValuesInfosSave = [];
     saveOldRenderer = [];
-
+    filterTimeReceiveData = new Date().getTime();
+    defaultValue = "";
+    saveFeatures = [];
+   
     constructor (props) {
         super(props)
-
         this.state = {
             geometryFilter: null,
             listServices:[]
         }
 
         this.tabsClose = this.tabsClose.bind(this);
-
-        this.optionClickDownload = this.optionClickDownload.bind(this);
         this.optionFilterExtentions = this.optionFilterExtentions.bind(this);
         this.optionCloseAllTabs = this.optionCloseAllTabs.bind(this);
         this.optionOpenFilter = this.optionOpenFilter.bind(this);
-        this.setButtonFilter = this.setButtonFilter.bind(this);
-        this.optionFilterRemove = this.optionFilterRemove.bind(this);
         this.createListTable = this.createListTable.bind(this);
-
-        this.optionColorRandom = this.optionColorRandom.bind(this);
         this.optionColorFound = this.optionColorFound.bind(this);
+        this.createFeatureTable = this.createFeatureTable.bind(this);
+        this.createTable = this.createTable.bind(this);
+        this.getActiveTable = this.getActiveTable.bind(this);
         this.optionColorCleanSelected = this.optionColorCleanSelected.bind(this);
     }
 
@@ -111,43 +68,17 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 this.filterTimeReceiveData = newTimeReceive;
             }
 
-            // if(this.state.jimuMapView){
-            //     this.createListTable(layerOpen);
-            // }
-
-            this.createListTable(layerOpen);
-
-            this.openSideBar();
+            const activeView = this.props.stateValue?.value?.getActiveView();
+            const allLayers = this.props.stateValue?.value?.getAllLayers();
+            const jimuLayerView = this.props.stateValue?.value?.getAllJimuLayerViews()
+            if (activeView && allLayers.items?.length > 0 && Object.keys(jimuLayerView).length > 0){
+                this.createListTable(layerOpen);
+            }
+            helper.openSideBar();
         }
     }
 
-    // componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any) {
-    //     if(this.props.hasOwnProperty("stateProps") && this.props.stateProps.layerOpen){
-    //         const newTimeReceive = new Date().getTime();
-    //         if(newTimeReceive - this.filterTimeReceiveData < 5000){
-    //             return;
-    //         }else{
-    //             this.filterTimeReceiveData = newTimeReceive;
-    //         }
-
-    //         if(this.state.jimuMapView){
-    //             this.createListTable(this.props.stateProps.layerOpen);
-    //         }
-
-    //         this.openSideBar();
-    //     }
-    // }
-
-
-    openSideBar(){
-        const sidebar = document.querySelector(".sidebar-controller");
-        //@ts-ignore
-        if(sidebar?.getAttribute("aria-expanded") === "false"){
-            //@ts-ignore
-            if(sidebar) sidebar.click();
-        }
-    }
-
+  
     createListTable(layerOpen:{geometry:string,typeSelected:spatialRelationshipType,where?:string,listServices?:any}){
         const allLayers = this.props.stateValue?.value?.getAllLayers()??[];
         this.defaultValue = "";
@@ -192,98 +123,12 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 }
             }
         }
-        // for(let i=0;i<this.state.jimuMapView.view.map.allLayers.items.length;i++){
-        //     const f = this.state.jimuMapView.view.map.allLayers.items[i];
-        //     if(f.type==="feature" && layerOpen?.listServices?.indexOf(i) !== -1 || f.sublayers){
-        //         if(f.sublayers){
-        //             for(let j=0;i<f.sublayers.length;i++){
-        //                 const fs = f.sublayers[j];
-        //                 this.tabs.push(
-        //                     <Tab closeable id={"tab-"+fs.uid} title={f.title + " - "+ fs.title}>
-        //                         <div id={"container-"+fs.uid} className="tabClassControl"></div>
-        //                     </Tab>
-        //                 );
-
-        //                 this.createTable(fs,layerOpen,"tab-"+fs.uid).then((featureTable)=>{
-        //                     if(!featureTable){
-        //                         console.log("Table not results: "+fs.title);
-        //                     }else{
-        //                         console.log("Table Loaded: "+fs.title);
-        //                     }
-        //                 });
-        //             }
-        //         }else{
-        //             if(i === 0) this.defaultValue = "tab-"+f.uid;
-        //             this.tabs.push(
-        //                 <Tab closeable id={"tab-"+f.uid} title={f.title}>
-        //                     <div id={"container-"+f.uid} className="tabClassControl"></div>
-        //                 </Tab>
-        //             );
-
-        //             this.createTable(f,layerOpen,"tab-"+f.uid).then((featureTable)=>{
-        //                 if(!featureTable){
-        //                     console.log("Table not results: "+f.title);
-        //                 }else{
-        //                     console.log("Table Loaded: "+f.title);
-        //                 }
-        //             });
-        //         }
-        //     }
-        // }
         this.setState({
             geometryFilter: layerOpen.geometry,
             listServices: layerOpen.listServices
         });
     }
-
-    // createListTable(layerOpen:any){
-    //     this.defaultValue = "";
-    //     this.tabs = [];
-    //     this.arrayTable = [];
-    //     for(let i=0;i<this.state.jimuMapView.view.map.allLayers.items.length;i++){
-    //         const f = this.state.jimuMapView.view.map.allLayers.items[i];
-    //         if(f.type==="feature" && layerOpen?.listServices?.indexOf(i) !== -1 || f.sublayers){
-    //             if(f.sublayers){
-    //                 for(let j=0;i<f.sublayers.length;i++){
-    //                     const fs = f.sublayers[j];
-    //                     this.tabs.push(
-    //                         <Tab closeable id={"tab-"+fs.uid} title={f.title + " - "+ fs.title}>
-    //                             <div id={"container-"+fs.uid} className="tabClassControl"></div>
-    //                         </Tab>
-    //                     );
-
-    //                     this.createTable(fs,layerOpen,"tab-"+fs.uid).then((featureTable)=>{
-    //                         if(!featureTable){
-    //                             console.log("Table not results: "+fs.title);
-    //                         }else{
-    //                             console.log("Table Loaded: "+fs.title);
-    //                         }
-    //                     });
-    //                 }
-    //             }else{
-    //                 if(i === 0) this.defaultValue = "tab-"+f.uid;
-    //                 this.tabs.push(
-    //                     <Tab closeable id={"tab-"+f.uid} title={f.title}>
-    //                         <div id={"container-"+f.uid} className="tabClassControl"></div>
-    //                     </Tab>
-    //                 );
-
-    //                 this.createTable(f,layerOpen,"tab-"+f.uid).then((featureTable)=>{
-    //                     if(!featureTable){
-    //                         console.log("Table not results: "+f.title);
-    //                     }else{
-    //                         console.log("Table Loaded: "+f.title);
-    //                     }
-    //                 });
-    //             }
-    //         }
-    //     }
-    //     this.setState({
-    //         geometryFilter: layerOpen.geometry,
-    //         listServices: layerOpen.listServices
-    //     });
-    // }
-
+    
     activeViewChangeHandler = (jmv: JimuMapView) => {
         if (jmv) this.setState({jimuMapView: jmv});
     };
@@ -327,330 +172,66 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             selectionColumn: true,
             columnMenus: true
         }
-
-        // featureTable.highlightIds.on("change", (event) => {
-        //     if(event.added.length){
-        //         try{
-        //             const query = layer.createQuery();
-        //             query.where = layer.objectIdField + " = " + event.added[0];
-        //             query.returnGeometry = true;
-        //             layer.queryFeatures(query).then((results)=>{
-        //                 const features = results.features;
-        //                 if(features.length){
-        //                     //layerView.highlight(features[0]);
-        //                     const activeView = this.props.stateValue?.value?.getActiveView();
-        //                     if (activeView){
-        //                         activeView.view.goTo(features[0].geometry); 
-        //                     }
-        //                     // this.state.jimuMapView.view.goTo(features[0].geometry);
-        //                 }else{
-        //                     console.error("not found");
-        //                 }
-
-        //             });
-        //         }catch (e){
-        //             console.error(e);
-        //         }
-
-        //     }
-        // });
-
         this.arrayTable.push(featureTable);
-
         return featureTable;
     }
 
     async createTable(layer,pass:{geometry:any,typeSelected:spatialRelationshipType,where?:string,listServices?:any},identificationTable) {
-        //try{
-            layer.visible = true;
-            let featureTable = null;
-            // const activeView = this.props.stateValue?.value?.getActiveView();
-            const layerViews = this.props.stateValue?.value?.getAllJimuLayerViews();
-            const keys = Object.keys(layerViews);
-            let layerView = null;
-            if (keys?.length > 0){
-                for (let i = 0;i<keys.length;i++){
-                    if (layerViews[keys[i]]?.layer?.id === layer?.id){
-                        layerView = layerViews[keys[i]];
-                    }
-                }
-                if (layerView){
-                    let query = new Query();
-                    if(pass.geometry){
-                        query.geometry = new Polygon(pass.geometry);
-                        query.spatialRelationship = pass.typeSelected;
-        
-                        layerView.filter = {
-                            geometry: query.geometry,
-                            spatialRelationship: pass.typeSelected
-                        };
-                    }
-                    if(pass.where){
-                        query.where = pass.where;
-                        layerView.filter = {
-                            where: query.where,
-                        }
-                    }
-                    if(!pass.geometry && !pass.where){
-                        query.where = "1=1";
-                        layerView.filter = {
-                            where: query.where,
-                        }
-                    }
-                    query.outFields = ["*"];
-                    let features = layerView.features;
-                    // const results = await layer.queryFeatures(query);
-                    // let features = results.features;
-                    if(features?.length){
-                        this.saveFeatures[layer.uid] = features;
-                        featureTable = this.createFeatureTable(layer,layerView);
-                        console.log(featureTable,"check returned feature table")
-                        if(query.geometry) featureTable.filterGeometry = query.geometry;
-                        featureTable.filterBySelection();
-                        return featureTable;
-                    }
-                }
-            }
-            // if (activeView){
-            //     // const layerView = await activeView?.view.whenLayerView(layer);
-            //     //await new Promise(resolve => setTimeout(resolve, 1500));
-            //     activeView?.view.whenLayerView(layer).then(async(layerView)=>{
-            //         let query = new Query();
-            //         if(pass.geometry){
-            //             query.geometry = new Polygon(pass.geometry);
-            //             query.spatialRelationship = pass.typeSelected;
-        
-            //             layerView.filter = {
-            //                 geometry: query.geometry,
-            //                 spatialRelationship: pass.typeSelected
-            //             };
-            //         }
-        
-            //         if(pass.where){
-            //             query.where = pass.where;
-            //             layerView.filter = {
-            //                 where: query.where,
-            //             }
-            //         }
-        
-            //         if(!pass.geometry && !pass.where){
-            //             query.where = "1=1";
-            //             layerView.filter = {
-            //                 where: query.where,
-            //             }
-            //         }
-        
-            //         query.outFields = ["*"];
-    
-            //         const results = await layer.queryFeatures(query);
-            //         let features = results.features;
-            //         if(features?.length){
-            //             this.saveFeatures[layer.uid] = features;
-            //             featureTable = this.createFeatureTable(layer,layerView);
-            //             console.log(featureTable,"check feature table")
-            //             if(query.geometry) featureTable.filterGeometry = query.geometry;
-            //             featureTable.filterBySelection();
-            //             return featureTable;
-            //         }
-            //     })
-               
-            // }
-        
-        //}catch (e){
-        //    console.error(e.message);
-        //    this.tabsClose(identificationTable, true);
-        //    return null;
-        //}
+        layer.visible = true;
+        let featureTable = null;
+        let query = new Query();
+        if(pass.geometry){
+            query.geometry = new Polygon(pass.geometry);
+            query.spatialRelationship = pass.typeSelected;
+        }
+        if(layer){
+            featureTable = this.createFeatureTable(layer,null);
+            if(query.geometry) featureTable.filterGeometry = query.geometry;
+                featureTable.filterBySelection();
+                return featureTable;
+        }
         return featureTable;
     }
 
-    // async createTable(layer,pass:{geometry:any,typeSelected:spatialRelationshipType,where?:string,listServices?:any},identificationTable) {
-    //     //try{
-
-    //         layer.visible = true;
-    //         const layerView = await this.state.jimuMapView.view.whenLayerView(layer);
-    //         //await new Promise(resolve => setTimeout(resolve, 1500));
-
-    //         let query = new Query();
-    //         if(pass.geometry){
-    //             query.geometry = new Polygon(pass.geometry);
-    //             query.spatialRelationship = pass.typeSelected;
-
-    //             layerView.filter = {
-    //                 geometry: query.geometry,
-    //                 spatialRelationship: pass.typeSelected
-    //             };
-    //         }
-
-    //         if(pass.where){
-    //             query.where = pass.where;
-    //             layerView.filter = {
-    //                 where: query.where,
-    //             }
-    //         }
-
-    //         if(!pass.geometry && !pass.where){
-    //             query.where = "1=1";
-    //             layerView.filter = {
-    //                 where: query.where,
-    //             }
-    //         }
-
-    //         query.outFields = ["*"];
-
-    //         const results = await layer.queryFeatures(query);
-    //         let features = results.features;
-    //         if(features?.length){
-    //             this.saveFeatures[layer.uid] = features;
-
-    //             const featureTable = this.createFeatureTable(layer,layerView);
-    //             if(query.geometry) featureTable.filterGeometry = query.geometry;
-    //             featureTable.filterBySelection();
-    //             return featureTable;
-    //         }
-
-    //     //}catch (e){
-    //     //    console.error(e.message);
-    //     //    this.tabsClose(identificationTable, true);
-    //     //    return null;
-    //     //}
-    // }
-
     tabsClose(e,noControlTable = false){
         this.optionColorCleanSelected();
-
+        const tabs = this.tabs;
+        const arrayTable = this.arrayTable;
         let foundIndex = null;
-        for(let i=0;i<this.tabs.length;i++){
-            if(this.tabs[i].props.id === e){
+        for(let i=0;i<tabs.length;i++){
+            if(tabs[i].props.id === e){
                 foundIndex = i;
                 break;
             }
         }
-        this.tabs.splice(foundIndex, 1);
+        tabs.splice(foundIndex, 1);
 
         if(!noControlTable){
-            const table = this.arrayTable[foundIndex];
+            const table = arrayTable[foundIndex];
             if(table && table.layer){
-                this.arrayTable.splice(foundIndex,1);
+                arrayTable.splice(foundIndex,1);
                 this.props.stateProps.layerOpen.listServices.splice(foundIndex,1);
                 table.layer.visible = false;
             }
         }
 
         this.setState({
-            tabsLength: this.tabs.length,
+            tabsLength:tabs.length,
             listServices: this.props.stateProps.layerOpen.listServices
         });
     }
 
     getActiveTable(){
-        for(let i=0;i<this.tabs.length;i++){
-            const el = document.querySelector("#"+this.tabs[i].props.children.props.id);
+        const tabs = this.tabs;
+        const arrayTable = this.arrayTable;
+        for(let i=0;i<tabs.length;i++){
+            const el = document.querySelector("#"+tabs[i].props.children.props.id);
             //@ts-ignore
             if(el.checkVisibility()){
-                return this.arrayTable[i];
+                return arrayTable[i];
             }
         }
         return null;
-    }
-
-    getStoreClean(table){
-        let arrayNew = [];
-        if(table && table.grid && table.grid.store && table.grid.store.itemCache && table.grid.store.itemCache.items?.length){
-            for(let i=0;i<table.grid.store.itemCache.items.length;i++){
-                let attr = table.grid.store.itemCache.items[i].feature.attributes;
-                arrayNew.push(attr);
-            }
-        }
-        return arrayNew;
-    }
-
-    getStoreSingleAttributes(table,attribute){
-        let arrayNew = [];
-        if(table && table.grid && table.grid.store && table.grid.store.itemCache && table.grid.store.itemCache.items?.length){
-            for(let i=0;i<table.grid.store.itemCache.items.length;i++){
-                let attr = table.grid.store.itemCache.items[i].feature.attributes;
-                let newAttr = {};
-                newAttr[attribute] = attr[attribute]
-                arrayNew.push(newAttr);
-            }
-        }
-        return arrayNew;
-    }
-
-    async getKmzFile(layer,found){
-        const objIds = found.map(f=>f.OBJECTID);
-        const formData = new FormData();
-
-        formData.append("f", "kmz");
-        formData.append("where", `OBJECTID IN (${objIds.join(',')})`);
-        formData.append("outFields", "*");
-
-        const response = await esriRequest(layer.url.replace("FeatureServer","MapServer") + "/" + layer.layerId + "/query", {
-            responseType: "blob",
-            body:formData
-        });
-
-        const url = window.URL.createObjectURL(response.data);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        // the filename you want
-        a.download = 'result.kmz';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-
-    }
-
-    optionClickDownload(selected){
-        const activeTable = this.getActiveTable();
-
-        switch (selected){
-            case "KMZ":
-                if(activeTable){
-                    const cleanArrayStore = this.getStoreSingleAttributes(activeTable,"OBJECTID")
-                    this.getKmzFile(activeTable.layer,cleanArrayStore)
-                }
-                break;
-            case "eCGI_CSV":
-                if(activeTable){
-                    const cleanArrayStore = this.getStoreSingleAttributes(activeTable,"eCGI_28bit");
-                    if(cleanArrayStore) Download.CSV(cleanArrayStore);
-                }
-                break;
-            case "CGI_CSV":
-                if(activeTable){
-                    const cleanArrayStore = this.getStoreSingleAttributes(activeTable,"CGI");
-                    if(cleanArrayStore) Download.CSV(cleanArrayStore);
-                }
-                break;
-            case "EXCEL_TABLE":break;
-            case "CSV_TABLE":
-                if(activeTable){
-                    const cleanArrayStore = this.getStoreClean(activeTable);
-                    if(cleanArrayStore) Download.CSV(cleanArrayStore);
-                }
-                break;
-            case "ALL_TABLE":
-                for(let i=0;i<this.tabs.length;i++){
-                    const item = this.arrayTable[i];
-                    const cleanArrayStore = this.getStoreClean(item);
-                    if(cleanArrayStore) Download.CSV(cleanArrayStore,item.layer.title+".csv");
-                }
-            break;
-        }
-
-    }
-
-    optionFilterRemove(){
-        delete this.props.stateProps.layerOpen.where;
-        delete this.props.stateProps.layerOpen.geometry;
-        delete this.props.stateProps.layerOpen.typeSelected;
-        this.createListTable(this.props.stateProps.layerOpen);
-
-        //pulisco eventuali graphicLayerSketch
-        this.state.jimuMapView.view.map.layers.items.filter(f=>f.id.indexOf("sketch") !== -1).forEach(f=>f.removeAll());
     }
 
     optionFilterExtentions(){
@@ -678,68 +259,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
     }
 
-    setButtonFilter(){
-        let buttonFilter;
-        if(this.state.geometryFilter){
-            buttonFilter = <div>
-                <Button onClick={this.optionFilterRemove} size="default">
-                    <WidgetFilterOutlined/> Cancella filtro
-                </Button>
-            </div>;
-        }else{
-            buttonFilter = <div>
-                <Button onClick={this.optionFilterExtentions} size="default">
-                    <WidgetFilterOutlined/> Filtra per estenzione mappa
-                </Button>
-                {this.props.config.buttonFilter && (<Button onClick={this.optionOpenFilter} size="default">
-                    <WidgetFilterOutlined/> Filtra
-                </Button>)}
-                <Button onClick={this.optionCloseAllTabs} size="default">
-                    <CloseOutlined/> Chiudi tutti i tab
-                </Button>
-            </div>;
-        }
-        return buttonFilter;
-    }
-
-    optionColorRandom(){
-        const activeTable = this.getActiveTable();
-
-        if(activeTable && activeTable.highlightIds.items){
-            let arrayItemSelected = activeTable.highlightIds?.items;
-
-            if(arrayItemSelected){
-                if(!this.uniqueValuesInfosSave[activeTable.layer.uid]) this.uniqueValuesInfosSave[activeTable.layer.uid] = [];
-
-                //salvo vecchio renderer
-                if(!this.saveOldRenderer[activeTable.layer.uid]){
-                    this.saveOldRenderer[activeTable.layer.uid] = activeTable.layer.renderer;
-                }
-
-                for(let i=0;i<arrayItemSelected.length;i++){
-                    let objectid = arrayItemSelected[i];
-                    this.uniqueValuesInfosSave[activeTable.layer.uid].push({
-                        label: objectid,
-                        value: objectid,
-                        symbol: this.createSymbol(activeTable.layer.geometryType,[
-                            Math.floor(Math.random() * 256),
-                            Math.floor(Math.random() * 256),
-                            Math.floor(Math.random() * 256)
-                        ])
-                    });
-                }
-
-                activeTable.highlightIds.removeAll();
-
-                activeTable.layer.renderer = {
-                    type: "unique-value",
-                    field: activeTable.layer.objectIdField,
-                    uniqueValueInfos: this.uniqueValuesInfosSave[activeTable.layer.uid]
-                };
-            }
-        }
-    }
-
     createSymbol(type, color){
         const typeSymbol =
             type === 'point'? "simple-marker":
@@ -759,16 +278,18 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         //event.stopPropagation();
 
         const activeTable = this.getActiveTable();
+        const uniqueValuesInfosSave = this.uniqueValuesInfosSave;
+        const saveOldRenderer = this.saveOldRenderer;
 
         if(activeTable && activeTable.highlightIds.items){
             let arrayItemSelected = activeTable.highlightIds?.items;
 
             if(arrayItemSelected){
-                if(!this.uniqueValuesInfosSave[activeTable.layer.uid]) this.uniqueValuesInfosSave[activeTable.layer.uid] = [];
+                if(!uniqueValuesInfosSave[activeTable.layer.uid]) uniqueValuesInfosSave[activeTable.layer.uid] = [];
 
                 //salvo vecchio renderer
-                if(!this.saveOldRenderer[activeTable.layer.uid]){
-                    this.saveOldRenderer[activeTable.layer.uid] = activeTable.layer.renderer;
+                if(!saveOldRenderer[activeTable.layer.uid]){
+                    saveOldRenderer[activeTable.layer.uid] = activeTable.layer.renderer;
                 }
 
                 for(let i=0;i<arrayItemSelected.length;i++){
@@ -779,17 +300,17 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                         symbol: this.createSymbol(activeTable.layer.geometryType,event)
                     };
                     let indexFound = null;
-                    for(let j=0;j<this.uniqueValuesInfosSave[activeTable.layer.uid].length;j++){
-                        let uniqueFound = this.uniqueValuesInfosSave[activeTable.layer.uid][j].value;
+                    for(let j=0;j< uniqueValuesInfosSave[activeTable.layer.uid].length;j++){
+                        let uniqueFound = uniqueValuesInfosSave[activeTable.layer.uid][j].value;
                         if(uniqueFound === objectid){
                             indexFound = j;
                             break;
                         }
                     }
                     if(indexFound){
-                        this.uniqueValuesInfosSave[activeTable.layer.uid][indexFound] = uniqueColor;
+                        uniqueValuesInfosSave[activeTable.layer.uid][indexFound] = uniqueColor;
                     }else{
-                        this.uniqueValuesInfosSave[activeTable.layer.uid].push(uniqueColor);
+                        uniqueValuesInfosSave[activeTable.layer.uid].push(uniqueColor);
                     }
 
                 }
@@ -805,76 +326,23 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
     optionColorCleanSelected(cleanHighLightIds = true){
         const activeTable = this.getActiveTable();
+        const saveOldRenderer = this.saveOldRenderer;
         if(activeTable){
-            if(this.saveOldRenderer[activeTable.layer.uid]){
+            if(saveOldRenderer[activeTable.layer.uid]){
                 delete this.uniqueValuesInfosSave[activeTable.layer.uid];
-                activeTable.layer.renderer = this.saveOldRenderer[activeTable.layer.uid];
-                delete this.saveOldRenderer[activeTable.layer.uid];
+                activeTable.layer.renderer = saveOldRenderer[activeTable.layer.uid];
+                delete saveOldRenderer[activeTable.layer.uid];
                 if(cleanHighLightIds) activeTable.highlightIds.removeAll();
             }
         }
     }
 
     render () {
-        let buttonFilter = this.setButtonFilter();
+        const tabs = this.tabs;
         return (
             <div className="widget-attribute-table jimu-widget">
-                {/* {this.props.hasOwnProperty('useMapWidgetIds') && this.props.useMapWidgetIds && this.props.useMapWidgetIds[0] && (
-                    <JimuMapViewComponent useMapWidgetId={this.props.useMapWidgetIds?.[0]} onActiveViewChange={this.activeViewChangeHandler} />
-                )} */}
-                <div className="container-fluid bg-primary h-auto">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <ButtonGroup className="w-100">
-                                <Dropdown direction="down">
-                                    <DropdownButton>
-                                        <ExportOutlined className="mr-2"/> Download
-                                    </DropdownButton>
-                                    <DropdownMenu>
-                                        {this.props.config.downloadKMZ && (<DropdownItem onClick={()=>{this.optionClickDownload("KMZ")}}>
-                                            <ExportOutlined className="mr-2"/> Esporta Selezione in KMZ
-                                        </DropdownItem>)}
-
-                                        {this.props.config.downloadECGI && (<DropdownItem onClick={()=>{this.optionClickDownload("eCGI_CSV")}}>
-                                            <ExportOutlined className="mr-2"/> Esporta Colonna eCGI in CSV
-                                        </DropdownItem>)}
-                                        {this.props.config.downloadCGI && (<DropdownItem onClick={()=>{this.optionClickDownload("CGI_CSV")}}>
-                                            <ExportOutlined className="mr-2"/> Esporta Colonna CGI in CSV
-                                        </DropdownItem>)}
-                                        <DropdownItem onClick={()=>{this.optionClickDownload("CSV_TABLE")}}>
-                                            <ExportOutlined className="mr-2"/> Esporta CSV tabella selezionata
-                                        </DropdownItem>
-                                        <DropdownItem onClick={()=>{this.optionClickDownload("ALL_TABLE")}}>
-                                            <ExportOutlined className="mr-2"/> Esporta CSV tutte le tabelle
-                                        </DropdownItem>
-                                    </DropdownMenu>
-                                </Dropdown>
-
-                                <Dropdown direction="down">
-                                    <DropdownButton>
-                                        <ColorsOutlined className="mr-2"/> Colore evidenziazione
-                                    </DropdownButton>
-                                    <DropdownMenu>
-                                        <DropdownItem onClick={()=>{this.optionColorRandom()}}>
-                                            <ClearSelectionOutlined className="mr-2"/> Colore casuale
-                                        </DropdownItem>
-                                        <button className="jimu-dropdown-item app-root-emotion-cache-ltr-1vl5tzn dropdown-item">
-                                            <BrushOutlined className="mr-2"/> <ColorPicker id="colorPickerAttributeTable" className="color-picker-block mr-2" onChange={(e)=>{this.optionColorFound(e)}} placement="top"/> Scegli il colore
-                                        </button>
-                                        <DropdownItem onClick={()=>{this.optionColorCleanSelected()}}>
-                                            <ClearOutlined className="mr-2"/> Cancella le evidenziazioni
-                                        </DropdownItem>
-                                    </DropdownMenu>
-                                </Dropdown>
-
-                                {buttonFilter}
-
-                            </ButtonGroup>
-                        </div>
-                    </div>
-                </div>
-
-                {this.tabs.length === 0 ?
+                <ButtonGroupComponent parent = {this}/>
+                {tabs.length === 0 ?
                     <div className="text-center container-fluid">
                         <div className="row">
                             <div className="col-md-12 mt-2 font-weight-bold">
@@ -884,7 +352,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                     </div>
                     :
                     <Tabs scrollable defaultValue={this.defaultValue} type="tabs" onClose={this.tabsClose}>
-                        {this.tabs}
+                        {tabs}
                     </Tabs>
                 }
             </div>
