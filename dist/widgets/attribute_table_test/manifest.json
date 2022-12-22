@@ -1,5 +1,5 @@
 {
-  "name": "attribute_table",
+  "name": "attribute_table_test",
   "type": "widget",
   "version": "1.9.0",
   "dependency": "jimu-arcgis",

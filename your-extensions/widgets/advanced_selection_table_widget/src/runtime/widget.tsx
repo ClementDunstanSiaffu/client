@@ -48,6 +48,23 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     nls = (id: string) => {
         return this.props.intl ? this.props.intl.formatMessage({ id: id, defaultMessage: defaultMessages[id] }) : id
     }
+
+    getAllLayers = ()=>{
+        const activeView = AdvancedSelectionTable.activeView;
+        const allMapLayers = activeView.view.map.allLayers;
+        return allMapLayers;
+    }
+
+    getActiveView = ()=>{
+        const activeView = AdvancedSelectionTable.activeView;
+        return activeView;
+    }
+
+    getAllJimuLayerViews = ()=>{
+        const jimuLayerViews = AdvancedSelectionTable.jimuLayerViews;
+        return jimuLayerViews
+    }
+
     getMapLayers = (activeView:JimuMapView)=>{
         const newLayersArray = Object.keys(activeView?.jimuLayerViews)?.reduce((newLayerArray,item)=>{
             if (activeView?.jimuLayerViews[item]?.view){
@@ -63,7 +80,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         },[])
         newLayersArray.reverse();
         this.setState({layers:newLayersArray});
-        this.props.dispatch(appActions.widgetStatePropChange("value","layers",newLayersArray))
+        // this.props.dispatch(appActions.widgetStatePropChange("value","layers",newLayersArray))
         AdvancedSelectionTable.activeView = activeView;
         let view = activeView?.view;
         const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
@@ -89,6 +106,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         })
         AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
         AdvancedSelectionTable.initialZoomValue = activeView.view.zoom;
+     
     }
 
     selectFeatureLayer = (geometry:any)=>{
@@ -100,7 +118,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 const selectedLayersContents = helper.getSelectedContentsLayer(results,checkedLayers);
                 const numberOfAttributes = helper.getNumberOfAttributes(selectedLayersContents);
                 this.setState({layerContents:selectedLayersContents,numberOfAttribute:numberOfAttributes});
-                this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents));
+                // this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents));
             })
             .catch((err)=>{})
         }
@@ -126,6 +144,15 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                             preserveAspectRatio: true,
                             toggleToolOnClick:false,
                         })
+                        const layerOpen = {
+                            geometry: event?.graphic?.geometry,
+                            typeSelected:"contains"
+                        }
+                 
+                        this.props.dispatch(appActions.widgetStatePropChange("value","layerOpen",layerOpen));
+                        this.props.dispatch(appActions.widgetStatePropChange("value","getAllLayers",this.getAllLayers));
+                        this.props.dispatch(appActions.widgetStatePropChange("value","getActiveView",this.getActiveView));
+                        this.props.dispatch(appActions.widgetStatePropChange("value","getAllJimuLayerViews",this.getAllJimuLayerViews))
                     }
                 });
                 this.sketch.on("update",(event)=>{
@@ -238,9 +265,12 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
 
     componentDidMount(): void {
         const closeButtonElement = document.querySelector(".action-close");
-        closeButtonElement.addEventListener("click",()=>{
-            this.restoreMap()
-        })
+        if (closeButtonElement.addEventListener){
+            closeButtonElement.addEventListener("click",()=>{
+                this.restoreMap()
+            })
+        }
+      
     }
    
     render(): React.ReactNode {

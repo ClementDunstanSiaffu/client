@@ -1,0 +1,19 @@
+{
+  "name": "attribute-table",
+  "type": "widget",
+  "version": "1.5.0",
+  "dependency": "jimu-arcgis",
+  "exbVersion": "1.9.0",
+  "author": "Wheretech Valerio Cinopri",
+  "description": "Widget tabella attributi",
+  "copyright": "",
+  "license": "",
+  "properties": {},
+  "translatedLocales": [
+    "en"
+  ],
+  "defaultSize": {
+    "width": 800,
+    "height": 500
+  }
+}

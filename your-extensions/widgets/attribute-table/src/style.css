@@ -1,0 +1,15 @@
+.widget-attribute-table{
+    background: #fff;
+}
+
+.widget-attribute-table > div{
+    height: 100%;
+}
+
+.widget-attribute-table .tabClassControl{
+    height: calc(100% - 33px);
+}
+
+.widget-attribute-table .tabClassControl > div{
+    height: 100%;
+}

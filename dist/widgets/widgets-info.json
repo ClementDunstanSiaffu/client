@@ -6510,9 +6510,37 @@
     "group": 7
   },
   {
-    "name": "attribute_table",
+    "name": "attribute-table",
     "manifest": {
-      "name": "attribute_table",
+      "name": "attribute-table",
+      "type": "widget",
+      "version": "1.5.0",
+      "dependency": "jimu-arcgis",
+      "exbVersion": "1.9.0",
+      "author": "Wheretech Valerio Cinopri",
+      "description": "Widget tabella attributi",
+      "copyright": "",
+      "license": "",
+      "properties": {},
+      "translatedLocales": [
+        "en"
+      ],
+      "defaultSize": {
+        "width": 800,
+        "height": 500
+      }
+    },
+    "i18nLabel": {},
+    "i18nDescription": {},
+    "uri": "widgets/attribute-table/",
+    "icon": "widgets/attribute-table/icon.svg",
+    "order": 700,
+    "group": 7
+  },
+  {
+    "name": "attribute_table_test",
+    "manifest": {
+      "name": "attribute_table_test",
       "type": "widget",
       "version": "1.9.0",
       "dependency": "jimu-arcgis",
@@ -6538,8 +6566,8 @@
     },
     "i18nLabel": {},
     "i18nDescription": {},
-    "uri": "widgets/attribute_table/",
-    "icon": "widgets/attribute_table/icon.png",
+    "uri": "widgets/attribute_table_test/",
+    "icon": "widgets/attribute_table_test/icon.png",
     "order": 700,
     "group": 7
   },
