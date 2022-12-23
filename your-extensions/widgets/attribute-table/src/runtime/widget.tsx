@@ -231,7 +231,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             const newCheckedLayers = helper.getNewCheckedLayer(checkedLayers,id);
             this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",newNumberOfAttribute));
             this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers));
-            console.log(newCheckedLayers,"checking")
             if (newCheckedLayers.length <= 0){
                 helper.openSideBar(newCheckedLayers,newNumberOfAttribute);
             }
