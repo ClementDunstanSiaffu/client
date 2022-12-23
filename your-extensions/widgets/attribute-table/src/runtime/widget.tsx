@@ -32,7 +32,6 @@ type stateValueType = {
 export default class Widget extends React.PureComponent<AllWidgetProps<any>&stateValueType, any> {
 
     static mapExtraStateProps(state:IMState){return {stateValue:state.widgetsState}};
-    // tabs = [];
     arrayTable = [];
     uniqueValuesInfosSave = [];
     saveOldRenderer = [];
@@ -70,36 +69,25 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 this.props.stateValue?.value?.checkedLayers &&
                 this.props.stateValue?.value?.numberOfAttribute&&
                 this.props.stateValue?.value?.createTable
+        ){
+            const activeView = this.props.stateValue?.value?.getActiveView();
+            const allLayers = this.props.stateValue?.value?.getAllLayers();
+            const jimuLayerView = this.props.stateValue?.value?.getAllJimuLayerViews();
+            const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
+            const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
+            if (
+                activeView && 
+                allLayers?.length > 0 && 
+                Object.keys(jimuLayerView).length > 0 && 
+                checkedLayers.length > 0 
             ){
-                // const layerOpen = this.props.stateValue?.value?.layerOpen;
-                // this.createListTable();
-                const activeView = this.props.stateValue?.value?.getActiveView();
-                const allLayers = this.props.stateValue?.value?.getAllLayers();
-                const jimuLayerView = this.props.stateValue?.value?.getAllJimuLayerViews();
-                const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
-                const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
-                    if (
-                        activeView && 
-                        allLayers?.length > 0 && 
-                        Object.keys(jimuLayerView).length > 0 && 
-                        checkedLayers.length > 0 
-                    ){
-                        this.createListTable();
-                    }
-                    // const newTimeReceive = new Date().getTime();
-                    // if(newTimeReceive - this.filterTimeReceiveData < 5000){
-                    //     return;
-                    // }else{
-                    //     this.filterTimeReceiveData = newTimeReceive;
-                    // }
-                    // this.createListTable();
-                    if (checkedLayers.length <= 0){
-                        this.setState({tabs:[]});
-                    }
-                    helper.openSideBar(checkedLayers,numberOfAttribute);
-                    this.props.dispatch(appActions.widgetStatePropChange("value","createTable",false));
-                
-                
+                this.createListTable();
+            }
+            if (checkedLayers.length <= 0){
+                this.setState({tabs:[]});
+            }
+            helper.openSideBar(checkedLayers,numberOfAttribute);
+            this.props.dispatch(appActions.widgetStatePropChange("value","createTable",false));
         }
     }
 
@@ -109,10 +97,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
         const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
         const layerOpen = this.props.stateValue?.value?.layerOpen
-        console.log(checkedLayers,"check checked layers")
         this.defaultValue = "";
         const tabs = [];
-        // this.tabs = [];
         this.arrayTable = [];
         if (allLayers?.length > 0){
             for (let i=0;i < allLayers?.length;i++){
@@ -129,9 +115,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     
                             this.createTable(fs,layerOpen,"tab-"+fs.uid).then((featureTable)=>{
                                 if(!featureTable){
-                                    // console.log("Table not results: "+fs.title);
                                 }else{
-                                    // console.log("Table Loaded: "+fs.title);
                                 }
                             });
                         }
@@ -143,25 +127,14 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                         );
                         this.createTable(f,layerOpen,"tab-"+f.uid).then((featureTable)=>{
                             if(!featureTable){
-                                // console.log("Table not results: "+f.title);
                             }else{
-                                // console.log("Table Loaded: "+f.title);
                             }
                         });
                     }
                   
-                }else{
-                    console.log("not included")
-                    if (!checkedLayers.includes(f.id)){
-                        const tab_id  = "tab-"+f.uid;
-                        this.tabsClose(tab_id);
-                    }
                 }
             }
-        }else{
-            console.log(allLayers,"all layers")
         }
-        console.log(this.state.tabs.length,tabs,tabs.length,"tabs length")
         this.setState({
             geometryFilter: layerOpen.geometry,
             listServices:checkedLayers,
@@ -236,7 +209,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
     tabsClose(e,noControlTable = false){
         this.optionColorCleanSelected();
-        // const tabs = this.tabs;
         const tabs = this.state.tabs;
         const arrayTable = this.arrayTable;
         let foundIndex = null;
@@ -248,27 +220,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         }
         const copiedTabs = [...this.state.tabs];
         copiedTabs.splice(foundIndex,1);
-        // tabs.splice(foundIndex, 1);
-        if(!noControlTable){
-            // const table = arrayTable[foundIndex];
-            // const jimuLayerViews = this.props.stateValue?.value?.getAllJimuLayerViews();
-            // if (table.hasOwnProperty("visible")){
-            //     table.visible = false;
-            // }
-            // if(table && table.layer){
-            //     // this.props.stateProps.layerOpen.listServices.splice(foundIndex,1);
-            //     table.layer.visible = false;
-            // }
-            // if (table && table.view){
-            //     if (table.view.hasOwnProperty("visible")){
-            //         table.view.visible = false;
-            //     }
-            // }
-            // if (table && table.layer){
-            //     helper.hideLayer(jimuLayerViews,table.layer.id)
-            // }
-            // arrayTable.splice(foundIndex,1);
-        }
         const table = arrayTable[foundIndex];
         const jimuLayerViews = this.props.stateValue?.value?.getAllJimuLayerViews();
         const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
@@ -280,6 +231,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             const newCheckedLayers = helper.getNewCheckedLayer(checkedLayers,id);
             this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",newNumberOfAttribute));
             this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers));
+            console.log(newCheckedLayers,"checking")
             if (newCheckedLayers.length <= 0){
                 helper.openSideBar(newCheckedLayers,newNumberOfAttribute);
             }
@@ -290,13 +242,11 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         this.setState({
             tabsLength:tabs.length,
             tabs:copiedTabs
-            // listServices: this.props.stateProps.layerOpen.listServices
         });
         
     }
 
     getActiveTable(){
-        // const tabs = this.tabs;
         const tabs = this.state.tabs;
         const arrayTable = this.arrayTable;
         for(let i=0;i<tabs.length;i++){
@@ -320,7 +270,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     }
 
     optionCloseAllTabs(){
-        // this.tabs = [];
         const tabs = this.state.tabs;
         this.arrayTable = [];
         this.setState({

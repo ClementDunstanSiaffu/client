@@ -32,7 +32,6 @@ export default class  LayerContents extends React.PureComponent<any,any>{
       helper.activateLayerOnTheMap(id,false)
       this.removeAttributes(id);
     }
-    // advancedSelectionTable?.setState({checkedLayers:newSelected});
     advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newSelected));
     advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
   };
@@ -53,7 +52,6 @@ export default class  LayerContents extends React.PureComponent<any,any>{
       }
       return newArray;
     },[])
-    // advancedSelectionTable?.setState({layerContents:newLayerContents,numberOfAttribute:newNumberOfAttribute});
     advancedSelectionTable?.setState({layerContents:newLayerContents});
     advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",newNumberOfAttribute))
     helper.unhighlightLayer(id);

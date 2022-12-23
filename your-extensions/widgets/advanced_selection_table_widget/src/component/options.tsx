@@ -76,7 +76,6 @@ export default class  Options extends React.PureComponent<any,any> {
         helper.unhighlightLayer(id);
         advancedSelectionTable?.setState({layerContents:newLayerContents});
         advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",currentNUmberOfAttributes))
-        // advancedSelectionTable?.setState({numberOfAttribute:currentNUmberOfAttributes,layerContents:newLayerContents})
     }
 
     controlStatisticModal = (layerId:string)=>{

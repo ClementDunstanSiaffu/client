@@ -33,8 +33,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         popup:false,
         layers:[],
         layerContents:[],
-        // checkedLayers:[],
-        // numberOfAttribute:{},
         openStatistics:false,
         selectedAttributes:[],
         isItemSelected:false,
@@ -57,7 +55,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     getAllCheckedLayers = ()=>{
         const activeView = AdvancedSelectionTable.activeView;
         const allMapLayers = activeView.view.map.allLayers?.items;
-        // const checkedLayers = this.state?.checkedLayers??[];
         const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
         let newMapLayer = [];
         if (allMapLayers?.length > 0 && checkedLayers.length > 0){
@@ -96,7 +93,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         },[])
         newLayersArray.reverse();
         this.setState({layers:newLayersArray});
-        // this.props.dispatch(appActions.widgetStatePropChange("value","layers",newLayersArray))
         AdvancedSelectionTable.activeView = activeView;
         let view = activeView?.view;
         const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
@@ -123,11 +119,9 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         })
         AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
         AdvancedSelectionTable.initialZoomValue = activeView.view.zoom;
-     
     }
 
     selectFeatureLayer = (geometry:any)=>{
-        // const checkedLayers = this.state.checkedLayers;
         const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
         const activeView = AdvancedSelectionTable.activeView;
         if (activeView){
@@ -149,9 +143,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                     this.props.dispatch(appActions.widgetStatePropChange("value","getActiveView",this.getActiveView));
                     this.props.dispatch(appActions.widgetStatePropChange("value","getAllJimuLayerViews",this.getAllJimuLayerViews));
                 }
-           
-                // this.setState({layerContents:selectedLayersContents,numberOfAttribute:numberOfAttributes});
-                // this.props.dispatch(appActions.widgetStatePropChange("value","layerContents",selectedLayersContents));
             })
             .catch((err)=>{})
         }
@@ -177,17 +168,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                             preserveAspectRatio: true,
                             toggleToolOnClick:false,
                         })
-                        // const checkedLayers = this.state.checkedLayers;
-                        // const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
-                        // const layerOpen = {
-                        //     geometry: event?.graphic?.geometry,
-                        //     typeSelected:"contains",
-                        //     // listServices:checkedLayers
-                        // }
-                        // this.props.dispatch(appActions.widgetStatePropChange("value","layerOpen",layerOpen));
-                        // this.props.dispatch(appActions.widgetStatePropChange("value","getAllLayers",this.getAllCheckedLayers));
-                        // this.props.dispatch(appActions.widgetStatePropChange("value","getActiveView",this.getActiveView));
-                        // this.props.dispatch(appActions.widgetStatePropChange("value","getAllJimuLayerViews",this.getAllJimuLayerViews));
                     }
                 });
                 this.sketch.on("update",(event)=>{
@@ -282,7 +262,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
             activeView.clearSelectedFeatures();
             const zoomVal = AdvancedSelectionTable.initialZoomValue
             this.zoomOut(zoomVal);
-            // this.setState({checkedLayers:[],numberOfAttribute:{},layerContents:[],selectedAttributes:[]});
             this.setState({layerContents:[],selectedAttributes:[]});
             this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",{}));
             this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",[]));
