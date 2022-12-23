@@ -1,5 +1,5 @@
 
-import {React,jsx} from 'jimu-core'
+import {React,jsx, appActions} from 'jimu-core'
 import Container from '../assets/css/style';
 import '../assets/css/style.scss';
 import { CloseOutlined } from 'jimu-icons/outlined/editor/close'
@@ -74,7 +74,9 @@ export default class  Options extends React.PureComponent<any,any> {
             },[])
         }
         helper.unhighlightLayer(id);
-        advancedSelectionTable?.setState({numberOfAttribute:currentNUmberOfAttributes,layerContents:newLayerContents})
+        advancedSelectionTable?.setState({layerContents:newLayerContents});
+        advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",currentNUmberOfAttributes))
+        // advancedSelectionTable?.setState({numberOfAttribute:currentNUmberOfAttributes,layerContents:newLayerContents})
     }
 
     controlStatisticModal = (layerId:string)=>{

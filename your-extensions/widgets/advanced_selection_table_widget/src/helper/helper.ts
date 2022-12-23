@@ -145,7 +145,9 @@ class Helper {
         element?.classList.remove(addedClassNameWhenOpened);
         element?.classList.add(addedClassNameWhenClosed)
         ariaExpandedElement.ariaExpanded = "true";
+        //@ts-ignore
         if (elementForStyle.style){
+            //@ts-ignore
             elementForStyle.style = "z-index: 0; flex-basis: 0px; overflow: auto;"
         }
     }

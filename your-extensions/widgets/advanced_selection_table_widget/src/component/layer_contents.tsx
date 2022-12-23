@@ -1,4 +1,4 @@
-import {React,jsx} from 'jimu-core';
+import {React,jsx, appActions} from 'jimu-core';
 import SelectGeometry from './select_geometry';
 import '../assets/css/style.scss'
 import Container from '../assets/css/style'
@@ -32,7 +32,8 @@ export default class  LayerContents extends React.PureComponent<any,any>{
       helper.activateLayerOnTheMap(id,false)
       this.removeAttributes(id);
     }
-    advancedSelectionTable?.setState({checkedLayers:newSelected});
+    // advancedSelectionTable?.setState({checkedLayers:newSelected});
+    advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newSelected));
   };
 
   removeAttributes = (id:string)=>{
@@ -51,12 +52,14 @@ export default class  LayerContents extends React.PureComponent<any,any>{
       }
       return newArray;
     },[])
-    advancedSelectionTable?.setState({layerContents:newLayerContents,numberOfAttribute:newNumberOfAttribute});
+    // advancedSelectionTable?.setState({layerContents:newLayerContents,numberOfAttribute:newNumberOfAttribute});
+    advancedSelectionTable?.setState({layerContents:newLayerContents});
+    advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",newNumberOfAttribute))
     helper.unhighlightLayer(id);
   }
 
   isSelected = (id: string) => {
-    const selected = this.context?.checkedLayers;
+    const selected = this.context?.checkedLayers??[];
     return selected.indexOf(id) !== -1;
   }
 

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { React, AllWidgetProps, jsx ,IMState} from 'jimu-core'
+import { React, AllWidgetProps, jsx ,IMState, appActions} from 'jimu-core'
 import {JimuMapView} from "jimu-arcgis";
 import FeatureTable from "esri/widgets/FeatureTable";
 import '../style.css';
@@ -15,9 +15,15 @@ type stateValueType = {
     stateValue:{
         value:{
             getAllLayers:()=>any,
-            layerOpen:{geometry:any,typeSelected:spatialRelationshipType,where?:string,listServices?:any},
+            layerOpen:{
+                geometry:any,
+                typeSelected:spatialRelationshipType,
+                where?:string,
+            },
             getActiveView:()=>any,
-            getAllJimuLayerViews:()=>any
+            getAllJimuLayerViews:()=>any,
+            checkedLayers:string[],
+            numberOfAttribute:{[id:string]:number}
         }
     }
 }
@@ -58,7 +64,9 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 this.props.stateValue?.value?.layerOpen &&
                 this.props.stateValue?.value?.getAllLayers &&
                 this.props.stateValue?.value?.getActiveView &&
-                this.props.stateValue?.value?.getAllJimuLayerViews
+                this.props.stateValue?.value?.getAllJimuLayerViews&&
+                this.props.stateValue?.value?.checkedLayers &&
+                this.props.stateValue?.value?.numberOfAttribute
             ){
             const layerOpen = this.props.stateValue.value.layerOpen
             const newTimeReceive = new Date().getTime();
@@ -70,24 +78,35 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
             const activeView = this.props.stateValue?.value?.getActiveView();
             const allLayers = this.props.stateValue?.value?.getAllLayers();
-            const jimuLayerView = this.props.stateValue?.value?.getAllJimuLayerViews()
-            if (activeView && allLayers.items?.length > 0 && Object.keys(jimuLayerView).length > 0){
+            const jimuLayerView = this.props.stateValue?.value?.getAllJimuLayerViews();
+            const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
+            const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
+            if (
+                activeView && 
+                allLayers?.length > 0 && 
+                Object.keys(jimuLayerView).length > 0 &&
+                checkedLayers.length > 0 &&
+                Object.keys(numberOfAttribute).length > 0
+            ){
                 this.createListTable(layerOpen);
+                
             }
-            helper.openSideBar();
+            helper.openSideBar(checkedLayers,numberOfAttribute);
         }
     }
 
   
-    createListTable(layerOpen:{geometry:string,typeSelected:spatialRelationshipType,where?:string,listServices?:any}){
+    createListTable(layerOpen:{geometry:string,typeSelected:spatialRelationshipType,where?:string}){
         const allLayers = this.props.stateValue?.value?.getAllLayers()??[];
+        const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
+        const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
         this.defaultValue = "";
         this.tabs = [];
         this.arrayTable = [];
-        if (allLayers?.items?.length > 0){
-            for (let i=0;i < allLayers?.items?.length;i++){
-                const f = allLayers.items[i];
-                if (f.type === "feature"){
+        if (allLayers?.length > 0){
+            for (let i=0;i < allLayers?.length;i++){
+                const f = allLayers[i];
+                if (f.type === "feature" && checkedLayers.includes(f.id) && numberOfAttribute[f.id] > 0){
                     if (f.sublayers?.length > 0){
                         for(let j=0;i<f.sublayers.length;i++){
                             const fs = f.sublayers[j];
@@ -125,7 +144,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         }
         this.setState({
             geometryFilter: layerOpen.geometry,
-            listServices: layerOpen.listServices
+            listServices:checkedLayers
         });
     }
     
@@ -133,7 +152,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         if (jmv) this.setState({jimuMapView: jmv});
     };
 
-    createFeatureTable(layer,layerView){
+    createFeatureTable(layer){
         const activeView = this.props.stateValue?.value?.getActiveView();
         const div = document.createElement("div");
         let checkExist = setInterval(()=>{
@@ -176,7 +195,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         return featureTable;
     }
 
-    async createTable(layer,pass:{geometry:any,typeSelected:spatialRelationshipType,where?:string,listServices?:any},identificationTable) {
+    async createTable(layer,pass:{geometry:any,typeSelected:spatialRelationshipType,where?:string},identificationTable) {
         layer.visible = true;
         let featureTable = null;
         let query = new Query();
@@ -185,7 +204,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             query.spatialRelationship = pass.typeSelected;
         }
         if(layer){
-            featureTable = this.createFeatureTable(layer,null);
+            featureTable = this.createFeatureTable(layer);
             if(query.geometry) featureTable.filterGeometry = query.geometry;
                 featureTable.filterBySelection();
                 return featureTable;
@@ -205,19 +224,44 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             }
         }
         tabs.splice(foundIndex, 1);
-
         if(!noControlTable){
-            const table = arrayTable[foundIndex];
-            if(table && table.layer){
-                arrayTable.splice(foundIndex,1);
-                this.props.stateProps.layerOpen.listServices.splice(foundIndex,1);
-                table.layer.visible = false;
-            }
+            // const table = arrayTable[foundIndex];
+            // const jimuLayerViews = this.props.stateValue?.value?.getAllJimuLayerViews();
+            // if (table.hasOwnProperty("visible")){
+            //     table.visible = false;
+            // }
+            // if(table && table.layer){
+            //     // this.props.stateProps.layerOpen.listServices.splice(foundIndex,1);
+            //     table.layer.visible = false;
+            // }
+            // if (table && table.view){
+            //     if (table.view.hasOwnProperty("visible")){
+            //         table.view.visible = false;
+            //     }
+            // }
+            // if (table && table.layer){
+            //     helper.hideLayer(jimuLayerViews,table.layer.id)
+            // }
+            // arrayTable.splice(foundIndex,1);
         }
+        const table = arrayTable[foundIndex];
+        const jimuLayerViews = this.props.stateValue?.value?.getAllJimuLayerViews();
+        const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
+        const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
+        if (table && table.layer){
+            const id = table.layer.id;
+            helper.hideLayer(jimuLayerViews,id);
+            const newNumberOfAttribute = helper.getNewNumberOfAttributes(numberOfAttribute,id);
+            const newCheckedLayers = helper.getNewCheckedLayer(checkedLayers,id);
+            this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",newNumberOfAttribute));
+            this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers))
+        }
+
+        arrayTable.splice(foundIndex,1);
 
         this.setState({
             tabsLength:tabs.length,
-            listServices: this.props.stateProps.layerOpen.listServices
+            // listServices: this.props.stateProps.layerOpen.listServices
         });
     }
 
