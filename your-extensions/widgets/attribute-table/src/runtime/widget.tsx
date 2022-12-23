@@ -23,7 +23,8 @@ type stateValueType = {
             getActiveView:()=>any,
             getAllJimuLayerViews:()=>any,
             checkedLayers:string[],
-            numberOfAttribute:{[id:string]:number}
+            numberOfAttribute:{[id:string]:number},
+            createTable:boolean
         }
     }
 }
@@ -31,7 +32,7 @@ type stateValueType = {
 export default class Widget extends React.PureComponent<AllWidgetProps<any>&stateValueType, any> {
 
     static mapExtraStateProps(state:IMState){return {stateValue:state.widgetsState}};
-    tabs = [];
+    // tabs = [];
     arrayTable = [];
     uniqueValuesInfosSave = [];
     saveOldRenderer = [];
@@ -43,7 +44,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         super(props)
         this.state = {
             geometryFilter: null,
-            listServices:[]
+            listServices:[],
+            tabs:[]
         }
 
         this.tabsClose = this.tabsClose.bind(this);
@@ -60,57 +62,66 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
     componentDidUpdate(prevProps: Readonly<AllWidgetProps<any>>, prevState: Readonly<any>, snapshot?: any) {
         if(
-                this.props.hasOwnProperty("stateValue") && 
+                this.props.hasOwnProperty("stateValue") &&
                 this.props.stateValue?.value?.layerOpen &&
                 this.props.stateValue?.value?.getAllLayers &&
                 this.props.stateValue?.value?.getActiveView &&
                 this.props.stateValue?.value?.getAllJimuLayerViews&&
                 this.props.stateValue?.value?.checkedLayers &&
-                this.props.stateValue?.value?.numberOfAttribute
+                this.props.stateValue?.value?.numberOfAttribute&&
+                this.props.stateValue?.value?.createTable
             ){
-            const layerOpen = this.props.stateValue.value.layerOpen
-            const newTimeReceive = new Date().getTime();
-            if(newTimeReceive - this.filterTimeReceiveData < 5000){
-                return;
-            }else{
-                this.filterTimeReceiveData = newTimeReceive;
-            }
-
-            const activeView = this.props.stateValue?.value?.getActiveView();
-            const allLayers = this.props.stateValue?.value?.getAllLayers();
-            const jimuLayerView = this.props.stateValue?.value?.getAllJimuLayerViews();
-            const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
-            const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
-            if (
-                activeView && 
-                allLayers?.length > 0 && 
-                Object.keys(jimuLayerView).length > 0 &&
-                checkedLayers.length > 0 &&
-                Object.keys(numberOfAttribute).length > 0
-            ){
-                this.createListTable(layerOpen);
+                // const layerOpen = this.props.stateValue?.value?.layerOpen;
+                // this.createListTable();
+                const activeView = this.props.stateValue?.value?.getActiveView();
+                const allLayers = this.props.stateValue?.value?.getAllLayers();
+                const jimuLayerView = this.props.stateValue?.value?.getAllJimuLayerViews();
+                const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
+                const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
+                    if (
+                        activeView && 
+                        allLayers?.length > 0 && 
+                        Object.keys(jimuLayerView).length > 0 && 
+                        checkedLayers.length > 0 
+                    ){
+                        this.createListTable();
+                    }
+                    // const newTimeReceive = new Date().getTime();
+                    // if(newTimeReceive - this.filterTimeReceiveData < 5000){
+                    //     return;
+                    // }else{
+                    //     this.filterTimeReceiveData = newTimeReceive;
+                    // }
+                    // this.createListTable();
+                    if (checkedLayers.length <= 0){
+                        this.setState({tabs:[]});
+                    }
+                    helper.openSideBar(checkedLayers,numberOfAttribute);
+                    this.props.dispatch(appActions.widgetStatePropChange("value","createTable",false));
                 
-            }
-            helper.openSideBar(checkedLayers,numberOfAttribute);
+                
         }
     }
 
   
-    createListTable(layerOpen:{geometry:string,typeSelected:spatialRelationshipType,where?:string}){
+    createListTable(){
         const allLayers = this.props.stateValue?.value?.getAllLayers()??[];
         const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
         const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
+        const layerOpen = this.props.stateValue?.value?.layerOpen
+        console.log(checkedLayers,"check checked layers")
         this.defaultValue = "";
-        this.tabs = [];
+        const tabs = [];
+        // this.tabs = [];
         this.arrayTable = [];
         if (allLayers?.length > 0){
             for (let i=0;i < allLayers?.length;i++){
                 const f = allLayers[i];
                 if (f.type === "feature" && checkedLayers.includes(f.id) && numberOfAttribute[f.id] > 0){
-                    if (f.sublayers?.length > 0){
+                    if (f?.sublayers?.length > 0){
                         for(let j=0;i<f.sublayers.length;i++){
                             const fs = f.sublayers[j];
-                            this.tabs.push(
+                            tabs.push(
                                 <Tab closeable id={"tab-"+fs.uid} title={f.title + " - "+ fs.title}>
                                     <div id={"container-"+fs.uid} className="tabClassControl"></div>
                                 </Tab>
@@ -125,7 +136,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                             });
                         }
                     }else{
-                        this.tabs.push(
+                        tabs.push(
                             <Tab closeable id={"tab-"+f.uid} title={f.title + " - "+ f.title}>
                                 <div id={"container-"+f.uid} className="tabClassControl"></div>
                             </Tab>
@@ -138,14 +149,25 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                             }
                         });
                     }
-               
+                  
+                }else{
+                    console.log("not included")
+                    if (!checkedLayers.includes(f.id)){
+                        const tab_id  = "tab-"+f.uid;
+                        this.tabsClose(tab_id);
+                    }
                 }
             }
+        }else{
+            console.log(allLayers,"all layers")
         }
+        console.log(this.state.tabs.length,tabs,tabs.length,"tabs length")
         this.setState({
             geometryFilter: layerOpen.geometry,
-            listServices:checkedLayers
+            listServices:checkedLayers,
+            tabs:tabs
         });
+   
     }
     
     activeViewChangeHandler = (jmv: JimuMapView) => {
@@ -214,7 +236,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
     tabsClose(e,noControlTable = false){
         this.optionColorCleanSelected();
-        const tabs = this.tabs;
+        // const tabs = this.tabs;
+        const tabs = this.state.tabs;
         const arrayTable = this.arrayTable;
         let foundIndex = null;
         for(let i=0;i<tabs.length;i++){
@@ -223,7 +246,9 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 break;
             }
         }
-        tabs.splice(foundIndex, 1);
+        const copiedTabs = [...this.state.tabs];
+        copiedTabs.splice(foundIndex,1);
+        // tabs.splice(foundIndex, 1);
         if(!noControlTable){
             // const table = arrayTable[foundIndex];
             // const jimuLayerViews = this.props.stateValue?.value?.getAllJimuLayerViews();
@@ -254,19 +279,25 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             const newNumberOfAttribute = helper.getNewNumberOfAttributes(numberOfAttribute,id);
             const newCheckedLayers = helper.getNewCheckedLayer(checkedLayers,id);
             this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",newNumberOfAttribute));
-            this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers))
+            this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers));
+            if (newCheckedLayers.length <= 0){
+                helper.openSideBar(newCheckedLayers,newNumberOfAttribute);
+            }
         }
 
         arrayTable.splice(foundIndex,1);
 
         this.setState({
             tabsLength:tabs.length,
+            tabs:copiedTabs
             // listServices: this.props.stateProps.layerOpen.listServices
         });
+        
     }
 
     getActiveTable(){
-        const tabs = this.tabs;
+        // const tabs = this.tabs;
+        const tabs = this.state.tabs;
         const arrayTable = this.arrayTable;
         for(let i=0;i<tabs.length;i++){
             const el = document.querySelector("#"+tabs[i].props.children.props.id);
@@ -281,7 +312,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     optionFilterExtentions(){
         this.props.stateProps.layerOpen.geometry = Polygon.fromExtent(this.state.jimuMapView.view.extent).toJSON();
         this.props.stateProps.layerOpen.typeSelected = "contains";
-        this.createListTable(this.props.stateProps.layerOpen);
+        this.createListTable();
     }
 
     optionOpenFilter(e){
@@ -289,10 +320,12 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     }
 
     optionCloseAllTabs(){
-        this.tabs = [];
+        // this.tabs = [];
+        const tabs = this.state.tabs;
         this.arrayTable = [];
         this.setState({
-            tabsLength: this.tabs.length
+            tabsLength: tabs.length,
+            tabs:[]
         });
 
         //TODO MIGLIORARE
@@ -382,11 +415,11 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     }
 
     render () {
-        const tabs = this.tabs;
+        // const tabs = this.tabs;
         return (
             <div className="widget-attribute-table jimu-widget">
                 <ButtonGroupComponent parent = {this}/>
-                {tabs.length === 0 ?
+                {this.state.tabs.length === 0 ?
                     <div className="text-center container-fluid">
                         <div className="row">
                             <div className="col-md-12 mt-2 font-weight-bold">
@@ -396,7 +429,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                     </div>
                     :
                     <Tabs scrollable defaultValue={this.defaultValue} type="tabs" onClose={this.tabsClose}>
-                        {tabs}
+                        {this.state.tabs}
                     </Tabs>
                 }
             </div>

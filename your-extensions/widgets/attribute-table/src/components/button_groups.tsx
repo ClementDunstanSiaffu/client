@@ -80,8 +80,8 @@ export default class ButtonGroupComponent extends React.PureComponent<PropsType,
         const self = this.props?.parent;
         const activeTable = self.getActiveTable();
         const arrayTable = self.arrayTable;
-        const tabs = self.tabs;
-
+        // const tabs = self.tabs;
+        const tabs = self.state.tabs;
         switch (selected){
             case "KMZ":
                 if(activeTable){
@@ -164,7 +164,7 @@ export default class ButtonGroupComponent extends React.PureComponent<PropsType,
         delete self.props.stateProps.layerOpen.where;
         delete self.props.stateProps.layerOpen.geometry;
         delete self.props.stateProps.layerOpen.typeSelected;
-        self.createListTable(self.props.stateProps.layerOpen);
+        self.createListTable();
 
         //pulisco eventuali graphicLayerSketch
         this.state.jimuMapView.view.map.layers.items.filter(f=>f.id.indexOf("sketch") !== -1).forEach(f=>f.removeAll());

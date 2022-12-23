@@ -83,7 +83,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
 
     getMapLayers = (activeView:JimuMapView)=>{
         const newLayersArray = Object.keys(activeView?.jimuLayerViews)?.reduce((newLayerArray,item)=>{
-            if (activeView?.jimuLayerViews[item]?.view){
+            if (activeView?.jimuLayerViews[item]?.view && activeView?.jimuLayerViews[item]?.layer?.type === "feature"){
                 let object = {
                     layerName:activeView?.jimuLayerViews[item]?.layer?.title??item,
                     layerId:activeView?.jimuLayerViews[item]?.jimuLayerId??" ",
@@ -142,6 +142,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                     typeSelected:"contains",
                 }
                 if (Object.keys(numberOfAttributes).length > 0){
+                    this.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
                     this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",numberOfAttributes));
                     this.props.dispatch(appActions.widgetStatePropChange("value","layerOpen",layerOpen));
                     this.props.dispatch(appActions.widgetStatePropChange("value","getAllLayers",this.getAllCheckedLayers));

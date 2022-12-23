@@ -20,7 +20,9 @@ export default class AdvancedSelectionAttributeTable extends React.PureComponent
                 anotherElement?.classList.remove("app-root-emotion-cache-ltr-oen2ei");
                 anotherElement?.classList.add(".app-root-emotion-cache-ltr-1iklx1g");
                 element.ariaExpanded = "false";
+                //@ts-ignore
                 if (elementForStyle.style){
+                    //@ts-ignore
                     elementForStyle.style = "z-index: 0; flex-basis: 100%; overflow: auto;"
                 }
             },10)

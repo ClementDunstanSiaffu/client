@@ -34,6 +34,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     }
     // advancedSelectionTable?.setState({checkedLayers:newSelected});
     advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newSelected));
+    advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
   };
 
   removeAttributes = (id:string)=>{
