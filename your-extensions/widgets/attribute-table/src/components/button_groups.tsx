@@ -12,9 +12,11 @@ import { ColorPicker } from 'jimu-ui/basic/color-picker';
 import esriRequest from "esri/request";
 import { Download } from '../helper/download';
 import Widget from '../runtime/widget'
+import Color from 'esri/Color';
 
 type PropsType = {
-    parent:Widget
+    parent:Widget,
+    selectedColor:string
 }
 
 export default class ButtonGroupComponent extends React.PureComponent<PropsType,any>{
@@ -238,7 +240,7 @@ export default class ButtonGroupComponent extends React.PureComponent<PropsType,
                                     <ClearSelectionOutlined className="mr-2"/> Colore casuale
                                 </DropdownItem>
                                 <button className="jimu-dropdown-item app-root-emotion-cache-ltr-1vl5tzn dropdown-item">
-                                    <BrushOutlined className="mr-2"/> <ColorPicker id="colorPickerAttributeTable" className="color-picker-block mr-2" onChange={(e)=>{self?.optionColorFound(e)}} placement="top"/> Scegli il colore
+                                    <BrushOutlined className="mr-2"/> <ColorPicker id="colorPickerAttributeTable" className="color-picker-block mr-2" onChange={(e)=>{self?.optionColorFound(e)}} placement="top" onClick = {(e)=>{self?.optionColorFound(e)}} color = {this.props.selectedColor}/> Scegli il colore
                                 </button>
                                 <DropdownItem onClick={()=>{self?.optionColorCleanSelected()}}>
                                     <ClearOutlined className="mr-2"/> Cancella le evidenziazioni

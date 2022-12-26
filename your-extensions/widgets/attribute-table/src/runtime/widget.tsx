@@ -44,7 +44,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         this.state = {
             geometryFilter: null,
             listServices:[],
-            tabs:[]
+            tabs:[],
+            selectedColor:" "
         }
 
         this.tabsClose = this.tabsClose.bind(this);
@@ -147,7 +148,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         if (jmv) this.setState({jimuMapView: jmv});
     };
 
-    createFeatureTable(layer){
+    createFeatureTable(layer,highlightIds:any){
         const activeView = this.props.stateValue?.value?.getActiveView();
         const div = document.createElement("div");
         let checkExist = setInterval(()=>{
@@ -170,7 +171,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             view:view,
             multiSortEnabled: true,
             layer: layer,
-            container: div
+            container: div,
+            highlightIds:highlightIds??[]
         });
 
         featureTable.visibleElements = {
@@ -185,21 +187,33 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             },
             selectionColumn: true,
             columnMenus: true
-        }
+        }        
         this.arrayTable.push(featureTable);
         return featureTable;
     }
 
     async createTable(layer,pass:{geometry:any,typeSelected:spatialRelationshipType,where?:string},identificationTable) {
+        const activeView = this.props.stateValue.value.getActiveView();
         layer.visible = true;
         let featureTable = null;
         let query = new Query();
+        const highlightIds = [];
         if(pass.geometry){
-            query.geometry = new Polygon(pass.geometry);
-            query.spatialRelationship = pass.typeSelected;
+            // use this it will return features empty array
+            // query.geometry = new Polygon(pass.geometry);
+            // query.spatialRelationship = pass.typeSelected;
         }
+        activeView.view.whenLayerView(layer).then(async(layerView)=>{
+            //to get all features use this
+            //const results = await layerView.queryFeatures(query);
+            if (layerView?._highlightIds){
+                for (const key of layerView._highlightIds.keys()){
+                    highlightIds.push(key);
+                }
+            }
+        })
         if(layer){
-            featureTable = this.createFeatureTable(layer);
+            featureTable = this.createFeatureTable(layer,highlightIds);
             if(query.geometry) featureTable.filterGeometry = query.geometry;
                 featureTable.filterBySelection();
                 return featureTable;
@@ -301,13 +315,15 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     optionColorFound(event){
         //event.preventDefault();
         //event.stopPropagation();
+        console.log(event,"check the event")
 
         const activeTable = this.getActiveTable();
         const uniqueValuesInfosSave = this.uniqueValuesInfosSave;
         const saveOldRenderer = this.saveOldRenderer;
 
-        if(activeTable && activeTable.highlightIds.items){
-            let arrayItemSelected = activeTable.highlightIds?.items;
+
+        if(activeTable){
+            let arrayItemSelected = activeTable.highlightIds
 
             if(arrayItemSelected){
                 if(!uniqueValuesInfosSave[activeTable.layer.uid]) uniqueValuesInfosSave[activeTable.layer.uid] = [];
@@ -347,6 +363,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 };
             }
         }
+        this.setState({selectedColor:event});
     }
 
     optionColorCleanSelected(cleanHighLightIds = true){
@@ -366,7 +383,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         // const tabs = this.tabs;
         return (
             <div className="widget-attribute-table jimu-widget">
-                <ButtonGroupComponent parent = {this}/>
+                <ButtonGroupComponent parent = {this} selectedColor = {this.state.selectedColor}/>
                 {this.state.tabs.length === 0 ?
                     <div className="text-center container-fluid">
                         <div className="row">
