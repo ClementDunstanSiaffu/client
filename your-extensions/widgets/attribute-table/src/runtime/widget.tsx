@@ -230,7 +230,9 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         if(pass.geometry){
             // use this it will return features empty array
             // query.geometry = new Polygon(pass.geometry);
-            // query.spatialRelationship = pass.typeSelected;
+            query.spatialRelationship = pass.typeSelected;
+            query.outFields = ["*"];
+            query.returnGeometry = true;
         }
         const layerView = await activeView.view.whenLayerView(layer);
         if (layerView?._highlightIds){
@@ -238,7 +240,9 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 highlightIds.push(key);
             }  
         }
-        if(layer){
+        const results = await layerView.queryFeatures(query);
+        const features = results?.features;
+        if(layer && features?.length){
             featureTable = this.createFeatureTable(layer,highlightIds);
             if(query.geometry) featureTable.filterGeometry = query.geometry;
                 featureTable.filterBySelection();
