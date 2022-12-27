@@ -24,7 +24,8 @@ type stateValueType = {
             getAllJimuLayerViews:()=>any,
             checkedLayers:string[],
             numberOfAttribute:{[id:string]:number},
-            createTable:boolean
+            createTable:boolean,
+            initialMapZoom:any
         }
     }
 }
@@ -32,6 +33,7 @@ type stateValueType = {
 export default class Widget extends React.PureComponent<AllWidgetProps<any>&stateValueType, any> {
 
     static mapExtraStateProps(state:IMState){return {stateValue:state.widgetsState}};
+    static initialMapZoom = 0;
     arrayTable = [];
     uniqueValuesInfosSave = [];
     saveOldRenderer = [];
@@ -150,6 +152,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
     createFeatureTable(layer,highlightIds:any){
         const activeView = this.props.stateValue?.value?.getActiveView();
+        const initialMapZoom = this.props.stateValue?.value?.initialMapZoom;
+        console.log(initialMapZoom,"initialMap value")
         const div = document.createElement("div");
         let checkExist = setInterval(()=>{
             const container = document.getElementById("container-"+layer.uid);
@@ -193,7 +197,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             if(event.added.length){
                 try{
                     const query = layer.createQuery();
-                    query.where = layer.objectIdField + " = " + event.added[0]?.objectId;
+                    if (event.added.length > 0){
+                        query.where = layer.objectIdField + " = " + event.added[0]?.objectId;
                         query.returnGeometry = true;
                         layer.queryFeatures(query).then((results)=>{
                             const features = results.features;
@@ -203,11 +208,17 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                                 console.error("not found");
                             }
                         });
+                    }
                     }catch (e){
                         console.error(e);
                     }
-                }
-            });
+            }
+            if (event.removed.length > 0 && initialMapZoom){
+                const view = activeView.view;
+                view.goTo({center: view.center,zoom:initialMapZoom });
+            }
+
+        });
         
         
         this.arrayTable.push(featureTable);

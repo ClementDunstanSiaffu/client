@@ -119,6 +119,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         })
         AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
         AdvancedSelectionTable.initialZoomValue = activeView.view.zoom;
+        this.props.dispatch(appActions.widgetStatePropChange("value","initialMapZoom",activeView.view.zoom));
     }
 
     selectFeatureLayer = (geometry:any)=>{
