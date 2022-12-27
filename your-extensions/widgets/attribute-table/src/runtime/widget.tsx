@@ -172,7 +172,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             multiSortEnabled: true,
             layer: layer,
             container: div,
-            highlightIds:highlightIds??[]
+            highlightEnabled:true,
+            highlightIds:highlightIds
         });
 
         featureTable.visibleElements = {
@@ -186,8 +187,29 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 zoomToSelection: true
             },
             selectionColumn: true,
-            columnMenus: true
-        }        
+            columnMenus: true,
+        }   
+        featureTable.on("selection-change", (event) => {
+            if(event.added.length){
+                try{
+                    const query = layer.createQuery();
+                    query.where = layer.objectIdField + " = " + event.added[0]?.objectId;
+                        query.returnGeometry = true;
+                        layer.queryFeatures(query).then((results)=>{
+                            const features = results.features;
+                            if(features.length){
+                                activeView.view.goTo(features[0].geometry);
+                            }else{
+                                console.error("not found");
+                            }
+                        });
+                    }catch (e){
+                        console.error(e);
+                    }
+                }
+            });
+        
+        
         this.arrayTable.push(featureTable);
         return featureTable;
     }
@@ -203,15 +225,25 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             // query.geometry = new Polygon(pass.geometry);
             // query.spatialRelationship = pass.typeSelected;
         }
-        activeView.view.whenLayerView(layer).then(async(layerView)=>{
-            //to get all features use this
-            //const results = await layerView.queryFeatures(query);
-            if (layerView?._highlightIds){
-                for (const key of layerView._highlightIds.keys()){
-                    highlightIds.push(key);
-                }
-            }
-        })
+        const layerView = await activeView.view.whenLayerView(layer);
+        if (layerView?._highlightIds){
+            for (const key of layerView._highlightIds.keys()){
+                highlightIds.push(key);
+            }  
+        }
+        // activeView.view.whenLayerView(layer).then(async(layerView)=>{
+        //     //to get all features use this
+        //     //const results = await layerView.queryFeatures(query);
+        //     if (layerView?._highlightIds){
+        //         let newArray = [];
+        //         for (const key of layerView._highlightIds.keys()){
+        //             // highlightIds.push(key);
+        //             newArray.push(key);
+        //         }
+        //         console.log(newArray,"check new Arr")
+        //         highlightIds = newArray;
+        //     }
+        // })
         if(layer){
             featureTable = this.createFeatureTable(layer,highlightIds);
             if(query.geometry) featureTable.filterGeometry = query.geometry;
