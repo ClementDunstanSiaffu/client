@@ -153,7 +153,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     createFeatureTable(layer,highlightIds:any){
         const activeView = this.props.stateValue?.value?.getActiveView();
         const initialMapZoom = this.props.stateValue?.value?.initialMapZoom;
-        console.log(initialMapZoom,"initialMap value")
         const div = document.createElement("div");
         let checkExist = setInterval(()=>{
             const container = document.getElementById("container-"+layer.uid);
@@ -204,13 +203,10 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                             const features = results.features;
                             if(features.length){
                                 activeView.view.goTo(features[0].geometry);
-                            }else{
-                                console.error("not found");
                             }
                         });
                     }
                     }catch (e){
-                        console.error(e);
                     }
             }
             if (event.removed.length > 0 && initialMapZoom){
@@ -242,19 +238,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 highlightIds.push(key);
             }  
         }
-        // activeView.view.whenLayerView(layer).then(async(layerView)=>{
-        //     //to get all features use this
-        //     //const results = await layerView.queryFeatures(query);
-        //     if (layerView?._highlightIds){
-        //         let newArray = [];
-        //         for (const key of layerView._highlightIds.keys()){
-        //             // highlightIds.push(key);
-        //             newArray.push(key);
-        //         }
-        //         console.log(newArray,"check new Arr")
-        //         highlightIds = newArray;
-        //     }
-        // })
         if(layer){
             featureTable = this.createFeatureTable(layer,highlightIds);
             if(query.geometry) featureTable.filterGeometry = query.geometry;
@@ -358,8 +341,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     optionColorFound(event){
         //event.preventDefault();
         //event.stopPropagation();
-        console.log(event,"check the event")
-
         const activeTable = this.getActiveTable();
         const uniqueValuesInfosSave = this.uniqueValuesInfosSave;
         const saveOldRenderer = this.saveOldRenderer;
@@ -423,7 +404,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     }
 
     render () {
-        // const tabs = this.tabs;
         return (
             <div className="widget-attribute-table jimu-widget">
                 <ButtonGroupComponent parent = {this} selectedColor = {this.state.selectedColor}/>
