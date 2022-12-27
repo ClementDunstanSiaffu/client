@@ -402,7 +402,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 delete this.uniqueValuesInfosSave[activeTable.layer.uid];
                 activeTable.layer.renderer = saveOldRenderer[activeTable.layer.uid];
                 delete saveOldRenderer[activeTable.layer.uid];
-                if(cleanHighLightIds) activeTable.highlightIds.removeAll();
+                // if(cleanHighLightIds) activeTable.highlightIds.removeAll();
             }
         }
     }

@@ -94,27 +94,27 @@ export default class ButtonGroupComponent extends React.PureComponent<PropsType,
             case "eCGI_CSV":
                 if(activeTable){
                     const cleanArrayStore = this.getStoreSingleAttributes(activeTable,"eCGI_28bit");
-                    if(cleanArrayStore) Download.CSV(cleanArrayStore);
+                    if(cleanArrayStore.length) Download.CSV(cleanArrayStore);
                 }
                 break;
             case "CGI_CSV":
                 if(activeTable){
                     const cleanArrayStore = this.getStoreSingleAttributes(activeTable,"CGI");
-                    if(cleanArrayStore) Download.CSV(cleanArrayStore);
+                    if(cleanArrayStore.length) Download.CSV(cleanArrayStore);
                 }
                 break;
             case "EXCEL_TABLE":break;
             case "CSV_TABLE":
                 if(activeTable){
                     const cleanArrayStore = this.getStoreClean(activeTable);
-                    if(cleanArrayStore) Download.CSV(cleanArrayStore);
+                    if(cleanArrayStore.length) Download.CSV(cleanArrayStore);
                 }
                 break;
             case "ALL_TABLE":
                 for(let i=0;i<tabs.length;i++){
                     const item = arrayTable[i];
                     const cleanArrayStore = this.getStoreClean(item);
-                    if(cleanArrayStore) Download.CSV(cleanArrayStore,item.layer.title+".csv");
+                    if(cleanArrayStore.length) Download.CSV(cleanArrayStore,item.layer.title+".csv");
                 }
             break;
         }
