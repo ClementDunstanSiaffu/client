@@ -287,7 +287,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         const closeButtonElement = document.querySelector(".action-close");
         if (closeButtonElement.addEventListener){
             closeButtonElement.addEventListener("click",()=>{
-                this.restoreMap()
+                // this.restoreMap()
             })
         }
       

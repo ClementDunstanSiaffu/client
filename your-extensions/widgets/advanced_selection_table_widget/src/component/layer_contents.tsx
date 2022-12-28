@@ -31,9 +31,9 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     if (selectedIndex !== -1){
       helper.activateLayerOnTheMap(id,false)
       this.removeAttributes(id);
+      advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
     }
     advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newSelected));
-    advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
   };
 
   removeAttributes = (id:string)=>{
