@@ -50,11 +50,13 @@ export default class SelectGeometry extends React.PureComponent<any,any>{
         ]
 
         const selectedGeometryTitle = this.nls("selectGeometry")
+        const advancedSelectionTable = this.context?.parent;
+        const primary = advancedSelectionTable.props.theme.colors.primary;
 
         return <DropDown 
                     items={selectionsGeometries}
                     onClick = {this.onSelectGeometry}
-                    dropdownToogleStyle = {{backgroundColor:"green",width:"100%",color:"white"}}
+                    dropdownToogleStyle = {{backgroundColor:primary,width:"100%",color:"white"}}
                     dropdownTooggleColor = "green"
                     title={selectedGeometryTitle}
                 />

@@ -101,7 +101,9 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     const numberOfAttribute = this.context.numberOfAttribute;
     const component_type = this.context?.component_type;
     const selected = this.context?.checkedLayers;
-    const refresh = this.nls("refresh")
+    const refresh = this.nls("refresh");
+    const advancedSelectionTable = this.context?.parent;
+    const primary = advancedSelectionTable.props.theme.colors.primary;
 
     if (component_type === "LAYERS_CONTENTS"){
       return (
@@ -111,6 +113,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
             showRefreshButton = {true} 
             onClickRefresh = {this.onClickRefresh}
             refreshButtonText = {refresh}
+            buttonColor = {primary}
           >
             <SelectGeometry />
           </EnhancedTableToolbar>
@@ -125,7 +128,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
           <Container width = "96%" className='centerize-contents display-row-contents'>
             <Container><div>{this.nls("layers")}</div></Container>
           </Container>
-          <Container height={450} width = {"90%"} overflow = "auto"  className='centerize-contents padding-contents20'>
+          <Container height={350} width = {"90%"} style={{  overflowY: 'scroll' }}  className='centerize-contents padding-contents20'>
             {
               layers?.map((layer:layerObject,k)=>{
                 const isItemSelected = this.isSelected(layer.id);

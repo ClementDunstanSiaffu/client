@@ -275,8 +275,9 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         if (this.sketch){
             this.sketch?.cancel();
         }
-        helper.deactivateAllLayer()
-     
+        helper.deactivateAllLayer();
+        this.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
+        helper.closeAttributeTable();
     }
 
     onClickRefresh = ()=>{

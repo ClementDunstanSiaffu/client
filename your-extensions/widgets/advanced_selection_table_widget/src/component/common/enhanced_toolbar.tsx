@@ -8,24 +8,28 @@ interface EnhancedTableToolbarProps {
   children: any
   showRefreshButton?: boolean
   onClickRefresh?: (val?: any) => void,
-  refreshButtonText?:string
+  refreshButtonText?:string,
+  buttonColor?:string
 }
 
-const refreshButtonStyle = {
-  backgroundColor: 'green',
-  color: 'white'
-}
 
 export default class EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProps, any> {
 
   static defaultProps = {
     showRefreshButton: false,
     onClickRefresh: () => {},
-    refreshButtonText:" "
-    
+    refreshButtonText:" ",
+    buttonColor:"blue"
   }
 
   render (): React.ReactNode {
+
+ 
+    const refreshButtonStyle = {
+      backgroundColor:this.props.buttonColor,
+      color: 'white'
+    }
+
     return (
       <div  className = "layer-content-container toolbar-root">
         <div className='topography-root'>{this.props.children}</div>
