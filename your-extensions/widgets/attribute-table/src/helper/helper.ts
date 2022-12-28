@@ -22,13 +22,6 @@ class Helper {
         }
     }
 
-    // hideLayer = (allLayers,layerId)=>{
-    //     const currentLayer = allLayers.find((layer)=>layer.id === layerId);
-    //     if (currentLayer && currentLayer.hasOwnProperty("visible")){
-    //         currentLayer.visible = false;  
-    //     }
-    // }
-
     hideLayer = (jimuLayerViews:any,id:string)=>{
         const keys = Object.keys(jimuLayerViews);
         if (keys.length > 0){

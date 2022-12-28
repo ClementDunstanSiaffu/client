@@ -221,12 +221,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         reactiveUtils.when(()=>view.stationary,()=>{
             if (view.extent){
                 this.setState({viewExtent:view.extent});
-                // featureTable.filterGeometry = view.extent;
             }
         },{initial:true})
-        // if (this.state.viewExtent){
-        //     featureTable.filterGeometry = this.state.viewExtent;
-        // }
         this.arrayTable.push(featureTable);
         return featureTable;
     }
@@ -238,7 +234,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         let query = new Query();
         const highlightIds = [];
         if(pass.geometry){
-            // use this it will return features empty array
             query.geometry = new Polygon(pass.geometry);
             query.spatialRelationship = pass.typeSelected;
             query.outFields = ["*"];
@@ -259,7 +254,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                     featureTable.filterGeometry = this.state.viewExtent;
                 },10)
             }
-            // if(query.geometry) featureTable.filterGeometry = query.geometry;
             featureTable.filterBySelection();
             return featureTable;
         }else{
@@ -326,18 +320,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         return null;
     }
 
-    
-
     optionFilterExtentions(){
-        // const activeView = this.props.stateValue.value.getActiveView();
-        // const layerOpen = this.props.stateValue.value.layerOpen;
-        // const geometry = Polygon.fromExtent(layerOpen.geometry).toJSON();
-        // const newlayerOpen = {geometry:geometry,typeSelected:"contains"}
-        // this.props.dispatch(appActions.widgetStatePropChange("value","layerOpen",layerOpen));
         this.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
-        // this.props.stateProps.layerOpen.geometry = Polygon.fromExtent(this.state.jimuMapView.view.extent).toJSON();
-        // this.props.stateProps.layerOpen.typeSelected = "contains";
-        // this.createListTable();
     }
 
     optionOpenFilter(e){

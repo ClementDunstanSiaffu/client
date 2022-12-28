@@ -11,8 +11,6 @@ import helper from '../helper/helper'
 import CSVLayer from 'esri/layers/CSVLayer';
 import defaultMessages from "../../../advanced_selection_table_widget/src/runtime/translations/default";
 import Polygon from "esri/geometry/Polygon";
-import reactiveUtils from 'esri/core/reactiveUtils';
-
 
 type StateValueType = {stateValue:any}
 
@@ -123,16 +121,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
         AdvancedSelectionTable.initialZoomValue = activeView.view.zoom;
         this.props.dispatch(appActions.widgetStatePropChange("value","initialMapZoom",activeView.view.zoom));
-        // reactiveUtils.when(()=>view.stationary,()=>{
-        //     if (view.extent){
-        //         const geometry =  Polygon.fromExtent(view.extent).toJSON();
-        //         const layerOpen = {
-        //             geometry:geometry,
-        //             typeSelected:"contains",
-        //         }
-        //         this.props.dispatch(appActions.widgetStatePropChange("value","layerOpen",layerOpen));
-        //     }
-        // })
     }
 
     selectFeatureLayer = (geometry:any)=>{
@@ -144,13 +132,8 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 const selectedLayersContents = helper.getSelectedContentsLayer(results,checkedLayers);
                 const numberOfAttributes = helper.getNumberOfAttributes(selectedLayersContents);
                 this.setState({layerContents:selectedLayersContents});
-                // const graphic = AdvancedSelectionTable.selectedGraphic;
                 const activeView = AdvancedSelectionTable.activeView;
                 const geometry = Polygon.fromExtent(activeView.view.extent).toJSON();
-                // const layerOpen = {
-                //     geometry: graphic?.geometry,
-                //     typeSelected:"contains",
-                // }
                 const layerOpen = {
                     geometry:geometry,
                     typeSelected:"contains",
