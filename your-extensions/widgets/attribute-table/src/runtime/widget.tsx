@@ -8,6 +8,7 @@ import Query from "esri/rest/support/Query";
 import Polygon from "esri/geometry/Polygon";
 import helper from '../helper/helper';
 import ButtonGroupComponent from '../components/button_groups';
+import reactiveUtils from 'esri/core/reactiveUtils';
 
 type spatialRelationshipType = "intersects" | "contains" | "crosses" | "disjoint" | "envelope-intersects" | "index-intersects" | "overlaps" | "touches" | "within" | "relation"
 
@@ -34,6 +35,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
     static mapExtraStateProps(state:IMState){return {stateValue:state.widgetsState}};
     static initialMapZoom = 0;
+    static currentViewExtent = null;
     arrayTable = [];
     uniqueValuesInfosSave = [];
     saveOldRenderer = [];
@@ -47,7 +49,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             geometryFilter: null,
             listServices:[],
             tabs:[],
-            selectedColor:" "
+            selectedColor:" ",
+            viewExtent:null
         }
 
         this.tabsClose = this.tabsClose.bind(this);
@@ -176,7 +179,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             layer: layer,
             container: div,
             highlightEnabled:true,
-            highlightIds:highlightIds
+            highlightIds:highlightIds,
         });
 
         featureTable.visibleElements = {
@@ -187,11 +190,11 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 refreshData: true,
                 toggleColumns: true,
                 selectedRecordsShowAllToggle: true,
-                zoomToSelection: true
+                zoomToSelection: true,
             },
             selectionColumn: true,
             columnMenus: true,
-        }   
+        }  
         featureTable.on("selection-change", (event) => {
             if(event.added.length){
                 try{
@@ -215,8 +218,15 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             }
 
         });
-        
-        
+        reactiveUtils.when(()=>view.stationary,()=>{
+            if (view.extent){
+                this.setState({viewExtent:view.extent});
+                // featureTable.filterGeometry = view.extent;
+            }
+        },{initial:true})
+        // if (this.state.viewExtent){
+        //     featureTable.filterGeometry = this.state.viewExtent;
+        // }
         this.arrayTable.push(featureTable);
         return featureTable;
     }
@@ -229,7 +239,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         const highlightIds = [];
         if(pass.geometry){
             // use this it will return features empty array
-            // query.geometry = new Polygon(pass.geometry);
+            query.geometry = new Polygon(pass.geometry);
             query.spatialRelationship = pass.typeSelected;
             query.outFields = ["*"];
             query.returnGeometry = true;
@@ -241,13 +251,27 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             }  
         }
         const results = await layerView.queryFeatures(query);
-        const features = results?.features;
-        if(layer && features?.length){
+        const features = results?.features??[];
+        if(layer && features.length){
             featureTable = this.createFeatureTable(layer,highlightIds);
-            if(query.geometry) featureTable.filterGeometry = query.geometry;
-                featureTable.filterBySelection();
-                return featureTable;
+            if (activeView.view.stationary && this.state.viewExtent){
+                setTimeout(()=>{
+                    featureTable.filterGeometry = this.state.viewExtent;
+                },10)
+            }
+            // if(query.geometry) featureTable.filterGeometry = query.geometry;
+            featureTable.filterBySelection();
+            return featureTable;
+        }else{
+            if (features.length <= 0){
+                helper.openSideBar([],{});
+                this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",{}));
+                this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",[]));
+                const jimuLayerViews = this.props.stateValue.value.getAllJimuLayerViews();
+                helper.unhighlightAllLayer(jimuLayerViews);
+            } 
         }
+       
         return featureTable;
     }
 
@@ -302,10 +326,18 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         return null;
     }
 
+    
+
     optionFilterExtentions(){
-        this.props.stateProps.layerOpen.geometry = Polygon.fromExtent(this.state.jimuMapView.view.extent).toJSON();
-        this.props.stateProps.layerOpen.typeSelected = "contains";
-        this.createListTable();
+        // const activeView = this.props.stateValue.value.getActiveView();
+        // const layerOpen = this.props.stateValue.value.layerOpen;
+        // const geometry = Polygon.fromExtent(layerOpen.geometry).toJSON();
+        // const newlayerOpen = {geometry:geometry,typeSelected:"contains"}
+        // this.props.dispatch(appActions.widgetStatePropChange("value","layerOpen",layerOpen));
+        this.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
+        // this.props.stateProps.layerOpen.geometry = Polygon.fromExtent(this.state.jimuMapView.view.extent).toJSON();
+        // this.props.stateProps.layerOpen.typeSelected = "contains";
+        // this.createListTable();
     }
 
     optionOpenFilter(e){
@@ -319,7 +351,10 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             tabsLength: tabs.length,
             tabs:[]
         });
-
+        this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",{}));
+        this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",[]));
+        const jimuLayerViews = this.props.stateValue.value.getAllJimuLayerViews();
+        helper.unhighlightAllLayer(jimuLayerViews);
         //TODO MIGLIORARE
         //chiudi sidebar
         const sidebar = document.querySelector(".sidebar-controller");
