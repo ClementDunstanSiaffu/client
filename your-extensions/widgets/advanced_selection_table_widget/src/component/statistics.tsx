@@ -10,7 +10,6 @@ import { AdvancedSelectionTableContext } from '../context/context';
 import ModalComponent from './common/modal';
 import helper from '../helper/helper';
 
-
 class ModalBody extends React.PureComponent<any,any>{
 
   static contextType?: React.Context<any> = AdvancedSelectionTableContext;

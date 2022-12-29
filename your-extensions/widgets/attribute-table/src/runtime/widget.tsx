@@ -9,7 +9,6 @@ import Polygon from "esri/geometry/Polygon";
 import helper from '../helper/helper';
 import ButtonGroupComponent from '../components/button_groups';
 import reactiveUtils from 'esri/core/reactiveUtils';
-import Color from 'esri/Color';
 
 type spatialRelationshipType = "intersects" | "contains" | "crosses" | "disjoint" | "envelope-intersects" | "index-intersects" | "overlaps" | "touches" | "within" | "relation"
 
@@ -51,7 +50,8 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             listServices:[],
             tabs:[],
             selectedColor:" ",
-            viewExtent:null
+            viewExtent:null,
+            features:null
         }
 
         this.tabsClose = this.tabsClose.bind(this);
@@ -114,25 +114,27 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                     if (f?.sublayers?.length > 0){
                         for(let j=0;i<f.sublayers.length;i++){
                             const fs = f.sublayers[j];
+                            const newId = fs.id.split(" ").join("-");
                             tabs.push(
-                                <Tab closeable id={"tab-"+fs.uid} title={f.title + " - "+ fs.title}>
-                                    <div id={"container-"+fs.uid} className="tabClassControl"></div>
+                                <Tab closeable id={"tab-"+newId} title={f.title + " - "+ fs.title}>
+                                    <div id={"container-"+newId} className="tabClassControl"></div>
                                 </Tab>
                             );
     
-                            this.createTable(fs,layerOpen,"tab-"+fs.uid).then((featureTable)=>{
+                            this.createTable(fs,layerOpen,fs.id).then((featureTable)=>{
                                 if(!featureTable){
                                 }else{
                                 }
                             });
                         }
                     }else{
+                        const newId = f.id.split(" ").join("-");
                         tabs.push(
-                            <Tab closeable id={"tab-"+f.uid} title={f.title + " - "+ f.title}>
-                                <div id={"container-"+f.uid} className="tabClassControl"></div>
+                            <Tab closeable id={"tab-"+newId} title={f.title + " - "+ f.title}>
+                                <div id={"container-"+newId} className="tabClassControl"></div>
                             </Tab>
                         );
-                        this.createTable(f,layerOpen,"tab-"+f.uid).then((featureTable)=>{
+                        this.createTable(f,layerOpen,newId).then((featureTable)=>{
                             if(!featureTable){
                             }else{
                             }
@@ -150,16 +152,13 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
    
     }
     
-    activeViewChangeHandler = (jmv: JimuMapView) => {
-        if (jmv) this.setState({jimuMapView: jmv});
-    };
-
     createFeatureTable(layer,highlightIds:any){
         const activeView = this.props.stateValue?.value?.getActiveView();
         const initialMapZoom = this.props.stateValue?.value?.initialMapZoom;
         const div = document.createElement("div");
         let checkExist = setInterval(()=>{
-            const container = document.getElementById("container-"+layer.uid);
+            const id = layer.id.split(" ").join("-");
+            const container = document.getElementById("container-"+id);
             if (container) {
                 container.innerHTML = '';
                 container.appendChild(div);
@@ -173,7 +172,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         }
 
         const featureTable = new FeatureTable({
-            id: "T"+layer.id,
+            id:layer.id,
             label:layer.title,
             view:view,
             multiSortEnabled: true,
@@ -250,6 +249,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         const results = await layerView.queryFeatures(query);
         const features = results?.features??[];
         if(layer && features.length){
+            this.setState({features:features})
             featureTable = this.createFeatureTable(layer,highlightIds);
             if (activeView.view.stationary && this.state.viewExtent){
                 setTimeout(()=>{
@@ -275,38 +275,53 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         this.optionColorCleanSelected();
         const tabs = this.state.tabs;
         const arrayTable = this.arrayTable;
-        let foundIndex = null;
+        let foundIndex = -1;
         for(let i=0;i<tabs.length;i++){
             if(tabs[i].props.id === e){
                 foundIndex = i;
                 break;
             }
         }
-        const copiedTabs = [...this.state.tabs];
-        copiedTabs.splice(foundIndex,1);
-        const table = arrayTable[foundIndex];
-        const jimuLayerViews = this.props.stateValue?.value?.getAllJimuLayerViews();
-        const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
-        const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
-        if (table && table.layer){
-            const id = table.layer.id;
-            helper.hideLayer(jimuLayerViews,id);
-            const newNumberOfAttribute = helper.getNewNumberOfAttributes(numberOfAttribute,id);
-            const newCheckedLayers = helper.getNewCheckedLayer(checkedLayers,id);
-            this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",newNumberOfAttribute));
-            this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers));
-            if (newCheckedLayers.length <= 0){
-                helper.openSideBar(newCheckedLayers,newNumberOfAttribute);
+        if (foundIndex !== -1){
+            let tableIndex = -1;
+            const copiedTabs = [...this.state.tabs];
+            copiedTabs.splice(foundIndex,1);
+            let table = null;
+            if (arrayTable.length){
+                tableIndex = arrayTable.findIndex((currentTable)=>{
+                    const id = currentTable.id.split(" ").join("-");
+                    if ("tab-"+id === e){
+                        return currentTable;
+                    }
+                  
+                });
+                if (tableIndex !== -1){
+                    table = arrayTable[tableIndex];
+                }
             }
+            const jimuLayerViews = this.props.stateValue?.value?.getAllJimuLayerViews();
+            const numberOfAttribute = this.props.stateValue?.value?.numberOfAttribute??{};
+            const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
+            if (table && table.layer){
+                const id = table.layer.id;
+                helper.hideLayer(jimuLayerViews,id);
+                const newNumberOfAttribute = helper.getNewNumberOfAttributes(numberOfAttribute,id);
+                const newCheckedLayers = helper.getNewCheckedLayer(checkedLayers,id);
+                this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",newNumberOfAttribute));
+                this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",newCheckedLayers));
+                if (newCheckedLayers.length <= 0){
+                    helper.openSideBar(newCheckedLayers,newNumberOfAttribute);
+                }
+            }
+            if (tableIndex !== -1){
+                arrayTable.splice(tableIndex,1);
+            }
+    
+            this.setState({
+                tabsLength:tabs.length,
+                tabs:copiedTabs
+            });
         }
-
-        arrayTable.splice(foundIndex,1);
-
-        this.setState({
-            tabsLength:tabs.length,
-            tabs:copiedTabs
-        });
-        
     }
 
     getActiveTable(){
@@ -315,7 +330,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         for(let i=0;i<tabs.length;i++){
             const el = document.querySelector("#"+tabs[i].props.children.props.id);
             //@ts-ignore
-            if(el.checkVisibility()){
+            if(el?.checkVisibility()){
                 return arrayTable[i];
             }
         }
@@ -341,6 +356,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",[]));
         const jimuLayerViews = this.props.stateValue.value.getAllJimuLayerViews();
         helper.unhighlightAllLayer(jimuLayerViews);
+        helper.deactivateAllLayer(jimuLayerViews)
         //TODO MIGLIORARE
         //chiudi sidebar
         const sidebar = document.querySelector(".sidebar-controller");
@@ -350,7 +366,6 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     }
 
     createSymbol(type, color){
-        console.log(type,"check type")
         const typeSymbol =
             type === 'point'? "simple-marker":
                 type === 'polyline'? "simple-line":
@@ -358,14 +373,11 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
         return {
             type: "simple-marker",
-            // style: "circle",
-            // size: "8px",
             color,
             outline:{
                 width:0.5,
                 color:color
             }
-            // outline: null
         };
     }
 
@@ -376,76 +388,31 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         const uniqueValuesInfosSave = this.uniqueValuesInfosSave;
         const saveOldRenderer = this.saveOldRenderer;
         const jimuLayerViews = this.props.stateValue.value.getAllJimuLayerViews();
-        const activeView = this.props.stateValue.value.getActiveView();
 
         if(activeTable && jimuLayerViews){
             let arrayItemSelected = activeTable.highlightIds
-            // if (arrayItemSelected){
-            //     let currentLayerView = null;
-            //     const keys = Object.keys(jimuLayerViews)
-            //     if (keys.length){
-            //         keys.forEach((key)=>{
-            //             if (jimuLayerViews[key].layer.id === activeTable.layer.id){
-            //                 currentLayerView = jimuLayerViews[key];
-            //             }else{
-            //                 // if (jimuLayerViews[key].view){
-            //                 //     jimuLayerViews[key].view.fullOpacity = 0;
-            //                 // }
-            //             }
-            //         })
-            //     }
-            //     if (currentLayerView && currentLayerView.hasOwnProperty("view")){
-            //         if(currentLayerView.view._updateHighlight){
-            //             // currentLayerView.view._updateHighlight = {
-            //             //     color:new Color(event),
-            //             //     opacity:1,
-            //             //     haloColor:new Color(event),
-            //             //     haloOpacity:1
-            //             // }
-            //             currentLayerView.view._updateHighlight(activeTable.layer).then((results)=>{
-            //                 activeView.view.highlightOptions = {
-            //                     color:new Color(event),
-            //                     opacity:1,
-            //                     haloColor:new Color(event),
-            //                     haloOpacity:1
-            //                 }
-            //                 currentLayerView.view.fullOpacity = 1;
-            //                 // activeView.view.fullOpacity = 1;
-            //                 console.log(results,currentLayerView,activeView,"check both")
-            //             })
-            //         }
-            //     }
-            // }
+        
             if(arrayItemSelected){
 
-                // let currentLayerView = null;
                 const keys = Object.keys(jimuLayerViews)
                 if (keys.length){
                     keys.forEach((key)=>{
                         if (jimuLayerViews[key].layer.id === activeTable.layer.id){
-                            // currentLayerView = jimuLayerViews[key];
                             if (jimuLayerViews[key].layer){
                                 jimuLayerViews[key].layer.opacity = 1;
                             }
                             if (jimuLayerViews[key].view){
                                 jimuLayerViews[key].view.fullOpacity = 1;
-                                console.log(jimuLayerViews[key])
                             }
-                        }else{
-                            // if (jimuLayerViews[key].view){
-                            //     jimuLayerViews[key].view.fullOpacity = 0;
-                            // }
                         }
                     })
                 }
 
-
-
-                if(!uniqueValuesInfosSave[activeTable.layer.uid]) uniqueValuesInfosSave[activeTable.layer.uid] = [];
+                if(!uniqueValuesInfosSave[activeTable.layer.id]) uniqueValuesInfosSave[activeTable.layer.id] = [];
 
                 //salvo vecchio renderer
-                if(!saveOldRenderer[activeTable.layer.uid]){
-                    saveOldRenderer[activeTable.layer.uid] = activeTable.layer.renderer;
+                if(!saveOldRenderer[activeTable.layer.id]){
+                    saveOldRenderer[activeTable.layer.id] = activeTable.layer.renderer;
                 }
 
                 for(let i=0;i<arrayItemSelected.length;i++){
@@ -456,17 +423,17 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                         symbol: this.createSymbol(activeTable.layer.geometryType,event)
                     };
                     let indexFound = null;
-                    for(let j=0;j< uniqueValuesInfosSave[activeTable.layer.uid].length;j++){
-                        let uniqueFound = uniqueValuesInfosSave[activeTable.layer.uid][j].value;
+                    for(let j=0;j< uniqueValuesInfosSave[activeTable.layer.id].length;j++){
+                        let uniqueFound = uniqueValuesInfosSave[activeTable.layer.id][j].value;
                         if(uniqueFound === objectid){
                             indexFound = j;
                             break;
                         }
                     }
                     if(indexFound){
-                        uniqueValuesInfosSave[activeTable.layer.uid][indexFound] = uniqueColor;
+                        uniqueValuesInfosSave[activeTable.layer.id][indexFound] = uniqueColor;
                     }else{
-                        uniqueValuesInfosSave[activeTable.layer.uid].push(uniqueColor);
+                        uniqueValuesInfosSave[activeTable.layer.id].push(uniqueColor);
                     }
 
                 }
@@ -474,7 +441,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                 activeTable.layer.renderer = {
                     type: "unique-value",
                     field: activeTable.layer.objectIdField,
-                    uniqueValueInfos: this.uniqueValuesInfosSave[activeTable.layer.uid]
+                    uniqueValueInfos: this.uniqueValuesInfosSave[activeTable.layer.id]
                 };
             }
         }
@@ -485,10 +452,10 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         const activeTable = this.getActiveTable();
         const saveOldRenderer = this.saveOldRenderer;
         if(activeTable){
-            if(saveOldRenderer[activeTable.layer.uid]){
-                delete this.uniqueValuesInfosSave[activeTable.layer.uid];
-                activeTable.layer.renderer = saveOldRenderer[activeTable.layer.uid];
-                delete saveOldRenderer[activeTable.layer.uid];
+            if(saveOldRenderer[activeTable.layer.id]){
+                delete this.uniqueValuesInfosSave[activeTable.layer.id];
+                activeTable.layer.renderer = saveOldRenderer[activeTable.layer.id];
+                delete saveOldRenderer[activeTable.layer.id];
                 if(cleanHighLightIds && activeTable.highlightIds) activeTable.highlightIds.removeAll();
             }
         }

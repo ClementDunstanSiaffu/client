@@ -12,7 +12,6 @@ import { ColorPicker } from 'jimu-ui/basic/color-picker';
 import esriRequest from "esri/request";
 import { Download } from '../helper/download';
 import Widget from '../runtime/widget'
-import Color from 'esri/Color';
 
 type PropsType = {
     parent:Widget,
@@ -82,7 +81,6 @@ export default class ButtonGroupComponent extends React.PureComponent<PropsType,
         const self = this.props?.parent;
         const activeTable = self.getActiveTable();
         const arrayTable = self.arrayTable;
-        // const tabs = self.tabs;
         const tabs = self.state.tabs;
         switch (selected){
             case "KMZ":

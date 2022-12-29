@@ -12,7 +12,6 @@ interface EnhancedTableToolbarProps {
   buttonColor?:string
 }
 
-
 export default class EnhancedTableToolbar extends React.PureComponent<EnhancedTableToolbarProps, any> {
 
   static defaultProps = {
@@ -24,7 +23,6 @@ export default class EnhancedTableToolbar extends React.PureComponent<EnhancedTa
 
   render (): React.ReactNode {
 
- 
     const refreshButtonStyle = {
       backgroundColor:this.props.buttonColor,
       color: 'white'

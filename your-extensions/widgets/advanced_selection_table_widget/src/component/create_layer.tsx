@@ -43,20 +43,16 @@ export default class CreateLayer extends React.PureComponent<any, any> {
   render (): React.ReactNode {
     const opencreateLayer = this.context?.opencreateLayer
     return (
-            <ModalComponent
-                isOpen = {opencreateLayer}
-                modalTitle='Create layer'
-                modalBody={<CreateLayerInput/>}
-                toggle = {this.onClose}
-            >
-                <Button onClick={this.createLayer}>
-                    {this.nls("ok")}
-                </Button>
-                {' '}
-                <Button onClick={this.onClose} type="primary">
-                    {this.nls("cancel")}
-                </Button>
-            </ModalComponent>
+      <ModalComponent
+        isOpen = {opencreateLayer}
+        modalTitle='Create layer'
+        modalBody={<CreateLayerInput/>}
+        toggle = {this.onClose}
+      >
+        <Button onClick={this.createLayer}>{this.nls("ok")}</Button>
+          {' '}
+          <Button onClick={this.onClose} type="primary">{this.nls("cancel")}</Button>
+      </ModalComponent>
     )
   }
 }

@@ -112,12 +112,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
                 this.setState({popup:false});
             }
         })
-
-        view.on("click",(event)=>{
-            const selectedLayersContents = this.state.layerContents;
-            event.stopPropagation();
-            view.hitTest(event).then((response)=>{})
-        })
         AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
         AdvancedSelectionTable.initialZoomValue = activeView.view.zoom;
         this.props.dispatch(appActions.widgetStatePropChange("value","initialMapZoom",activeView.view.zoom));
@@ -277,7 +271,6 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         }
         helper.deactivateAllLayer();
         this.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
-        // helper.closeAttributeTable();
     }
 
     onClickRefresh = ()=>{

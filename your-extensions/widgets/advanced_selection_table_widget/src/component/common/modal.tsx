@@ -32,25 +32,19 @@ export default class ModalComponent extends React.PureComponent<modalType, any> 
 
   render (): React.ReactNode {
     return (
-            <Modal
-                isOpen = {this.props.isOpen}
-                onClosed={this.props.onClosed}
-                onEnter={this.props.onEnter}
-                onExit={this.props.onExit}
-                onOpened={this.props.onOpened}
-                toggle={this.props.toggle}
-                centered = {this.props.centered}
-            >
-                <ModalHeader toggle={this.props.toggle}>
-                    {this.props.modalTitle}
-                </ModalHeader>
-                <ModalBody>
-                    {this.props.modalBody}
-                </ModalBody>
-                <ModalFooter>
-                    {this.props.children ?? ' '}
-                </ModalFooter>
-            </Modal>
+      <Modal
+        isOpen = {this.props.isOpen}
+        onClosed={this.props.onClosed}
+        onEnter={this.props.onEnter}
+        onExit={this.props.onExit}
+        onOpened={this.props.onOpened}
+        toggle={this.props.toggle}
+        centered = {this.props.centered}
+      >
+        <ModalHeader toggle={this.props.toggle}>{this.props.modalTitle}</ModalHeader>
+        <ModalBody>{this.props.modalBody}</ModalBody>
+        <ModalFooter>{this.props.children ?? ' '}</ModalFooter>
+      </Modal>
     )
   }
 }

@@ -52,14 +52,13 @@ class Helper {
     }
 
     getNewCheckedLayer = (checkedLayers:string[],id:string)=>{
-        let newCheckedLayer = checkedLayers;
-        if (checkedLayers?.length > 0){
-            newCheckedLayer = checkedLayers.reduce((newArray,item)=>{
-                if (item !== id){
-                    newArray.push(item);
-                }
-                return newArray;
-            },[])
+        let newCheckedLayer = [...checkedLayers];
+        let index = -1;
+        if (newCheckedLayer?.length > 0){
+            index = newCheckedLayer.indexOf(id);
+            if (index != -1){
+                newCheckedLayer.splice(index,1);
+            }
         }
         return newCheckedLayer;
     }
@@ -69,6 +68,24 @@ class Helper {
         if (keys.length > 0){
             keys.forEach((key)=>{
                 jimuLayerViews[key]?.highLightHandle?.remove()
+            })
+        } 
+    }
+
+    deactivateAllLayer = (jimuLayerViews)=>{
+        const keys = Object.keys(jimuLayerViews);
+        if (keys.length > 0){
+            keys.forEach((key)=>{
+                    if(jimuLayerViews[key].layer?.hasOwnProperty("visible")){
+                        jimuLayerViews[key].layer.visible = false;
+                        
+                    }
+                    if (jimuLayerViews[key].hasOwnProperty("view")){
+                        if (jimuLayerViews[key].view?.hasOwnProperty("visible")){
+                            jimuLayerViews[key].view.visible = false;
+                            
+                        }
+                    }
                 
             })
         } 

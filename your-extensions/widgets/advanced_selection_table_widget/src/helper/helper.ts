@@ -89,7 +89,7 @@ class Helper {
         if (keys.length > 0){
             keys.forEach((key)=>{
                 if (!checkedLayersArr.includes(jimuLayerViews[key]?.layer?.id)){
-                    jimuLayerViews[key]?.highLightHandle?.remove(key)
+                    jimuLayerViews[key]?.highLightHandle?.remove()
                 }
             })
         }
@@ -101,7 +101,7 @@ class Helper {
         if (keys.length > 0){
             keys.forEach((key)=>{
                 if (id === jimuLayerViews[key]?.layer?.id){
-                    jimuLayerViews[key]?.highLightHandle?.remove(key)
+                    jimuLayerViews[key]?.highLightHandle?.remove()
                 }
             })
         } 

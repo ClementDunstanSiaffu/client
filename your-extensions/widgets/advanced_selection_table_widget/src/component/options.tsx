@@ -112,8 +112,6 @@ export default class  Options extends React.PureComponent<any,any> {
 
     render(){
         const open = Boolean(this.context?.anchorEl);
-
-
         const options = [
             {
                 name:this.nls("zoomA"),
