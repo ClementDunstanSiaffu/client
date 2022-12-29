@@ -9,6 +9,7 @@ import Polygon from "esri/geometry/Polygon";
 import helper from '../helper/helper';
 import ButtonGroupComponent from '../components/button_groups';
 import reactiveUtils from 'esri/core/reactiveUtils';
+import Color from 'esri/Color';
 
 type spatialRelationshipType = "intersects" | "contains" | "crosses" | "disjoint" | "envelope-intersects" | "index-intersects" | "overlaps" | "touches" | "within" | "relation"
 
@@ -229,6 +230,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
 
     async createTable(layer,pass:{geometry:any,typeSelected:spatialRelationshipType,where?:string},identificationTable) {
         const activeView = this.props.stateValue.value.getActiveView();
+        const checkedLayers = this.props.stateValue?.value?.checkedLayers??[];
         layer.visible = true;
         let featureTable = null;
         let query = new Query();
@@ -257,7 +259,7 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
             featureTable.filterBySelection();
             return featureTable;
         }else{
-            if (features.length <= 0){
+            if (features.length <= 0 && !checkedLayers.length){
                 helper.openSideBar([],{});
                 this.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",{}));
                 this.props.dispatch(appActions.widgetStatePropChange("value","checkedLayers",[]));
@@ -348,16 +350,22 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
     }
 
     createSymbol(type, color){
+        console.log(type,"check type")
         const typeSymbol =
             type === 'point'? "simple-marker":
                 type === 'polyline'? "simple-line":
                     "simple-fill";
 
         return {
-            type: typeSymbol,
-            style: "solid",
+            type: "simple-marker",
+            // style: "circle",
+            // size: "8px",
             color,
-            outline: null
+            outline:{
+                width:0.5,
+                color:color
+            }
+            // outline: null
         };
     }
 
@@ -367,12 +375,72 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
         const activeTable = this.getActiveTable();
         const uniqueValuesInfosSave = this.uniqueValuesInfosSave;
         const saveOldRenderer = this.saveOldRenderer;
+        const jimuLayerViews = this.props.stateValue.value.getAllJimuLayerViews();
+        const activeView = this.props.stateValue.value.getActiveView();
 
-
-        if(activeTable){
+        if(activeTable && jimuLayerViews){
             let arrayItemSelected = activeTable.highlightIds
-
+            // if (arrayItemSelected){
+            //     let currentLayerView = null;
+            //     const keys = Object.keys(jimuLayerViews)
+            //     if (keys.length){
+            //         keys.forEach((key)=>{
+            //             if (jimuLayerViews[key].layer.id === activeTable.layer.id){
+            //                 currentLayerView = jimuLayerViews[key];
+            //             }else{
+            //                 // if (jimuLayerViews[key].view){
+            //                 //     jimuLayerViews[key].view.fullOpacity = 0;
+            //                 // }
+            //             }
+            //         })
+            //     }
+            //     if (currentLayerView && currentLayerView.hasOwnProperty("view")){
+            //         if(currentLayerView.view._updateHighlight){
+            //             // currentLayerView.view._updateHighlight = {
+            //             //     color:new Color(event),
+            //             //     opacity:1,
+            //             //     haloColor:new Color(event),
+            //             //     haloOpacity:1
+            //             // }
+            //             currentLayerView.view._updateHighlight(activeTable.layer).then((results)=>{
+            //                 activeView.view.highlightOptions = {
+            //                     color:new Color(event),
+            //                     opacity:1,
+            //                     haloColor:new Color(event),
+            //                     haloOpacity:1
+            //                 }
+            //                 currentLayerView.view.fullOpacity = 1;
+            //                 // activeView.view.fullOpacity = 1;
+            //                 console.log(results,currentLayerView,activeView,"check both")
+            //             })
+            //         }
+            //     }
+            // }
             if(arrayItemSelected){
+
+                // let currentLayerView = null;
+                const keys = Object.keys(jimuLayerViews)
+                if (keys.length){
+                    keys.forEach((key)=>{
+                        if (jimuLayerViews[key].layer.id === activeTable.layer.id){
+                            // currentLayerView = jimuLayerViews[key];
+                            if (jimuLayerViews[key].layer){
+                                jimuLayerViews[key].layer.opacity = 1;
+                            }
+                            if (jimuLayerViews[key].view){
+                                jimuLayerViews[key].view.fullOpacity = 1;
+                                console.log(jimuLayerViews[key])
+                            }
+                        }else{
+                            // if (jimuLayerViews[key].view){
+                            //     jimuLayerViews[key].view.fullOpacity = 0;
+                            // }
+                        }
+                    })
+                }
+
+
+
                 if(!uniqueValuesInfosSave[activeTable.layer.uid]) uniqueValuesInfosSave[activeTable.layer.uid] = [];
 
                 //salvo vecchio renderer
