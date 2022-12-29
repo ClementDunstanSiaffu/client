@@ -22,22 +22,46 @@ export default class  Options extends React.PureComponent<any,any> {
         const isItemSelected = this.context?.isItemSelected;
         if (isItemSelected && returnedAttributes?.length > 0){
             advancedSelectionTable?.setState({selectedAttributes:returnedAttributes});
-            if (value === "zoomIn"){
-                advancedSelectionTable?.onClickZoomIn()
-            }else if (value === "csv"){
-                this.exportFile(returnedAttributes,"csv");
-            }else if (value === "json"){
-                this.exportFile(returnedAttributes,"json");
-            }else if (value === "statistics"){
-                this.controlStatisticModal(layerId);
-            }else if (value === "layer"){
-                advancedSelectionTable?.setState({opencreateLayer:true});
-                const uri = getUri(returnedAttributes,"csv",advancedSelectionTable,"addLayer");
-            }else if (value === "attributetable"){
-                this.showAttributeTable();
-            }else if (value === "delete"){
-                this.deleteLayer(layerId,layerContents)
+            switch(value){
+                case "zoomIn":
+                    advancedSelectionTable?.onClickZoomIn();
+                    break;
+                case "csv":
+                    this.exportFile(returnedAttributes,"csv");
+                    break;
+                case "json":
+                    this.exportFile(returnedAttributes,"json");
+                    break;
+                case "statistics":
+                    this.controlStatisticModal(layerId);
+                    break;
+                case "layer":
+                    advancedSelectionTable?.setState({opencreateLayer:true});
+                    const uri = getUri(returnedAttributes,"csv",advancedSelectionTable,"addLayer");
+                    break;
+                case "attributetable":
+                    this.showAttributeTable();
+                    break;
+                case "delete":
+                    this.deleteLayer(layerId,layerContents);
+                    break;
             }
+            // if (value === "zoomIn"){
+            //     advancedSelectionTable?.onClickZoomIn()
+            // }else if (value === "csv"){
+            //     this.exportFile(returnedAttributes,"csv");
+            // }else if (value === "json"){
+            //     this.exportFile(returnedAttributes,"json");
+            // }else if (value === "statistics"){
+            //     this.controlStatisticModal(layerId);
+            // }else if (value === "layer"){
+            //     advancedSelectionTable?.setState({opencreateLayer:true});
+            //     const uri = getUri(returnedAttributes,"csv",advancedSelectionTable,"addLayer");
+            // }else if (value === "attributetable"){
+            //     this.showAttributeTable();
+            // }else if (value === "delete"){
+            //     this.deleteLayer(layerId,layerContents)
+            // }
         }
     }
 
