@@ -283,17 +283,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     onClickRefresh = ()=>{
         this.restoreMap();
     }
-
-    componentDidMount(): void {
-        const closeButtonElement = document.querySelector(".action-close");
-        if (closeButtonElement.addEventListener){
-            closeButtonElement.addEventListener("click",()=>{
-                // this.restoreMap()
-            })
-        }
-      
-    }
-   
+ 
     render(): React.ReactNode {
         const open = Boolean(this.state.anchorEl);
         return(

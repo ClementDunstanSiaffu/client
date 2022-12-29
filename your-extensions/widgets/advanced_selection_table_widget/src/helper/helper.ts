@@ -136,24 +136,11 @@ class Helper {
 
 
     openTableAttribute = ()=>{
-        // const classnameWhenSideBarClosed = ".app-root-emotion-cache-ltr-1iklx1g";
-        // const addedClassNameWhenClosed = "app-root-emotion-cache-ltr-oen2ei";
-        // const addedClassNameWhenOpened = "app-root-emotion-cache-ltr-1iklx1g"
         const ariaExpandedElement = document.querySelector(".sidebar-controller");
         if (ariaExpandedElement.ariaExpanded === "false"){
             //@ts-ignore
             ariaExpandedElement.click();
         }
-        // const elementForStyle = document.querySelector(".flex-shrink-0");
-        // const element = document.querySelector(classnameWhenSideBarClosed);
-        // element?.classList.remove(addedClassNameWhenOpened);
-        // element?.classList.add(addedClassNameWhenClosed)
-        // ariaExpandedElement.ariaExpanded = "true";
-        // //@ts-ignore
-        // if (elementForStyle.style){
-        //     //@ts-ignore
-        //     elementForStyle.style = "z-index: 0; flex-basis: 0px; overflow: auto;"
-        // }
     }
 
     closeAttributeTable = ()=>{

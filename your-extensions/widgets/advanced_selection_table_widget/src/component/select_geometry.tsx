@@ -57,7 +57,7 @@ export default class SelectGeometry extends React.PureComponent<any,any>{
                     items={selectionsGeometries}
                     onClick = {this.onSelectGeometry}
                     dropdownToogleStyle = {{backgroundColor:primary,width:"100%",color:"white"}}
-                    dropdownTooggleColor = "green"
+                    dropdownTooggleColor = {primary}
                     title={selectedGeometryTitle}
                 />
             

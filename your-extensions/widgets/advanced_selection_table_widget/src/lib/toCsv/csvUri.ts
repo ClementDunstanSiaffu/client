@@ -1,5 +1,4 @@
 
-// import { appActions } from 'jimu-core';
 import AdvancedSelectionTable from '../../runtime/widget';
 import {defaultParemeters} from './default_data'
 
@@ -10,10 +9,6 @@ export const isSafari = () => /^((?!chrome|android).)*safari/i.test(navigator.us
 export const isJsons = ((array:any[]) => Array.isArray(array) && array.every(
   row => (typeof row === 'object' && !(row instanceof Array))
 ));
-
-// export const isArrays = ((array:any[]) => Array.isArray(array) && array.every(
-//   row => Array.isArray(row)
-// ));
 
 export const jsonsHeaders = ((array:any) => Array.from(
   array.map(json => Object.keys(json))
@@ -28,10 +23,6 @@ export const jsons2arrays = (jsons:any[], headers?:any) => {
   headers = headers || jsonsHeaders(currentHeader);
   let headerLabels = headers;
   let headerKeys = headers;
-  // if (isJsons(headers)) {
-  //   headerLabels = headers.map((header:any) => header.label);
-  //   headerKeys = headers.map((header:any) => header.key);
-  // }
   const data = jsons.map((object) => headerKeys.map((header) => getHeaderValue(header, object)));
   return [headerLabels, ...data];
 };
@@ -96,15 +87,9 @@ export const jsons2csv = ((data:any[], headers:any[], separator:string, enclosin
 }
 );
 
-// export const string2csv = ((data:string, headers:any[], separator:string, enclosingCharacter?:string) =>
-//   (headers) ? `${headers.join(separator)}\n${data}` : data.replace(/"/g, '""')
-// );
-
 export const toCSV = (data:any, headers:any[], separator:string, enclosingCharacter:string,status:string) => {
   if (isJsons(data)) return jsons2csv(data, headers, separator, enclosingCharacter,status);
-  // if (isArrays(data)) return arrays2csv(data, headers, separator, enclosingCharacter,status);
-  // if (typeof data === 'string') return string2csv(data, headers, separator);
-  throw new TypeError(`Data should be a "String", "Array of arrays" OR "Array of objects" `);
+  throw new TypeError(`Data should be a "Array of objects" `);
 };
 
 export const getCsvUri = ((

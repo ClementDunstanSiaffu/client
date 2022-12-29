@@ -46,22 +46,6 @@ export default class  Options extends React.PureComponent<any,any> {
                     this.deleteLayer(layerId,layerContents);
                     break;
             }
-            // if (value === "zoomIn"){
-            //     advancedSelectionTable?.onClickZoomIn()
-            // }else if (value === "csv"){
-            //     this.exportFile(returnedAttributes,"csv");
-            // }else if (value === "json"){
-            //     this.exportFile(returnedAttributes,"json");
-            // }else if (value === "statistics"){
-            //     this.controlStatisticModal(layerId);
-            // }else if (value === "layer"){
-            //     advancedSelectionTable?.setState({opencreateLayer:true});
-            //     const uri = getUri(returnedAttributes,"csv",advancedSelectionTable,"addLayer");
-            // }else if (value === "attributetable"){
-            //     this.showAttributeTable();
-            // }else if (value === "delete"){
-            //     this.deleteLayer(layerId,layerContents)
-            // }
         }
     }
 
@@ -99,14 +83,19 @@ export default class  Options extends React.PureComponent<any,any> {
         }
         helper.unhighlightLayer(id);
         advancedSelectionTable?.setState({layerContents:newLayerContents});
-        advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","numberOfAttribute",currentNUmberOfAttributes))
+        advancedSelectionTable.props.dispatch(
+            appActions.widgetStatePropChange("value","numberOfAttribute",currentNUmberOfAttributes)
+        )
     }
 
     controlStatisticModal = (layerId:string)=>{
         const advancedSelectionTable = this.context?.parent;
         const layersContents = this.context?.layerContents;
         const returnedAttributes = helper.getLayerAttributes(layerId,layersContents)
-        advancedSelectionTable?.setState({selectedAttributes:returnedAttributes,openStatistics:!advancedSelectionTable?.state?.openStatistics});
+        advancedSelectionTable?.setState({
+            selectedAttributes:returnedAttributes,
+            openStatistics:!advancedSelectionTable?.state?.openStatistics
+        });
     }
 
     handleCloseMoreHorizonIcon = () => {
