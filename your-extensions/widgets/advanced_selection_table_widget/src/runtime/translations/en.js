@@ -24,5 +24,6 @@ define( {
     "ok":"OK",
     "cancel":"Cancel",
     "fields":"Fields",
-    "selectionAction":"Selection Action"
+    "selectionAction":"Selection Action",
+    "mapLoading":"Waiting map to load..."
 });

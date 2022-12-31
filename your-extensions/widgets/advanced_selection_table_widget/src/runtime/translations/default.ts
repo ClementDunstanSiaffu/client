@@ -26,5 +26,6 @@ export default {
     ok:"OK",
     cancel:"Annullamento",
     fields:"Campi",
-    selectionAction:"Selezione Azione"
+    selectionAction:"Selezione Azione",
+    mapLoading:"In attesa del caricamento della mappa..."
 }

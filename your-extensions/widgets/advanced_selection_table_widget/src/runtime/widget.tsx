@@ -45,6 +45,7 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         layerName:" ",
         csvFile:" ",
         createdLayerTitle:" ",
+        isMapLoaded:false
     }
 
     sketch = null;
@@ -115,6 +116,9 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
         AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
         AdvancedSelectionTable.initialZoomValue = activeView.view.zoom;
         this.props.dispatch(appActions.widgetStatePropChange("value","initialMapZoom",activeView.view.zoom));
+        view.when(()=>{
+            this.setState({isMapLoaded:true});
+        })
     }
 
     selectFeatureLayer = (geometry:any)=>{
