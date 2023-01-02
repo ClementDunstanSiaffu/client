@@ -28,7 +28,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(selected?.slice(0, selectedIndex),selected?.slice(selectedIndex + 1));
     }
-    if (selectedIndex !== -1){
+    if (selectedIndex !== -1 && typeof selectedIndex === "number"){
       helper.activateLayerOnTheMap(id,false)
       this.removeAttributes(id);
       advancedSelectionTable.props.dispatch(appActions.widgetStatePropChange("value","createTable",true));
