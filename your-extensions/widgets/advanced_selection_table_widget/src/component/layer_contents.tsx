@@ -18,7 +18,7 @@ export default class  LayerContents extends React.PureComponent<any,any>{
     const advancedSelectionTable = this.context?.parent;
     const selectedIndex = selected?.indexOf(id);
     let newSelected: readonly string[] = [];
-    if (selectedIndex === -1) {
+    if (selectedIndex === -1 || typeof selectedIndex !== "number") {
       newSelected = newSelected.concat(selected??[],id);
       helper.activateLayerOnTheMap(id,true)
     }else if (selectedIndex === 0) {
