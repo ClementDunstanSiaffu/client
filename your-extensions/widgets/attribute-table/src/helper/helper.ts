@@ -1,3 +1,4 @@
+import Color from "esri/Color";
 
 class Helper {
 
@@ -89,6 +90,39 @@ class Helper {
                 
             })
         } 
+    }
+
+    updateSymbol = (activeTable:any,color:string)=>{
+        const renderer = activeTable.layer.renderer;
+        if (renderer){
+            switch(renderer.type){
+                case "class-breaks":
+                    this.loopUpdateSymbol(renderer?.classBreakInfos,color);
+                    break;
+                case "unique-value":
+                    this.loopUpdateSymbol(renderer?.uniqueValueInfos,color)
+                    break;
+                case "simple":
+                    if (renderer.hasOwnProperty("symbol")){
+                        renderer.symbol.color = color;
+                        if (renderer.symbol?.outline){
+                            renderer.symbol.outline.color = color;
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+    loopUpdateSymbol = (classBreakInfos:any[],color:string)=>{
+        if (classBreakInfos?.length && color){
+            for (let i = 0;i < classBreakInfos.length;i++){
+                classBreakInfos[i].symbol.color = color;
+                if (classBreakInfos[i].symbol.hasOwnProperty("outline")){
+                    classBreakInfos[i].symbol.outline.color = color;
+                }
+            }
+        }
     }
 
 }

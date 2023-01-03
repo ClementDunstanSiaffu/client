@@ -415,6 +415,9 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                     saveOldRenderer[activeTable.layer.id] = activeTable.layer.renderer;
                 }
 
+                const symbolType = activeTable.layer.renderer.type;
+                console.log(symbolType,activeTable.layer.renderer,"check type")
+
                 for(let i=0;i<arrayItemSelected.length;i++){
                     let objectid = arrayItemSelected[i];
                     const uniqueColor = {
@@ -437,12 +440,14 @@ export default class Widget extends React.PureComponent<AllWidgetProps<any>&stat
                     }
 
                 }
+                helper.updateSymbol(activeTable,event)
 
-                activeTable.layer.renderer = {
-                    type: "unique-value",
-                    field: activeTable.layer.objectIdField,
-                    uniqueValueInfos: this.uniqueValuesInfosSave[activeTable.layer.id]
-                };
+                // activeTable.layer.renderer = {
+                //     // type: "unique-value",
+                //     type:symbolType,
+                //     field: activeTable.layer.objectIdField,
+                //     uniqueValueInfos: this.uniqueValuesInfosSave[activeTable.layer.id]
+                // };
             }
         }
         this.setState({selectedColor:event});

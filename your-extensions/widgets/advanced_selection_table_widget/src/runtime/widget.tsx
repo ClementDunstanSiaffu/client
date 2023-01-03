@@ -81,44 +81,46 @@ export default class AdvancedSelectionTable extends React.PureComponent<AllWidge
     }
 
     getMapLayers = (activeView:JimuMapView)=>{
-        const newLayersArray = Object.keys(activeView?.jimuLayerViews)?.reduce((newLayerArray,item)=>{
-            if (activeView?.jimuLayerViews[item]?.view && activeView?.jimuLayerViews[item]?.layer?.type === "feature"){
-                let object = {
-                    layerName:activeView?.jimuLayerViews[item]?.layer?.title??item,
-                    layerId:activeView?.jimuLayerViews[item]?.jimuLayerId??" ",
-                    keyName:item,
-                    id:activeView?.jimuLayerViews[item]?.layer?.id,
-                };
-                newLayerArray.push(object);
+        if (activeView){
+            const newLayersArray = Object.keys(activeView?.jimuLayerViews)?.reduce((newLayerArray,item)=>{
+                if (activeView?.jimuLayerViews[item]?.view && activeView?.jimuLayerViews[item]?.layer?.type === "feature"){
+                    let object = {
+                        layerName:activeView?.jimuLayerViews[item]?.layer?.title??item,
+                        layerId:activeView?.jimuLayerViews[item]?.jimuLayerId??" ",
+                        keyName:item,
+                        id:activeView?.jimuLayerViews[item]?.layer?.id,
+                    };
+                    newLayerArray.push(object);
+                }
+                return newLayerArray;
+            },[])
+            newLayersArray.reverse();
+            this.setState({layers:newLayersArray});
+            AdvancedSelectionTable.activeView = activeView;
+            let view = activeView?.view;
+            const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
+            this.sketch = sketchViewlModel;
+            let zoomOut = {
+                title:"Zoom Out",
+                id:"zoom-out",
+                class:"esri-icon-zoom-out-magnifying-glass"
             }
-            return newLayerArray;
-        },[])
-        newLayersArray.reverse();
-        this.setState({layers:newLayersArray});
-        AdvancedSelectionTable.activeView = activeView;
-        let view = activeView?.view;
-        const sketchViewlModel = new SketchViewModel({layer:sketchLayer,view:view})
-        this.sketch = sketchViewlModel;
-        let zoomOut = {
-            title:"Zoom Out",
-            id:"zoom-out",
-            class:"esri-icon-zoom-out-magnifying-glass"
+            //@ts-ignore
+            view?.popup.actions.push(zoomOut);
+            view?.popup.watch("visible",(visible)=>{
+                if(visible && !this.state.popup){
+                    view.popup.visible = false;
+                }else{
+                    this.setState({popup:false});
+                }
+            })
+            AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
+            AdvancedSelectionTable.initialZoomValue = activeView.view.zoom;
+            this.props.dispatch(appActions.widgetStatePropChange("value","initialMapZoom",activeView.view.zoom));
+            view.when(()=>{
+                this.setState({isMapLoaded:true});
+            })
         }
-        //@ts-ignore
-        view?.popup.actions.push(zoomOut);
-        view?.popup.watch("visible",(visible)=>{
-            if(visible && !this.state.popup){
-                view.popup.visible = false;
-            }else{
-                this.setState({popup:false});
-            }
-        })
-        AdvancedSelectionTable.jimuLayerViews = activeView?.jimuLayerViews;
-        AdvancedSelectionTable.initialZoomValue = activeView.view.zoom;
-        this.props.dispatch(appActions.widgetStatePropChange("value","initialMapZoom",activeView.view.zoom));
-        view.when(()=>{
-            this.setState({isMapLoaded:true});
-        })
     }
 
     selectFeatureLayer = (geometry:any)=>{
